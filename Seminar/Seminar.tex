@@ -1,0 +1,1881 @@
+\documentclass{report}
+
+\usepackage{enumitem}
+
+\usepackage{titlesec}
+
+\usepackage{parskip}
+
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\Large\bfseries}
+\titleformat*{\subsubsection}{\Large\bfseries}
+
+
+\usepackage{mathrsfs}
+\usepackage{verbatim}
+\usepackage[T1]{fontenc}
+\usepackage{tgtermes}
+\usepackage	{diffcoeff}
+\usepackage{braket}
+\usepackage{bm}
+\usepackage[tmargin=2cm,rmargin=1in,lmargin=1in,margin=0.85in,bmargin=2cm,footskip=.2in]{geometry}
+\usepackage{amsmath,amsfonts,amssymb,mathtools}
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage[hyperfootnotes=false]{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+
+
+\usepackage{aliascnt}
+%\usepackage{amsthm}  
+\usepackage[thmmarks]{ntheorem}
+\theoremstyle{break}
+\theorembodyfont{\normalfont}
+\theorempreskip{10pt}
+\theorempostskip{5pt}
+\theoremheaderfont{\large\bfseries\upshape}
+%\newtheoremstyle{break}%
+%	{3pt}%
+%	{0pt}%
+%	{\normalfont}%
+%	{}%
+%	{\large\bfseries\upshape}%
+%	{}%
+%	{\newline}%
+%	{}%
+%\theoremstyle{break}
+\newtheorem{theorem}{משפט}[chapter]
+
+\newaliascnt{lemma}{theorem}
+\newaliascnt{preposition}{theorem}
+\newaliascnt{definition}{theorem}
+\newaliascnt{example}{theorem}
+\newaliascnt{corollary}{theorem}
+\newaliascnt{remark}{theorem}
+
+\newtheorem{lemma}[lemma]{למה}
+%\newtheorem*{lemma*}{למה}
+\newtheorem*{unLemma}{למה}
+\newtheorem{preposition}[preposition]{טענה}
+\newtheorem{definition}[definition]{הגדרה}
+\newtheorem{example}[example]{דוגמא}
+\newtheorem{corollary}[corollary]{מסקנה}
+\newtheorem{remark}[remark]{הערה}
+%\renewcommand{\qedsymbol}{\ensuremath{\blacksquare}}
+
+\makeatletter
+\newtheoremstyle{MyNonumberbreak}%
+{\item[\rlap{\vbox{\hbox{\hskip\labelsep \theorem@headerfont
+	##1\theorem@separator}\hbox{\strut}}}]}%
+{\item[\rlap{\vbox{\hbox{\hskip\labelsep \theorem@headerfont
+	##3\theorem@separator}\hbox{\strut}}}]}
+\makeatother
+\theoremstyle{MyNonumberbreak}
+\theorembodyfont{\normalfont}
+\theorempreskip{3pt}
+\theorempostskip{3pt}
+\theoremheaderfont{\normalfont\bfseries\upshape}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{proof}{הוכחה}
+
+\aliascntresetthe{lemma}
+\aliascntresetthe{preposition}
+\aliascntresetthe{definition}
+\aliascntresetthe{example}
+\aliascntresetthe{corollary}
+\aliascntresetthe{remark}
+
+\renewcommand*{\theoremautorefname}{משפט}
+\newcommand*{\lemmaautorefname}{למה}
+\newcommand*{\unLemmaautorefname}{למה}
+\newcommand*{\prepositionautorefname}{טענה}
+\newcommand*{\definitionautorefname}{הגדרה}
+\newcommand*{\exampleautorefname}{דוגמא}
+\newcommand*{\corollaryautorefname}{מסקנה}
+\renewcommand*{\sectionautorefname}{פרק}
+\renewcommand*{\subsectionautorefname}{פרק}
+
+\makeatletter
+\DeclareRobustCommand{\Eqref}[1]{\textup{\tagform@{\ref*{#1}}}}
+\makeatother
+
+
+\usepackage{faktor}
+
+\usepackage{spalign}
+\usepackage{aligned-overset}
+
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\rad}{rad} % Radical
+\DeclareMathOperator{\Der}{Der} % Set of derivations of.
+\DeclareMathOperator{\ad}{ad} % Adjoint homomorphism.
+\DeclareMathOperator{\IDer}{IDer} % Set of inner derivations, i.e. ad x.
+
+\newcommand\MatVertLine{\fboxsep=-\fboxrule\!\!\!\fbox{\strut}\!\!\!}
+
+
+\input{macros}
+
+\usepackage{fontspec}
+\setmainfont[Script=Hebrew]{Times New Roman}
+
+% Hebrew.
+\usepackage{polyglossia}
+\setdefaultlanguage{hebrew}
+\setotherlanguages{english}
+
+\usepackage{unicode-math}
+\setmathfont{Latin Modern Math}
+\setmathfont[range={\setminus, \mathbb, \bigstar}]{Asana-Math.otf}
+
+\usepackage[bottom]{footmisc}
+
+\AtBeginDocument{\renewcommand{\phi}{\varphi}}
+
+\renewcommand{\baselinestretch}{1.25}
+
+
+\begin{document}
+\let\oldproofname=\proofname
+\renewcommand{\proofname}{\normalfont\upshape\bfseries\oldproofname}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+            
+        \Huge
+        \textbf{אלגבראות לי}
+            
+        \vspace{0.5cm}
+        \LARGE
+        סמינר במתמטיקה בהנחיית ד"ר גיל אלון
+            
+        \vspace{1.5cm}
+            
+        \textbf{אורי בר גנדל}
+        
+        \vspace{2cm}
+        
+        מבוסס על \\
+        \begin{english}
+        	Erdmann, K. and Wildon, M. J. .(2006) \textit{Introduction to Lie Algebras}.
+        \end{english}
+        
+        \vfill
+        האוניברסיטה הפתוחה \\
+        ישראל \\
+        \today
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+
+\chapter{מבוא}
+\section{הגדרת אלגבראות לי}
+\begin{definition}[אלגברת לי]
+	יהי $L$ מרחב וקטורי מעל שדה $F$. נניח כי קיימת פונקציה בילינארית מ-$L \times L$ ל-$L$, שנסמנה $[-, -]$, המקיימת
+	\begin{align}
+		&[x, x] = 0 \qquad \text{לכל $x \in L$} \label{eq:L1} \\
+		&[x, [y, z]] + [y, [z, x]] + [z, [x, y]] = 0 \qquad \text{לכל $x, y, z \in L$} \label{eq:Jacobi}
+	\end{align}
+	אז נאמר ש-$L$ \textit{אלגברת לי}. לפונקציה $[-, -]$ נקרא \textit{סוגרי לי}. הזהות ב-\Eqref{eq:Jacobi} נקראת \textit{זהות יעקובי}.
+\end{definition}
+	מ-(1) ומהבילינאריות של $[-, -]$ נקבל שלכל $x, y \in L$ מתקיים
+	\[ [x, y] + [y, x] = [x, y] + [x, x] + [y, y] + [y, x] = [x, y + x] + [y, x + y] = [x + y, x + y] = 0,  \]
+	ולכן
+	\begin{equation} \label{eq:anticommutativity}
+		[x, y] = -[y, x].
+	\end{equation}
+	בנוסף, לכל $x \in L$ נקבל
+	\[ 0 = [x, [0, 0]] + [0, [x, 0]] + [0, [0, x]] = [x, 0] + [0, [x, 0]] + [0, -[x, 0]] = [x, 0] + [0, [x, 0] - [x, 0]] = [x, 0]. \]
+	
+	נוכיח כעת טענה בסיסית אך שימושית.
+\begin{preposition} \label{prep:linear-independence}
+	אם $[x, y] \neq 0$ אז $x, y$ בלתי-תלויים לינארית.
+\end{preposition}
+\begin{proof}
+	אם $x, y$ תלויים-לינארית אז $y = \alpha x$ עבור סקלר $\alpha \in F$ ואז $[x, y] = \alpha [x, x] = 0$, בסתירה לנתון.
+\end{proof}
+
+\section{דוגמאות לאלגבראות לי} \label{sec:exaLie}
+בפרק זה נראה כמה דוגמאות אחדות לאלגבראות לי.
+\begin{example} \label{exa:Lie}
+	\begin{enumerate}[label=(\alph*)]
+	\item 
+	יהי $F = \R$. המכפלה הוקטורית $(x, y) \mapsto x \wedge y$ מגדירה סוגרי לי על $\R^3$. נזכיר כי אם $x = (x_1, x_2, x_3), y = (y_1, y_2, y_3) \in \R^3$ אז
+	\[ x \wedge y \coloneqq (x_2y_3 - x_3y_2, x_3y_1 - x_1y_3, x_1y_2 - x_2y_1). \]
+	\item
+	על כל מרחב וקטורי $V$ נוכל להגדיר את $[-, -]$ להיות פונקציית האפס, כלומר $[x, y] = 0$ לכל $x, y \in V$. פונקצייה זו מגדירה אלגברת לי על $V$, והאלגברה הזאת נקראת האלגברה \textit{האבלית} על $V$.
+	\item
+	יהי $V$ מרחב וקטורי ממימד סופי. יהי $\gl(V)$ מרחב כל העתקות הלינאריות מ-$V$ ל-$V$. מרחב זה יהיה אלגברת לי כאשר נגדיר את $[-, -]$ על-ידי
+	\[ [x, y] \coloneqq x \circ y - y \circ x \]
+	לכל $x, y \in \gl(V)$.
+	\item
+		באופן דומה, נוכל להגדיר את $\gl(n, F)$ להיות מרחב המטריצות מעל $F$ מסדר $n \times n$ ולהגדיר עליו סוגרי לי על-ידי
+	\[ [x, y] \coloneqq xy - yx \]
+	לכל $x, y \in \gl(n, F)$.
+	\item
+		יהי $\Sl(n, F)$ התת-מרחב (הוקטורי) של $\gl(n, F)$ של כל המטריצות עם עקבה $0$. לכל $x, y \in \gl(n, F)$ מתקיים 
+	\[ \Tr([x, y]) = \Tr(xy - yx) = \Tr(xy) - \Tr(yx) = \Tr(xy) - \Tr(xy) = 0. \]
+	בפרט, זה נכון לכל $x, y \in \Sl(n, F)$ ולכן נוכל להגדיר את $[-, -]$ על $\Sl(n, F)$ באופן דומה שהגדרנו אותו על $\gl(n, F)$: זהות יעקובי ו-(1) בוודאי מתקיימות, והצמצום של הסוגרי לי ל-$\Sl(n, F)$ היא פונקציה מ-$\Sl(n, F) \times \Sl(n, F)$ ל-$\Sl(n, F)$.
+	
+	באופן דומה, נוכל להגדיר את $\mathrm{b}(n, F)$ להיות התת-מרחב של $\gl(n, F)$ של כל המטריצות המשולשות העליונות, ו-$\mathrm{n}(n, F)$ להיות התת-מרחב של כל המטריצות המשולשות העליונות ממש.
+		\item
+		תהי $S$ מטריצה מעל $F$. נגדיר
+	\[ \gl_S(n, F) \coloneqq \set{x \in \gl(n, F) | x^tS = -Sx}. \]
+	יהיו $x, y \in \gl_S(n, F)$. אז
+	\begin{align*}
+	[x, y]^tS &= (xy - yx)^tS = y^tx^tS - x^ty^tS = y^t(-Sx) - x^t(-Sy) = x^tSy - y^tSx = -Sxy - (-Sy)x \\
+		&= -S(xy - yx) = -S[x, y].
+\end{align*}
+	לכן שוב נקבל ש-$[-, -]$ פונקצייה מ-$\gl_S(n, F) \times \gl_S(n, F)$ ל-$\gl_S(n, F)$, ולכן $\gl_S(n, F)$ אלגברת לי עם סוגרי לי המוגדרים כמו ב-$\gl(n, F)$.	
+\end{enumerate}
+\end{example}
+
+\section{תת-אלגבראות לי}
+שתי הדוגמאות האחרונות בפרק \ref*{sec:exaLie} מראות כי ניתן להגדיר סוגרי לי על תת-מרחב וקטורי $K$ של $L$ אם הצמצום של $[-, -]$ ל-$K$ מגדיר פונקציה מ-$K \times K$ ל-$K$. זה מוביל אותנו להגדרה הבאה.
+\begin{definition}[תת-אלגברת לי]
+	יהי $K$ תת-מרחב של אלגברת לי $L$. אז $K$ \textit{תת-אלגברת לי} אם לכל $x, y \in K$ מתקיים $[x, y] \in K$.
+\end{definition}
+שתי הדוגמאות האחרונות בתת-פרק הקודם הן דוגמאות לתת-אלגבראות לי.
+
+\section{אלגבראות וגזירוֹת}
+לסיום פרק זה נגדיר את המושגים אלגברה וגזירוּת, ונראה דוגמא חשובה של גזירה.
+\begin{definition} \label{def:algebra}
+	מרחב וקטורי $A$ מעל $F$ עם פונקציה בילינארית $A \times A \to A$ נקרא \textit{אלגברה} מעל $F$, או בקיצור $F$-\textit{אלגברה}. לפונקציה נקרא \textit{מכפלה}, ונסמן את התמונה של $(x, y)$ תחתה על-ידי $xy$.
+\end{definition}
+אלגברת לי היא אלגברה בה המכפלה מקיימת את \Eqref{eq:L1} ו-\Eqref{eq:Jacobi}, ואת המכפלה אנו מסמנים ב-$[x, y]$.
+
+נגדיר כעת את המושג גזירה ונראה דוגמא לגזירה.
+\begin{definition}[גזירה]
+	תהי $A$ אלגברה. פונקציה לינארית $D : A \to A$ נקראת \textit{גזירה} אם לכל $x, y \in A$ מתקיים
+	\[ D(xy) = xD(y) + D(x)y. \]
+	אם $L = A$ אלגברת לי, את התת-אלגברת לי של $\gl(L)$ של כל הגזירות נסמן ב-$\Der L$.
+\end{definition}
+בשביל להצדיק את הטענה בהגדרה, זו ש-$\Der L$ תת-אלגברת לי, נראה כי אם $D, E$ גזירות אז $[D, E]$ גם גזירה. יהיו $x, y \in L$. אז
+\begin{align*}
+	[D, E]([x, y]) &= (D \circ E)([x, y]) - (E \circ D)([x, y]) = D([x, Ey] + [Ex, y]) - E([x, Dy] + [Dx, y]) \\
+		&= [x, DEy] + [Dx, Ey] + [Ex, Dy] + [DEx, y] - ([x, EDy] + [Ex, Dy] + [Dx, Ey] + [EDx, y]) \\
+		&= [x, DEy - EDy] + [DEx - EDx, y] \\
+		&= [x, [D, E]y] + [[D, E]x, y]
+\end{align*}
+לכן $[D, E] \in \Der L$ ו-$\Der L$ תת-אלגברת לי של $\gl(L)$. 
+\begin{example}\label{exa:adjointDer}
+	לכל $x \in L$ נגדיר את \textit{הפונקציה המצורפת}, $\ad x : L \to L$, על-ידי
+	\[ (\ad x)(y) \coloneqq [x, y] \qquad \text{לכל $y \in L$} \]
+	הלינאריות של $\ad x$ נובעת מהלינאריות של סוגרי לי. בנוסף, לכל $y, z \in L$ מתקיים, לפי זהות יעקובי,
+	\[ (\ad x)[y, z] = [x, [y, z]] = [[x, y], z] + [y, [x, z]] = [(\ad x)y, z] + [y, (\ad x)z], \]
+	ולכן $\ad x$ גזירה. בהמשך נקראה לפונקצייה \textit{הגזירה המצורפת}.
+\end{example}
+
+
+\chapter{אידיאלים ואלגבראות מנה}
+\section{אידיאלים}
+משפחה חשובה של תת-אלגבראות היא משפחת האידיאלים. 
+\begin{definition}[אידיאל]
+	תת-אלגברת לי $I$ של $L$ נקראת \textit{אידיאל} אם לכל $x \in I, y \in L$ מתקיים $[x, y] \in I$.
+\end{definition}
+ישנם תת-מרחבים שאינדם אידיאלים. למשל, מתקיים $e_{11} \in \mathrm{b}(2, F), e_{21} \in \gl(2, F)$ (ראו \autoref*{exa:Lie} (ה)) אך
+\[ [e_{11}, e_{21}] = e_{11}e_{21} - e_{21}e_{11} = -e_{21} \notin \mathrm{b}(2, F), \]
+ולכן $\mathrm{b}(2, F)$ לא אידאל של $\gl(2, F)$. בהגדרות הבאות נראה דוגמאות לכמה אידיאלים מיוחדים ולהרכבות של אידיאלים.
+\begin{definition} \label{def:centre}
+	נגדיר את \textit{המרכז} של אלגברת לי $L$ על-ידי
+	\[ Z(L) \coloneqq \set{x \in L | \forall y \in L, \; [x, y] = 0}. \]
+\end{definition}
+\begin{definition} \label{def:sum-prod-ideal}
+	אם $I, J$ אידיאלים של אלגברת לי $L$, אז נגדיר את \textit{הסכום} $I + J$ ואת \textit{המכפלה} $[I, J]$ על-ידי
+	\begin{align*}
+		I + J &\coloneqq \set{x + y | x \in I, y \in J}, \\
+		[I, J] &\coloneqq \Sp\set{[x, y] | x \in I , y \in J}.
+	\end{align*}
+\end{definition}
+\begin{definition} \label{def:derived-ideal}
+	אם $L$ אלגברת לי אז נגדיר את \textit{האלגברה הנגזרת} $L'$ על-ידי
+	\[ L' \coloneqq [L, L] = \Sp\set{[x, y] | x, y \in L}. \]
+\end{definition}
+כעת נוכיח שהמרחבים שהוגדרו הם באמת אידיאלים.
+
+נראה ש-$Z(L)$ אידיאל של $L$. אם $x \in Z(L), y \in L$ אז לכל $z \in L$ מתקיים, מכך ש-$x \in Z(L)$,
+	\[ [[x, y], z] = [x, [y, z]] + [y, [z, x]] = 0 + [y, 0] = 0, \]
+ולכן $[x, y] \in Z(L)$. אז $Z(L)$ אידיאל.
+	
+	מהבילינאריות של סוגרי לי ברור כי הסכום של אידיאלים הוא גם אידיאל. נראה כי גם המכפלה אידיאל. יהיו $I, J$ אידיאלים של $L$. לפי ההגדרה $[I, J]$ תת-מרחב. יהיו $x \in I, y \in J, u \in L$. אז
+	\[ [u, [x, y]] = [x, [u, y]] + [[u, x], y]. \]
+	מתקיים $[x, [u, y]] \in I, [[u, x], y] \in J$ כי $I, J$ אידיאלים. אז $[u, [x, y]] \in [I, J]$. מבילינאריות סוגרי לי נקבל ש-$[I, J]$ אידיאל. בפרט, גם $L'$ אידיאל. \\
+	נשיב לב כי הקבוצה של כל הקומטטורים אינה בהכרח מרחב וקטורי, ולכן זה הכרחי להגדיר את המכפלה של אידיאלים כהקבוצה הנפרשת על-ידי הקומטטורים.
+	
+	מתקיים $L = Z(L)$ אם ורק אם $L$ אבלית. ניתן לאמר ש-$Z(L)$ הוא מדד לכמה "קרובה" $L$ מלהיות אבלית -- ככל ש-$Z(L)$ גדול יותר $L$ היא "יותר" אבלית. בטענה הבאה נראה שקיים גבול לכמה "גדול" $Z(L)$ יכול להיות אם $L$ לא-אבלית. 
+\begin{preposition} \label{prep:dim-Z(L)}
+	אם $L$ אלגברת לי לא-אבלית אז $\dim Z(L) \le \dim L - 2$.
+\end{preposition}
+\begin{proof}
+	סמן $n = \dim L$. מאחר ו-$L$ לא אבלית, $Z(L) \neq L$ ולכן $\dim Z(L) < n$. נניח בשלילה ש-$\dim Z(L) = n - 1$. יהי $\{x_i\}_1^{n-1}$ בסיס של $Z(L)$ ונשלים אותו בעזרת $y$ לבסיס של $L$. יהי $z \in L$ ונבטא $z = \alpha y + \sum \alpha_i x_i$. אז, מאחר ו-$x_i \in Z(L)$,
+\[ [z, y] = \alpha [y, y] + \sum_{i=1}^{n-1} \alpha_i [z, x_i] = 0 + 0 = 0, \]
+ולכן $y \in Z(L)$ וזו סתירה.
+\end{proof}
+ניתן לאמר שגם $L'$ הוא ממד כלשהו לכמה $L$ היא אבלית -- $L$ אבלית אם ורק אם $L' = 0$, וככל ש-$L'$ גדולה יותר $L$ "פחות" אבלית.
+	
+נוכיח כעת את הטענה הבאה, שתהיה חשובה בפרק 4 בהמשך.
+\begin{preposition} \label{prep:derived-sl(2,C)}
+	מתקיים $\Sl(2, \C) = \Sl(2, \C)'$.
+\end{preposition}
+\begin{proof}
+	נסמן $u = \spalignmat{a,b;c,-a}, v = \spalignmat{d,e;f,-d} \in \Sl(2, \C)$. חישוב פשוט מראה כי
+	\[ \left[\spalignmat{a,b;c,-a}, \spalignmat{d,e;f,-d}\right] = \spalignmat{a,b;c,-a} \cdot \spalignmat{d,e;f,-d} - \spalignmat{d,e;f,-d} \cdot \spalignmat{a,b;c,-a} = \spalignmat{bf-ce 2ae-2bd ; 2cd-2af ce-bf}. \]
+	יהי $w = \spalignmat{x,y;z,-x} \in \Sl(2, \C)$. אם $x \neq 0$ או $y \neq 0$ אז נגדיר
+\[ b = 1, \quad e = 0, \quad f = x, \quad d = -\frac{1}{2}y. \]
+	מאחר ו-$f \neq 0$ או $d \neq 0$, נוכל למצוא $a, c$ עבורם $z = 2(cd - af)$. אז נקבל ש-$w = [u, v]$. אם $x = y = 0$, אז נגדיר
+	\[ b = e = f = 0, \quad c = 1, \quad d = \frac{1}{2}z, \]
+	ונקבל ש-$w = [u, v]$. לכן בכל מקרה $w \in \Sl(2, \C)'$, ואז $\Sl(2, \C) \subseteq \Sl(2, \C)'$. מכאן ש-$\Sl(2, \C) = \Sl(2, \C)'$.
+\end{proof}
+
+\section{אלגברת מנה}
+יהי $I$ אידיאל של $L$ ונתבונן במחלקות של $I$, הם $x + I \coloneqq \set{x + z | z \in I}$, ובמרחב הוקטורי
+\[ \faktor{L}{I} \coloneqq \set{x + I | x \in L}. \]
+על $\faktor{L}{I}$ נגדיר פונקציה $[-, -]$ על-ידי
+\[ [x + I, y + I] \coloneqq [x, y] + I \qquad \text{לכל $x, y \in L$} \]
+נראה כי $\faktor{L}{I}$ אלגברת לי עם סוגרי לי האלה. ראשית אנו צריכים להראות שהפונקציה מוגדרת היטב, כלומר שהיא לא תלויה בבחירה של נציגים מהמחלקות. ובכן, יהיו $x, x', y, y' \in L$ כך ש-$x + I = x' + I, y + I = y' + I$. אז $x - x', y - y' \in I$ ומתקיים
+\[ [x', y'] = [x + x' - x, y + y' - y] = [x, y] + [x, y' - y] + [x' - x, y] + [x' - x, y' - y]. \]
+מאחר ו-$I$ אידיאל, שלושת המחוברים האחרונים ב-$I$. לכן $[x, y] - [x', y'] \in I$, כלומר $[x, y] + I = [x', y'] + I$ ונקבל ש-\\$[x + I, y + I] = [x' + I, y' + I]$. לכן $[-, -]$ אינו תלוי בניציגם של המחלקות והפונקציה מוגדרת היטב.
+
+הבילינאריות של הפונקציה נובעת מהבלינאריות של סוגרי לי של $L$. נראה כי מתקיימים התנאים \Eqref{eq:L1} ו-\Eqref{eq:Jacobi}. ובכן, לכל $x \in L$ מתקיים
+\[ [x + I, x + I] = [x, x] + I = 0 + I = I, \]
+ו-$I$ איבר האפס של $\faktor{L}{I}$. בנוסף, לכל $x, y, z \in L$ מתקיים
+\begin{align*}
+	&\; [x + I, [y + I, z + I]] + [y + I, [z + I, x + I]] + [z + I, [x + I], [y + I]] \\
+		&= [x + I, [y, z] + I] + [y + I, [z, x] + I] + [z + I, [x, y] + I] \\
+		&= ([x, [y, z]] + I) + ([y, [z, x]] + I) + ([z, [x, y]] + I) \\
+		&= ([x, [y, z]] + [y, [z, x]] + [z, [x, y]]) + I \\
+		&= I.
+\end{align*}
+לכן מתקיימת גם זהות יעקובי. נסכם את הכל בהגדרה הבאה:
+\begin{definition}[אלגברת מנה]
+	יהי $I$ אידיאל של $L$. אז נגדיר את \textit{אלגברת המנה}, $\faktor{L}{I}$, כהאלגברה על מרחב המנה הוקטורי עם סוגרי לי המוגדרים על-ידי
+	\[ [x + I, y + I] \coloneqq [x, y] + I \qquad \text{לכל $x, y \in L$} \]
+\end{definition}
+
+נשיב לב שהשתמשנו בנתון ש-$I$ אידיאל רק בהוכחה שסוגרי לי מוגדרים היטב. אם $I$ לא אידיאל, לא נוכל באופן כללי להגדיר את אלגברת המנה $\faktor{L}{I}$ באופן הזה.
+
+
+\chapter{הומומורפיזמים}
+\section{הומומורפיזם}
+כמו בהרבה תחומים שונים במתמטיקה, אנו מעוניינים לדעת מתי שני אובייקטים, במקרה זה אלגבראות לי, הם שקולים. המבנה של אלגברת לי טמון במרחב הוקטורי עליו סוגרי לי מוגדרים ובסוגרי לי עצמם. זה מוביל אותנו להגדרת ההומומורפיזם, פונקציה ששומרת על שניהם. 
+\begin{definition}[הומומורפיזם]
+	יהיו $L_1, L_2$ אלגבראות לי. נאמר ש-$\phi : L_1 \to L_2$ \textit{הומומורפיזם} מ-$L_1$ ל-$L_2$ אם היא לינארית (שומרת על מבנה המרחב הוקטורי) ובנוסף מקיימת $\phi([x, y]) = [\phi(x), \phi(y)]$ לכל $x, y \in L_1$ (שומרת על סוגרי לי). אם $\phi$ היא על וחד-חד-ערכית נאמר כי היא \textit{איזומורפיזם}, ואם בנוסף $L_2 = L_1$ נאמר ש-$\phi$ היא \textit{אוטומורפיזם}.
+\end{definition}
+ההגדרה החשובה הבאה בעצם קובעת מתי שתי אלגבראות לי הן שקולות, כלומר איזומורפיות. 
+\begin{definition}[אלגבראות איזומורפיות]
+	שתי אלגבראות לי $L_1, L_2$ נקראות \textit{איזומורפיות} אם קיים איזומורפיזם $\phi : L_1 \to L_2$.
+\end{definition}
+כדי להצדיק את ההגדרה, נוכיח את הטענה הבאה.
+\begin{preposition}
+	אם $\phi : L_1 \to L_2$ איזומורפיזם אז $\phi$ הפיך ו-$\phi^{-1} : L_2 \to L_1$ גם איזומורפיזם.
+\end{preposition}
+\begin{proof}
+	לפי ההגדרה, $\phi$ היא על וחד-חד-ערכית ולכן הפיכה. מאלגברה לינארית אנחנו יודעים ש-$\phi^{-1}$ העתקה לינארית חד-חד-ערכית ועל מ-$L_2$ ל-$L_1$. נראה כי $\phi^{-1}$ גם הומומורפיזם בין אלגבראות לי. יהיו $x, y \in L_2$. אז
+	\[ \phi([\phi^{-1}(x), \phi^{-1}(y)]) = [\phi(\phi^{-1}(x)), \phi(\phi^{-1}(y))] = [x, y]. \]
+	ולכן $\phi^{-1}([x, y]) = [\phi^{-1}(x), \phi^{-1}(y)]$ ו-$\phi^{-1}$ הומומורפיזם.
+\end{proof}
+בדוגמא הבאה נראה דוגמא להומומורפיזם.
+\begin{example} \label{exa:adjointHom}
+	תהי $\ad : L \to \gl(L)$ הפונקציה המתאימה לכל $x \in L$ את הפונקציה $\ad x$, כאשר $\ad x$ הגזירה המצורפת שהוגדרה ב\autoref*{exa:adjointDer}. גם ל-$\ad$ נקרא \textit{הפונקציה המצורפת}. נראה כי $\ad$ הומומורפיזם. יהיו $x, y \in L$. אז לכל $z \in L$ מתקיים
+	\[ (\ad[x, y])(z) = [[x, y], z] = -[z, [x, y]] = [x, [y, z]] - [y, [x, z]] = (\ad x \circ \ad y)(z) - (\ad y \circ \ad x)(z) = [\ad x, \ad y](z). \]
+	לכן $\ad[x, y] = [\ad x, \ad y]$, כלומר $\ad$ הומומורפיזם. נשיב לב ש-$\Ker\ad = Z(L)$.
+\end{example}
+בעזרת פונקצייה זו, נוכל להוכיח את הטענה הבאה.
+\begin{preposition} \label{prep:traceAd}
+	אם $z \in L'$ אז $\Tr\ad z = 0$.
+\end{preposition}
+\begin{proof}
+	מכך ש-$z$ צירוף לינארי של קומוטטורים ומהלינאריות של $\ad$, מספיק להראות ש-$\Tr\ad[x, y] = 0$ לכל $x, y \in L$. ובכן,
+	\[ \Tr\ad [x, y] = \Tr[\ad x, \ad y] = \Tr(\ad x \circ \ad y - \ad y \circ \ad x) = 0, \]
+	כאשר השוויון האחרון נובע מתכונות של $\Tr$.
+\end{proof}
+נוכיח כעת כמה טענות בסיסיות לגבי הומומורפיזמים.
+\begin{preposition} \label{prep:ker-img-hom}
+	יהי $\phi : L_1 \to L_2$ הומומורפיזם. אז $\Ker\phi$ אידיאל של $L_1$ ו-$\Img\phi$ תת-אלגברת לי של $L_2$.
+\end{preposition}
+\begin{proof}
+	יהיו $x \in \Ker\phi, y \in L_1$. אז
+	\[ \phi([x, y]) = [\phi(x), \phi(y)] = [0, y] = 0 \]
+	ולכן $[x, y] \in \Ker\phi$ ו-$\Ker\phi$ אידיאל של $L_1$. יהיו $z, w \in \Img\phi$ ו-$x_z, x_w \in L_1$ תמונות הפוכות שלהם, בהתאמה. אז
+	\[ [z, w] = [\phi(x_z), \phi(x_w)] = \phi([x_z, x_w]) \in \Img\phi. \]
+	לכן $\Img\phi$ תת-אלגברת לי של $L_2$.
+\end{proof}
+\begin{preposition}\label{prep:abelain}
+	אלגבראות אבליות הן איזומורפיות אם ורק אם הן מאותו ממימד.
+\end{preposition}
+\begin{proof}
+	מאחר ואיזומורפיזם הוא גם איזומורפיזם לינארי, אם אלגבראות לי איזומורפיות הן בהכרח מאותו ממימד. בכיוון השני, נניח כי $L_1, L_2$ אלגבראות אבליות מאותו ממימד. מאלגברה לינארית קיימת העתקה לינארית חח"ע ועל מ-$L_1$ ל-$L_2$, נסמנה $\phi$. אז לכל $x, y \in L_1$ מתקיים
+	\[ \phi[x, y] = 0 = [\phi(x), \phi(y)] \]
+	כי האלגבראות אבליות. לכן $\phi$ איזומורפיזם, ו-$L_1 \cong L_2$.
+\end{proof}
+\begin{preposition} \label{prep:invariance-centre-derived}
+	יהי $\phi : L_1 \to L_2$ איזומורפיזם. אז
+	\begin{enumerate}
+		\item $\phi(L_1') = L_2'$,
+		\item $\phi(Z(L_1)) = Z(L_2)$.
+	\end{enumerate}
+\end{preposition}
+\begin{proof}
+\begin{enumerate}
+	\item 
+	אם נראה כי $\phi(L_1') \subseteq L_2'$ אז מאחר וגם $\phi^{-1}$ איזומורפיזם, נקבל על-ידי החלפת תפקידים כי $L_2' \subseteq \phi(L_1')$ ולכן $\phi(L_1') = L_2'$ ונסיים. \\
+	מלינאריות $\phi$ מספיק שנראה ש-$\phi([x, y]) \in L_2'$ לכל $x, y \in L_1$. ובכן, מכך ש-$\phi$ הומומורפיזם, 
+	\[ \phi([x, y]) = [\phi(x), \phi(y)] \in L_2'. \]
+	%יהי $x \in L_1'$. אז קיימים $y_1, \ldots y_n, z_1, \ldots, z_n \in L_1$ ו-$\alpha_1, \ldots, \alpha_n \in F$ כך ש-$x' = \sum_k \alpha_k [y_k, z_k]$. אז
+	%\[ \phi(x') = \sum_k \alpha_k \phi([y_k, z_k]) = \sum_k \alpha_k [\phi(y_k), \phi(z_k)] \in L_2'. \]
+	%לכן $\phi(L_1') \subseteq L_2$. 
+	\item
+	באופן דומה, מספיק שנראה כי $\phi(Z(L_1)) \subseteq Z(L_2)$. \\	
+	יהיו $y \in \phi(Z(L_1))$ ו-$x \in Z(L_1)$ כך ש-$y = \phi(x)$. לכל $z \in L_2$ יהי $x_z \in L_1$ כך ש-$z = \phi(x_z)$. אז
+\[ [z, y] = [\phi(x_z), \phi(x)] = \phi([x_z, x]) = \phi(0) = 0. \]
+ואז $y \in Z(L_2)$. לכן $\phi(Z(L_1)) \subseteq Z(L_2)$.
+\end{enumerate}
+\end{proof}
+
+\section{משפטי האיזומורפיזם}
+בפרק זה ננסח ונוכיח את משפטי האיזומורפיזם, ששקולים למשפטים דומים לגבי מרחבים וקטורים וחבורות.
+\begin{theorem}[משפטי האיזומורפיזם]\label{thm:isomorphism}
+\begin{enumerate}
+	\item
+	יהי $\phi : L_1 \to L_2$ הומומורפיזם בין אלגבראות לי. אז $\Ker\phi$ אידיאל של $L_1$, $\Img\phi$ תת-אלגברת לי של $L_2$ ומתקיים
+	\[ \faktor{L_1}{\Ker\phi} \cong \Img\phi. \]
+	\item 
+	אם $I, J$ אידיאלים של אלגברת לי אז
+	\[ \faktor{(I + J)}{J} \cong \faktor{I}{(I \cap J)}. \]
+	\item
+	יהיו $I, J$ אידיאלים של $L$ כך ש-$I \subseteq J$. אז $\faktor{J}{I}$ אידיאל של $\faktor{L}{I}$ וגם
+	\[ \faktor{(\faktor{L}{I})}{(\faktor{J}{I})} \cong \faktor{L}{J}. \]
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+	\item 
+	מטענה 3.5 נקבל ש-$\Ker\phi$ אידיאל של $L_1$ ו-$\Img\phi$ תת-אלגברת לי של $L_2$. בשביל להראות את האיזומורפיזם, נגדיר
+	\begin{align*}
+		\psi \; : \; \faktor{L_1}{\Ker\phi} &\longrightarrow \Img\phi \\
+		x + \Ker\phi &\longmapsto \phi(x).
+	\end{align*}
+	נראה כי $\psi$ מוגדרת היטב. נניח כי $x + \Ker\phi = y + \Ker\phi$. אז $x - y \in \Ker\phi$ ולכן
+\[ \psi(y + \Ker\phi) = \phi(y) = \phi(y + (x - y)) = \phi(x) = \psi(x + \Ker\phi). \]
+	לכן $\psi$ מוגדרת היטב. ברור כי $\psi$ לינארית, והיא על כי $\phi$ על. בנוסף, אם $\psi(x + \Ker\phi) = \psi(y + \Ker\phi)$ אז $\phi(x) = \phi(y)$ ולכן $x - y \in \Ker\phi$ ו-$x + \Ker\phi = y + \Ker\phi$ ולכן $\psi$ חד-חד-ערכית. אז $\psi$ איזומורפיזם בין מרחבים וקטורים. לסיום, לכל $x, y \in L_1$ מתקיים
+\[ \psi([x + \Ker\phi, y + \Ker\phi]) = \psi([x, y] + \Ker\phi) = \phi([x, y]) = [\phi(x), \phi(y)] = [\psi(x + \Ker\phi), \psi(y + \Ker\phi)]. \]
+	אז $\psi$ האיזומורפיזם המבוקש.
+	\item
+	נגדיר
+	\begin{align*}
+		\phi \; : \; I &\longrightarrow \faktor{(I + J)}{J} \\
+		x &\longmapsto x + J.
+	\end{align*}
+	הפונקציה מוגדרת היטב כי $x \in I + J$ לכל $x \in I$. קל להראות ש-$\Ker\phi = I \cap J$. בנוסף, אם $z = x + y \in I + J$ אז
+	\[ \phi(x) = x + J = (z - y) + J \overset{y \in J}{=} z + J \]
+	ולכן $\phi$ על. חישוב ישיר מראה ש-$\phi$ הומומורפיזם. נקבל את התוצאה מסעיף 1 של המשפט.
+	\item
+	באופן דומה, נגדיר
+	\begin{align*}
+		\phi \; : \; \faktor{L}{I} &\longrightarrow \faktor{L}{J} \\
+		x + I &\longmapsto x + J.
+	\end{align*}
+	אם $x + I = y + I$ אז $x - y \in I \subseteq J$ ולכן $x + J = y + J$. לכן $\phi$ מוגדרת היטב. מתקיים $x \in \Ker\phi$ אם ורק אם $x \in J$, אם ורק אם $x + I \in \faktor{J}{I}$, לכן $\Ker\phi = \faktor{J}{I}$. ברור גם ש-$\phi$ על. נקבל גם פה ש-$\phi$ הומומורפיזם ולכן ישום של סעיף 1 של המשפט מנביע את הנדרש.
+\end{enumerate}
+\end{proof}
+סעיפים 1, 2 ו-3 של \autoref*{thm:isomorphism} נקראים \textit{משפט האיזומורפיזם הראשון, השני, והשלישי}, בהתאמה. בדוגמא הבאה נראה דוגמא לשימוש במשפט האיזומורפיזם הראשון.
+\begin{example}
+	נתבונן בפונקציית העקבה, $\Tr : \gl(n, F) \to F$. היא הומומורפיזם כאשר $F$ אלגברת לי אבלית ממימד 1, כי לכל $x, y \in \gl(n, F)$ מתקיים
+	\[ \Tr[x, y] = \Tr(xy - yx) = 0 = [\Tr x, \Tr y]. \]
+	קל לראות כי $\Tr$ על (למשל $\Tr(xe_{11}) = x$ לכל $x \in F$). בנוסף, $\Ker\Tr = \Sl(n, F)$. לפי משפט האיזומורפיזם הראשון,
+	\[ \faktor{\gl(n, F)}{\Sl(n, F)} \cong F. \]
+	בנוסף, ניתן לראות כי איברי המחלקה $x + \Sl(n, F)$ הם אותם מטריצות עם עקבה $x$.
+\end{example}
+
+\section{סכום ישר}
+נסיים את הסעיף עם סקירה קצרה על סכומים ישרים של אלגבראות לי. יהיו $L_1, L_2$ אלגבראות לי. על המרחב $L_1 \times L_2$ נגדיר סוגרי לי על-ידי
+\[ [(x_1, x_2), (y_1, y_2)] \coloneqq ([x_1, y_1], [x_2, y_2]). \]
+קל לראות שסוגרי לי האלה מגדירים אלגברת לי על $L_1 \times L_2$. זה מוביל אותנו להגדרה הבאה.
+\begin{definition}[סכום ישר] \label{def:direct-sum}
+	יהיו $L_1, L_2$ אלגבראות לי. יהי $L \coloneqq L_1 \times L_2$. נאמר כי $L$ הוא \textit{הסכום הישר} של $L_1, L_2$, ונגדיר עליו סוגרי לי על-ידי
+	\[ [(x_1, x_2), (y_1, y_2)] \coloneqq ([x_1, y_1], [x_2, y_2]). \]
+	נסמן $L = L_1 \oplus L_2$.
+\end{definition}
+בהמשך נשתמש בטענה החשובה הבאה והמסקנה הנובעת ממנה.
+\begin{preposition} \label{prep:internal-sum}
+	יהיו $L_1, L_2$ אלגבראות לי מעל אותו מרחב ונניח כי $L_1 \cap L_2 = 0$. אז $L_1 + L _2$ אלגברת לי עם סוגרי לי המוגדרים על-ידי 
+	\[ [x_1 + x_2, y_1 + y_2] = [x_1, y_1] + [x_2, y_2] \]
+	לכל $x_i, y_i \in L_i$, ובנוסף $L_1 + L_2 \cong L_1 \oplus L_2$.
+\end{preposition}
+\begin{proof}
+	מאלגברה לינארית אנחנו יודעים שלכל $u \in L_1 + L_2$ קיימים $x_i \in L_i$ יחידים כך ש-$u = x_1 + x_2$. מיחידות ההצגה קל להראות שסוגרי לי המוגדרים על $L_1 + L_2$ בילינארים. לכן $L_1 + L_2$ אלגברה. מיחידות ההצגה נוכל להגדיר
+	\begin{align*}
+		\phi \; : \; L_1 + L_2 &\longrightarrow L_1 \oplus L_2 \\
+		x_1 + x_2 &\longmapsto (x_1, x_2)
+	\end{align*}
+	קל להראות על-ידי יחידות ההצגה ש-$\phi$ העתקה לינארית חח"ע ועל. נותר להראות שהיא הומומורפיזם בין אלגבראות. יהיו $u,v \in L_1 + L_2$ ונסמן $u = x_1 + x_2$ ו-$v = y_1 + y_2$ כאשר $x_i, y_i \in L_i$. אז
+	\begin{align*}
+		\phi([u, v]) &= \phi([x_1 + x_2, y_1 + y_2]) = \phi([x_1, y_1] + [x_2, y_2]) = \phi([x_1, y_1]) + \phi([x_2, y_2])
+		\shortintertext{מכך ש-$L_i$ אלגברת לי, $[x_i, y_i] \in L_i$ ואז}
+			&= ([x_1, y_1], 0) + (0, [x_2, y_2]) = ([x_1, y_1], [x_2, y_2]) = [(x_1, x_2), (y_1, y_2)] \\
+			&= [\phi(x_1 + x_2), \phi(y_1 + y_2)] = [\phi(u), \phi(v)].
+	\end{align*}
+	לכן $\phi$ איזומורפיזם ו-$L_1 + L_2 \cong L_1 \oplus L_2$. מכאן בפרט נובע ש-$L_1 + L_2$ אלגברת לי.
+\end{proof}
+\begin{corollary} \label{cor:internal-sum}
+	תהי $L$ אלגברה, ויהיו $L_1, L_2$ תת-אלגבראות של $L$ כך שהן אלגבראות לי בעצמן ו-$L = L_1  + L_2$. נניח בנוסף ש-$L_1 \cap L_2 = 0$ ו-$[x_1, x_2] = 0$ לכל $x_i \in L_i$. אז $L$ אלגברת לי ו-$L \cong L_1 \oplus L_2$.
+\end{corollary}
+\begin{proof}
+	לפי \autoref*{prep:internal-sum}, אם נגדיר את סוגרי לי כמו בטענה אז $L$ תהיה אלגברת לי איזומורפית ל-$L_1 \oplus L_2$. לכן מספיק להראות שהמכפלה על $L$ שווה לסוגרי לי כמו בטענה. ובכן, לכל $x_i, y_i \in L_i$ מתקיים
+	\[ [x_1 + x_2, y_1 + y_2] = [x_1, y_1] + [x_1, y_2] + [x_2, y_1] + [x_2, y_2] = [x_1, y_1] + [x_2, y_2], \]
+	וזאת ההגדרה של סוגרי לי בטענה.
+\end{proof}
+בטענה הבאה נראה שתי תכונות חשובות של סכום ישר.
+\begin{preposition} \label{prep:centre-derived-sum}
+	יהיו $L_1, L_2$ אלגבראות לי ויהי $L = L_1 \oplus L_2$ הסכום הישר שלהן. אז
+	\begin{enumerate}
+		\item $Z(L) = Z(L_1) \oplus Z(L_2)$,
+		\item $L' = L_1' \oplus L_2'$.
+	\end{enumerate}
+\end{preposition}
+\begin{proof}
+\begin{enumerate}
+	\item 
+יהי $(x_1,x_2) \in Z(L)$. אז לכל $(y_1,y_2) \in L$ מתקיים
+\[ 0 = [(x_1,x_2), (y_1, y_2)] = ([x_1, y_1], [x_2, y_2]), \]
+ולכן $[x_1, y_1] = [x_2, y_2] = 0$. מאחר ו-$y_i \in L_i$ נבחר שרירותית, $x_i \in Z(L_i)$. אז $Z(L) \subseteq Z(L_1) \oplus Z(L_2)$. בכיוון השני, נניח כי $x_i \in Z(L_i)$. אז לכל $(y_1, y_2) \in L$ מתקיים
+\[ [(x_1, x_2), (y_1, y_2)] = ([x_1, y_1], [x_2, y_2]) = (0, 0). \]
+לכן $(x_1, x_2) \in Z(L)$ ו-$Z(L_1) \oplus Z(L_2) \subseteq Z(L)$. נקבל ש-$Z(L) = Z(L_1) \oplus Z(L_2)$.
+	\item
+	יהי $(x_1, x_2) \in L'$. אז קיימים $(y^1_1, y^2_1), (z^1_1, z^2_1), \ldots (y^1_n, y^2_n), (z^1_n, z^2_n) \in L$ ו-$\alpha_1, \ldots, \alpha_n \in F$ כך ש-
+\[(x_1, x_2) = \sum \alpha_i [(y^1_i, y^2_i), (z^1_i, z^2_i)] = \sum \alpha_i ([y^1_i, z^1_i], [y^2_i, z^2_i]). \]
+לכן $x_j = \sum \alpha_i [y^j_i, z^j_i]$ ואז $x_j \in L_j'$. בכיוון השני, נניח כי $x_j \in L_j'$. אז קיימים $\alpha^j_1, \ldots, \alpha^j_n \in F$ ו-$y^j_1, z^j_1, \ldots y^j_n, z^j_n \in L_j$ כך ש-$x_j = \sum \alpha^j_i [y^j_i, z^j_i]$. אז
+\[ (x_1, x_2) = \sum (\alpha^1_i[y^1_i, z^1_i], \alpha^2_i[y^2_i, z^2_i]) = \sum \alpha^1_i \alpha^2_i [(y^1_i, y^2_i), (z^1_i, z^2_i)] \in L'. \]
+אז $L' = L_1' \oplus L_2'$.
+\end{enumerate}
+\end{proof}
+
+
+
+\chapter{אלגבראות לי ממימדים 1, 2 ו-3}
+בפרק זה ננסה למיין את האלגבראות לי ממימדים 1, 2 ו-3 (עד כדי איזומורפיזם כמובן). בסעיף הקודם ראינו שאלגבראות אבליות איזומורפיות אם ורק אם הן מאותו ממימד, לכן מכל ממימד יש בדיוק אלגברת לי אבלית אחת. לכן נתבונן רק בלגבראות לי לא אבליות. לפי \autoref*{prep:abelain}, אנחנו יודעים שהאלגברה הנגזרת והמרכז נשמרים על-ידי איזומורפיזם. אז נוכל לנסות למיין אלגבראות לי על-ידי צורת שני האידיאלים האלו שלה, ובפרט על-ידי המימד שלהם.
+\section{מימדים 1 ו-2}
+ברור כי כל אלגברת לי ממימד 1 היא אבלית.
+
+נוכיח את המשפט הבא, הקובע את הצורה האפשרית היחידה של אלגברת לי לא-אבלית ממימד 2.
+\begin{theorem}[אלגברת לי ממימד 2] \label{thm:algebras-dim-2}
+	יהי $F$ שדה כלשהו. עד כדי איזומורפיזם קיימת אלגברת לי אחת לא-אבלית ממימד 2. לאלגברה הזאת יש בסיס $\{x, y\}$ כך ש-$[x, y] = x$, והמרכז שלה הוא $0$.
+\end{theorem}
+\begin{proof}
+	תהי $L$ אלגברת לי לא-אבלית ממימד 2. האלגברה הנגזרת של $L$ לא יכולה להיות ממימד 2, כי אם $\{x, y\}$ בסיס ל-$L$ אז $L'$ נוצר על-ידי $[x, y]$. מצד שני, היא לא יכולה להיות ממימד 0 כי אז $L$ אבלית.
+
+	לכן $L'$ ממימד 1, ויהי $0 \neq x \in L'$. נרחיב את $\{x\}$ לבסיס $\{x, \tilde{y}\}$ של $L$. אז $L'$ נוצר על-ידי $[x, \tilde{y}]$ ולכן $0 \neq [x, \tilde{y}]$, כי $\dim L' \neq 0$. לכן קיים $\alpha \neq 0$ כך ש-$[x, \tilde{y}] = \alpha x$. נגדיר $y \coloneqq \alpha^{-1}\tilde{y}$, ואז $[x, y] = x$.
+
+	הראנו כי אם $L$ אלגברת לי לא-אבלית ממימד 2 אז יש לה בסיס $\{x, y\}$ כך ש-$[x, y] = x$. בנוסף, לפי \autoref*{prep:dim-Z(L)}, 
+	\[ \dim Z(L) \le \dim L - 2 = 0, \] 
+ולכן $Z(L) = 0$. נותר להראות כי אם נגדיר את סוגרי לי ככה נקבל אלגברת לי ממימד 2 לא-אבלית.
+	
+	ובכן, נניח כי $L$ מרחב וקטורי עם בסיס $\{x, y\}$ וסוגרי לי מוגדרים על-ידי $x = [x, y]$ ו-$[x, x] = [y, y] = 0$. יהיו $u_i = \alpha_ix + \beta_iy \in L$, כאשר $1 \le i \le 3$. אם $i \neq j$ אז
+	\[ [u_i, u_j] = \alpha_i\beta_j [x, y] + \alpha_j\beta_i [y, x] = (\alpha_i\beta_j - \alpha_j\beta_i)[x, y] = (\alpha_i\beta_j - \alpha_j\beta_i)x. \]
+לכן
+	\begin{align*}
+		& \; [u_1, [u_2, u_3]] + [u_2, [u_3, u_1]] + [u_3, [u_1, u_2]] \\
+		&= [\alpha_1 x + \beta_1 y, (\alpha_2\beta_3 - \alpha_3\beta_2)x] + [\alpha_2 x + \beta_2 y, (\alpha_3\beta_1 - \alpha_1\beta_3)x] + [\alpha_3 x + \beta_3 y, (\alpha_1\beta_2 - \alpha_2\beta_1)x] \\
+		&= (\alpha_2\beta_3 - \alpha_3\beta_2)(\alpha_1 [x, x] + \beta_1 [y, x]) + (\alpha_3\beta_1 - \alpha_1\beta_3)(\alpha_2 [x, x] + \beta_2 [y, x]) + (\alpha_1\beta_2 - \alpha_2\beta_1)(\alpha_3 [x, x] + \beta_3 [y, x]) \\
+		&= \beta_1(\alpha_3\beta_2 - \alpha_2\beta_3)x + \beta_2(\alpha_1\beta_3 - \alpha_3\beta_1)x + \beta_3(\alpha_2\beta_1 - \alpha_1\beta_2)x \\
+		&= 0.
+	\end{align*}
+	לכן $L$ אלגברת לי. מכך ש-$[x, y] = x$, $L$ לא אבלית ולפי \autoref*{prep:linear-independence}, $L$ ממימד 2.
+\end{proof}
+
+\section{מימד 3}
+אם $L$ אלגברת לי לא-אבלית ממימד 3 אז $\dim L' > 0$ ו-$\dim Z(L) < 3$. אנחנו נמיין את כל אלגבראות לי ממימד 3 לפי המימד של $L'$ והקשר בין $L'$ ל-$Z(L)$.
+
+\subsection{אלגבראות עבורן $\dim L' = 1$}
+נפריד לשני מקרים: כאשר $L' \subseteq Z(L)$ וכאשר $L' \cap Z(L) = 0$ (נשיב לב כי אלו שני המקרים היחידים, כי $\dim L' = 1$ ו-$Z(L)$ מרחב). 
+
+נניח כי $L' \subseteq Z(L)$. מאחר ו-$L$ לא-אבלית, קיימים $x, y \in L$ כך ש-$[x, y] \neq 0$. הקבוצה $\{x, y\}$ בלתי-תלוייה לינארית (\autoref*{prep:linear-independence}). יהי $z \coloneqq [x, y]$ ונראה כי $\{x, y, z\}$ בלתי-תלוייה לינארית. אם לא אז, מאחר ו-$\{x, y\}$ בלת-תלוייה לינארית, קיימים סקלרים $\alpha_1, \alpha_2 \in F$ כך ש-$z = \alpha_1 x + \alpha_2 y$. נקבל ש-
+\[ [z, x] = \alpha_1\alpha_2 [y, x] = -\alpha_1\alpha_2 z \quad , \quad [z, y] = \alpha_1\alpha_2 [x, y] = \alpha_1\alpha_2 z. \]
+מאחר ו-$z \in L' \subseteq Z(L)$ ו-$z \neq 0$ נקבל ש-$\alpha_1 = 0$ או $\alpha_2 = 0$, אך לא שניהם. נניח ללא הגבלת הכלליות כי $\alpha_1 = 0$. אז $z = \alpha_2 y$ ולכן
+\[ z = [x, y] = \alpha_2^{-1} [x, z] = 0. \]
+הגענו לסתירה, לכן $\{x, y, z\}$ בלתי-תלוייה לינארית, ולכן היא בסיס ל-$L$. קיבלנו כי קיים ל-$L$ בסיס $\{x, y, z\}$ עבורו $[x, y] = z$. מאחר והנחנו כי $\dim L' = 1$ ו-$L' \subseteq Z(L)$, נקבל שקיימת אלגברת לי אחת כזו (אכן, בהכרח $L' = \Sp\{z\}$ ומאחר ו-$[x, y] = z$ נקבל מבדיקה ישירה ש-$Z(L) = L' = \Sp\{z\}$). האלגברה שקיבלנו נקראת \textit{אלגברת הייזנברג}. כדי להראות שהאלגברה שקיבלנו היא אלגברת לי, נראה כי באמת קיימת אלגברת לי כזאת. ניקח למשל את $\mathrm{n}(3, F)$, האלגברה של מטריצות משולשות עליונות ממש מעל שדה $F$, עם הבסיס $\{e_{12}, e_{23}, e_{13}\}$.
+
+נניח כעת כי $L' \cap Z(L) = 0$ ונסמן $L' = \Sp\{x\}$. מאחר ו-$L' \cap Z(L) = 0 $ קיים $y$ כך ש-$[x, y] \neq 0$. נוכל לבחור $y$ כך ש-$[x, y] =  x$. נרחיב את $\{x, y\}$ לבסיס של $L$ על-ידי הוספה של $w$. קיימים סקלרים $\alpha, \beta$ כך ש-
+\[ [x, w] = \alpha x \quad , \quad [y, w] = \beta x. \]
+נחפש $z \in Z(L)$ שישלים את $\{x, y\}$ לבסיס של $L$. עבור $z = \lambda x + \mu y + w \in L$ מתקיים
+\begin{align*}
+	[x, z] &= \mu [x, y] + [x, w] = (\mu + \alpha)x, \\
+	[y, z] &= \lambda [y, x] + [y, w] = (\beta - \lambda)x, \\
+	[w, z] &= \lambda [w, x] + \mu [w, y] = -(\lambda\alpha + \mu\beta)x.
+\end{align*}
+לכן, עבור $\mu = -\alpha, \lambda = \beta$ נקבל ש-$z \in Z(L)$, ובגלל ש-$\{x, y, w\}$ בת"ל אז $z \neq 0$. לכן $\{x, y, z\}$ בסיס של $L$. לפי \autoref*{cor:internal-sum}, $L$ באמת אלגברת לי ומתקיים $L \cong \Sp\{x, y\} \oplus \Sp\{z\}$. נשים לב שלפי \autoref*{prep:invariance-centre-derived} ו\autoref*{prep:centre-derived-sum} מתקיים $Z(L) \cong \Sp\{z\}, L' \cong \Sp\{x\}$ ולכן $L' \cap Z(L) = 0$ ו-$\dim L' = 1$. אז $L$ אלגברת לי עם כל התכונות שהתחלנו איתן.
+
+נשיב לב כי לפי \autoref*{prep:invariance-centre-derived}, שתי האלגבראות לי שמצאנו לא איזומורפיות זו לזו. נסכם את הכל במשפט הבא.
+\begin{theorem}[אלגבראות לי ממימד 3 עבורן $\dim L' = 1$] \label{thm:algebras-with-derived-dim-1}
+	תהי $L$ אלגברת לי לא-אבלית ממימד 3 עבורה $\dim L' = 1$. אז $L$ איזומורפית לבדיוק אחת מהאלגבראות לי הבאות:
+	\begin{itemize}
+		\item 
+		אלגברת הייזנברג, שיש לה בסיס $\{x, y, z\}$ כך ש-$[x, y] = z$, ו-$Z(L) = L' = \Sp\{z\}$.
+		\item
+		סכום ישר של האלגברת לי הלא-אבלית ממימד 2 ושל האלגברת לי ממימד 1. המרכז שווה לאלגברה האבלית, והאלגברה הנגזרת שווה לאלגברה הנגזרת של האלגברה הלא-אבלית ממימד 2. באופן מפורט, $L = \Sp\{x, y\} \oplus \Sp\{z\}$ כאשר $[x, y] = x$ ו-$Z(L) = \Sp\{z\}$.
+	\end{itemize}
+\end{theorem}
+
+\subsection{אלגבראות עבורן $\dim L' = 2$}
+תהי $L$ אלגברת לי כך ש-$\dim L = 3$ ו-$\dim L' = 2$. הפעם נעבוד רק מעל $\C$, ולא מעל שדה שרירותי. לפני שניגש למיון של $L$, נוכיח את הלמה הבאה. 
+\begin{unLemma}
+	תהי $L$ אלגברת לי ממימד 3 עם אלגברה נגזרת ממימד 2.
+\begin{enumerate}[label=(\alph*)]
+	\item 
+	האלגברה הנגזרת אבלית.
+	\item
+	לכל $x \notin L'$ העתקה $\ad x$ (ראו \autoref*{exa:adjointDer}) היא איזומורפיזם.
+\end{enumerate}
+\end{unLemma}
+\begin{proof}
+\begin{enumerate}[label=(\alph*)]
+	\item
+	נניח בשלילה ש-$L'$ לא-אבלית. אז $L'$ אלגברה לא-אבלית ממימד 2, ולכן קיים לה בסיס $\{x, y\}$ כך ש-$[x, y] = x$. נרחיב את $\{x, y\}$ לבסיס $\{x, y, z\}$ של $L$. אז המטריצה המייצגת של $\ad y$ לפי הבסיס $\{x, y, z\}$ היא מהצורה
+	\[ \spalignmat{-1 0 \star ; 0 0 \star ; 0 0 \alpha} \]
+	לפי \autoref*{prep:traceAd} ומכך ש-$y \in L'$, נקבל ש-$\Tr\ad y = 0$ ולכן $\alpha = 1$. בפרט, $[y, z] \notin L'$ כי המקדם של $z$ בפיתוח לפי הבסיס $\{x, y, z\}$ שונה מאפס וזאת סתירה.
+	\item
+	יהי $x \notin L'$ ויהי $\{y, z\}$ בסיס של $L'$. האלגברה הנגזרת נפרשת על-ידי $[x, y], [x, z]$ ו-$[y, z]$. אך $L'$ אבלית לפי חלק (א) של הלמה, לכן $[y, z] = 0$. מכך ש-$\dim L' = 2$, נקבל ש-$\{[x, y], [x, z]\}$ בסיס של $L'$. אז התמונה של $\ad x : L' \to L'$ היא ממימד 2, לכן $\ad x$ איזומורפיזם (העתקה לינארית חח"ע ועל בין אלגבראות אבליות).
+\end{enumerate}
+\end{proof}
+נמיין כעת את האלגבראות לי. נפריד למקרים.
+\begin{itemize}
+	\item 
+	מקרה 1: קיים $x \notin L'$ כך ש-$\ad x : L' \to L'$ ניתנת לליכסון. יהי $\{y, z\}$ בסיס של $L'$ של וקטורים עצמיים של $\ad x$. מאחר ו-$\ad x$ איזומורפיזם (חלק (ב) של הלמה), הערכים העצמיים שלה שונים מאפס. מתקיים $0 \neq [x, y] \in \Sp\{y\}$. מאחר ואנחנו יכולים בלי הגבלת הכלליות להכפיל את $x$ בקבוע, נוכל להניח ש-$[x, y] = y$. אז המטריצה המייצגת של $\ad x : L' \to L'$ ביחס לבסיס $\{y, z\}$ היא
+	\[ \spalignmat{1 0 ; 0 \mu} \]
+	עבור $\mu \in \C$ כלשהו שונה מ-$0$ (נזכור כי $z$ ו"ע השייך לע"ע השונה מ-$0$). נראה בהמשך כי הנתונים האלו באמת מגדירים אלגברת לי. בינתיים נסמן אותה ב-$L_\mu$. נראה כי $L_\mu \cong L_\nu$ אם ורק אם $\mu = \nu$ או $\mu = \nu^{-1}$.
+	
+	נניח כי $L_\mu \cong L_\nu$, ויהי $\phi : L_\mu \to L_\nu$ איזומורפיזם. יהיו $x_1 \notin L_\mu', x_2 \notin L_\nu'$. מכך ש-$\dim L_\nu' = \dim L_\nu - 1$, מתקיים $\phi x_1 = \alpha x_2 + w$ עבור סקלר $\alpha$ ו-$w \in L_\nu'$. לפי \autoref*{prep:invariance-centre-derived}, $\phi$ מצטמצמת לאיזומורפיזם מ-$L_\mu'$ ל-$L_\nu'$, ולכן $\alpha \neq 0$. יהי $v \in L_\nu'$. נזכור כי $[w, \phi v] = 0$ כי $L_\nu'$ אבלית לפי חלק (א) של הלמה, ונקבל כי
+	\[ (\phi \circ \ad x_1)v = \phi[x_1, v] = [\phi x_1, \phi v] = [\alpha x_2 + w, \phi v] = (\alpha \ad x_2 \circ \phi)v. \]
+	אז $\phi \circ \ad x_1 = \alpha\ad x_2 \circ \phi$, ומאחר ו-$\phi$ איזומורפיזם, העתקות $\ad x_1, \alpha\ad x_2$ דומות. בפרט, יש להן את אותם ערכים עצמיים, כלומר $\{1, \mu\} = \{\alpha, \alpha\nu\}$. אם $\alpha = 1$ אז $\mu = \nu$, ואם $\alpha = \mu$ אז $\mu\nu = \alpha\nu = 1$ ולכן $\mu = \nu^{-1}$.
+	
+	נניח כי $\nu = \mu^{-1}$. יהי $\{x_1, y_1, z_1\}$ בסיס של $L_\mu$ כך ש-$\{y_1, z_1\}$ בסיס של $L_\mu'$ ו-$\ad x_1 : L_\mu' \to L_\mu'$ מיוצגת על-ידי $\spalignmat{1 0 ; 0 \mu}$. יהי $\{x_2, y_2, z_2\}$ בסיס שקול של $L_{\mu^{-1}}$. נשיב לב כי $\mu^{-1}\ad x_1$ מיוצגת על-ידי $\spalignmat{\mu^{-1} 0 ; 0 1}$, שזו אותה מטריצה של $\ad x_2$ רק עם החלפת שורות ועמודות. זה מרמז לנו שנוכל להגדיר איזומורפיזם $\phi : L_\mu \to L_{\mu^{-1}}$ על-ידי
+	\[ \phi(\mu^{-1}x_1) = x_2, \quad \phi(y_1) = z_2, \quad \phi(z_1) = y_2. \]
+	קל להראות כי $\phi$ איזומורפיזם בין האלגבראות לי, ונקבל כי $L_\mu \cong L_{\mu^{-1}}$.
+	\item
+	מקרה 2: לכל $x \notin L'$, העתקה $\ad x$ אינה לכסינה. יהי $x \notin L'$ כלשהו. מאחר והשדה מעליו אנחנו עובדים הוא $\C$, יש ל-$\ad x : L' \to L'$ וקטור עצמי, נגיד $y \in L'$. שוב נוכל להניח כי $[x, y] = y$. נרחיב את $y$ לבסיס $\{y, z\}$ של $L'$. אז $[x, z] = \lambda y + \mu z$ עבור $\lambda \neq 0$ (אחרת גם $z$ וקטור עצמי ו-$\ad x$ הייתה לכסינה). על-ידי כפל $z$ בסקלר נוכל להניח כי $\lambda = 1$. אז המטריצה המייצגת של $\ad x : L' \to L'$ היא $\spalignmat{1 1 ; 0 \mu}$. מאחר ו-$\ad x$ לא לכסינה, אין לה שני ערכים עצמיים שונים. לכן $\mu = 1$ והמטריצה המייצגת של $\ad x$ היא $\spalignmat{1 1 ; 0 1}$.
+	
+	נראה כי קיימת רק אלגברת לי אחת עם התכונות האלו. נניח כי $L_1, L_2$ שתי אלגבראות כאלו. אז קיימים בסיסים $\{x_i, y_i, z_i\}$ של $L_i$ כך ש-$\{y_i, z_i\}$ בסיס של $L_i'$ ו-$[x_i, y_i] = y_i$ ו-$[x_i, z_i] = y_i + z_i$. ברור כי הפונקציה הלינארית $\phi : L_1 \to L_2$ המוגדרת על-ידי $\phi(x_1) = x_2, \phi(y_1) = y_2, \phi(z_1) = z_2$ מגדירה איזומורפיזם (נזכור כי $[y_i, z_i] = 0$ כי $L_i'$ אלגברה אבלית לפי הלמה).
+\end{itemize}
+נותר להראות כי האלגבראות שמצאנו הן באמת אלגבראות לי עם התכונות שהתחלנו איתן. נעשה זאת בעזרת הלמה הבאה.
+\begin{unLemma}
+	יהי $V$ מרחב וקטורי ויהי $\phi$ אנדומורפיזם על $V$. יהי $L = V \oplus \Sp\{x\}$. נגדיר על $L$ סוגרי לי על-ידי $[x, x] = 0$ ו-$[y, z] = 0, [x, y] = \phi(y)$ לכל $y, z \in V$. אז $L$ אלגברת לי ו-$L' = \Img\phi$. בפרט, $\dim L' = \rank\phi$. 
+\end{unLemma}
+\begin{proof}
+	מכך ש-$[y, z] = 0$ לכל $y, z \in V$ מתקיים בפרט $[y, y] =0$ לכל $y \in V$, ובנוסף $[x, x] = 0$ לפי הנתון. אז \Eqref{eq:L1} מתקיים. 
+	
+	יהיו $1 \le i \le 3, y_i + \lambda_i x \in L$. אז
+\begin{align*}
+	&\; [y_1 + \lambda_1 x, [y_2 + \lambda_2 x, y_3 + \lambda_3 x]] + [y_2 + \lambda_2 x, [y_3 + \lambda_3 x, y_1 + \lambda_1 x]] + [y_3 + \lambda_3 x, [y_1 + \lambda_1 x, y_2 + \lambda_2 x]] \\
+		&= [y_1 + \lambda_1 x, \lambda_2 [x, y_3] + \lambda_3 [y_2, x]] + [y_2 + \lambda_2 x, \lambda_3 [x, y_1] + \lambda_1 [y_3, x]] + [y_3 + \lambda_3 x, \lambda_1 [x, y_2] + \lambda_2 [y_1, x]] \\
+		&= \lambda_1\lambda_2 [x, \phi(y_3)] - \lambda_1\lambda_3 [x, \phi(y_2)] + \lambda_2\lambda_3 [x, \phi(y_1)] - \lambda_2\lambda_1 [x, \phi(y_3)] + \lambda_3\lambda_1 [x, \phi(y_2)] - \lambda_3\lambda_2 [x, \phi(y_1)] \\
+		&= 0.
+\end{align*}
+לכן זהות יעקובי מתקיימת ו-$L$ אלגברת לי.
+
+מתקיים
+\begin{align*}
+	L' &= \set{[y + \lambda_1 x, z + \lambda_2 x] | y, z \in V, \lambda_i \in F} = \set{\lambda_1 [x, z] + \lambda_2[y, x] | y, z \in V, \lambda_i \in F} \\
+		&= \set{\lambda_1 \phi(z) + \lambda_2 \phi(y) | y, z \in V, \lambda_i \in F} = \Sp\set{\phi(y) | y \in V}.
+\end{align*}
+אם $z \in \Sp\set{\phi(y) | y \in V}$ אז, מאחר ו-$\phi$ הומומורפיזם, $z \in \Img\phi$. בכיוון השני, אם $z \in \Img\phi$ אז קיים $y \in V$ כך ש-$z = \phi(y)$ ולכן $z \in \Sp\set{\phi(y) | y \in V}$. לכן $\Img\phi = \Sp\set{\phi(y) | y \in V}$ ואז
+\[ L' = \Sp\set{\phi(y) | y \in V} = \Img\phi. \]
+בפרט, $\dim L' = \rank\phi$.
+\end{proof}
+כעת נותר לשים לב שבמקרה הראשון, נקבל את התוצאה אם נגדיר $\phi(y) = y, \phi(z) = \mu z$, ובמקרה השני נוכל להגדיר $\phi(y) = y, \phi(z) = y + z$.
+
+\subsection{אלגבראות עבורן $L' = L$}
+תהי $L$ אלגברת לי מעל $\C$ ממימד 3 כך ש-$L' = L$. כפי שראינו ב\autoref*{prep:derived-sl(2,C)}, האלגברה $L = \Sl(2, \C)$ מקיימת את תכונה זו. נראה כי עד כדי איזומורפיזם זו האלגברה היחידה הזו. את ההוכחה נעשה בשלבים.
+\begin{itemize}
+	\item 
+	שלב 1: יהי $0 \neq x \in L$ ונראה כי $\ad x$ מדרגה 2. נשלים את $x$ לבסיס $\{x, y, z\}$ של $L$. אז $L'$ נפרשת על-ידי $\{[x, y], [x, z], [y, z]\}$. אך $L' = L$ ולכן קבוצה זו בת"ל. בפרט, $\{[x, y], [x, z]\}$ בת"ל. בנוסף, $\ad L$ נפרשת על-ידי $\{[x, y], [x, z], [x, x]\}$ ו-$[x, x] = 0$, לכן $\{[x, z], [x, y]\}$ בסיס של $\ad L$. אז $\ad x$ מדרגה 2 ו-$\Ker\ad x$ ממימד 1, כלומר $\Ker\ad x = \Sp\{x\}$.
+	\item
+	שלב 2: נראה כי קיים $h \in L$ כך של-$\ad h$ יש ע"ע שונה מאפס. יהי $x \in L$ שונה מאפס. אם ל-$x$ יש ע"ע שונה מאפס, ניקח $h = x$. אם ל-$x$ אין ע"ע שונה מאפס אז, מאחר ו-$\ad x$ מדרגה 2, צורת ז'ורדן של $\ad x$ היא:
+	\[ \spalignmat{0,1,0;0,0,1;0,0,0} \]
+	מכאן, נוכל להרחיב את $x$ לבסיס $\{x, y, z\}$ של $L$ כך ש-$[x, y] = x, [x, z] = y$. אז $x$ ו"ע של $\ad y$ השייך לע"ע $-1$, ונוכל לקחת $h = y$.
+	\item
+	שלב 3: מהשלב הקודם, נוכל לבחור $h, x \in L$ כך ש-$[h, x] = \alpha x \neq 0$. מכך ש-$h \in L = L'$, נקבל מ\autoref*{prep:traceAd} כי $\Tr\ad h = 0$. אז מכך ש-$\alpha, 0$ ע"ע של $\ad h$ גם $-\alpha$ ע"ע של $\ad h$. מכך ש-$\alpha \neq 0$, כל הע"ע של $\ad h$ שונים ולכן $\ad h$ לכסינה. יהי $y$ ו"ע של $\ad h$ השייך לע"ע $-\alpha$. אז בבסיס $\{x, h, y\}$ הפונקציה $\ad h$ לכסינה.
+	\item
+	שלב 4: נשים לב כי
+	\[ [h, [x, y]] = [[h, x], y] + [x, [h, y]] = \alpha[x, y] - \alpha[x, y] = 0. \]
+	כעת נשתמש פעמיים בשלב הראשון. ראשית, $\Ker\ad h = \Sp\{h\}$,  אז $[x, y] = \lambda h$ עבור $\lambda \in \C$ מסויים. שנית, $\lambda \neq 0$, כי אחרת $\Ker\ad x$ ממימד 2. על-ידי החלפת $x$ ב-$\lambda^{-1}x$ נוכל להניח בה"כ כי $\lambda = 1$.
+	\item
+	שלב 5: על-ידי החלפה של $h$ בכפולה של עצמו, נוכל לקבל איזה ערך שונה מאפס של $\alpha$ שנרצה. בפרט, נוכל לבחור $\alpha = 2$, וקל לראות כי אז הבסיס $\{x, y, h\}$ שקול לבסיס $\{e_{12}, e_{21}, e_{11}-e_{22}\}$ של $\Sl(2, \C)$ (כלומר אם נגדיר $\phi x = e_{12}, \phi y = e_{21}, \phi h = e_{11}-e_{22}$ נקבל ש-$\phi$ איזומורפיזם).
+\end{itemize}
+
+
+\section{אלגבראות מכל מימד עבורן $\dim L' = 1$}
+בסעיף זה נמיין את כל האלגבראות לי הלא-אבליות עבורן מימד האלגברה הנגזרת הוא 1. תהי $L$ אלגברה כזאת ונסמן $\dim L = n, \dim Z(L) = k$ ו-$L' = \Sp\{x\}$. נוכיח קודם למה.
+\begin{unLemma}
+	לכל תת-מרחב $K$ של $L$ ($K$ לא בהכרח תת-אלגברת לי) קיים בסיס מהצורה $\{z_1, \ldots, z_m, f_1, g_1, \ldots, f_r, g_r\}$ המקיים:
+	\begin{align}
+		[f_i, g_i] &= x \tag{I} \\
+		[f_i, f_j] &= [g_i, g_j] = 0, \qquad \text{לכל $1 \le i, j \le r$} \tag{II} \\
+		[f_i, g_j] &= 0, \qquad \text{לכל $i \neq j$} \tag{III} \\
+		\nonumber [z_i, y] &= 0, \qquad \text{לכל $y \in K$} \tag{IV}
+	\end{align}
+\end{unLemma}
+\begin{proof}
+	מכך ש-$L' = \Sp\{x\}$, לכל $u, v \in K$ קיים $\alpha \in F$ סקלר אחד ויחיד כך ש-$[u, v] = \alpha x$. אז נוכל להגדיר $f : K^2 \to F$ כך ש-$[u, v] = f(u, v) x$. מבילינאריות של סוגר לי נקבל ש-$f$ תבנית בילינארית. בנוסף, מכך ש-$[u, u] = 0$ לכל $u \in K$ נקבל ש-$f(u, u) = 0$ ולכן $f$ תבנית מתחלפת. אז קיים\footnotemark \;בסיס של $K$ כך שהמטריצה המייצגת של $f$ בבסיס זה היא מהצורה:
+	\[ \spalignmat{0 -I_r 0 ; I_r 0 0 ; 0 0 0_{m \times m}}. \]
+	\footnotetext{
+	ראו
+	\begin{flushleft}\textenglish{\noindent Lang, S. .(2002) \textit{Algebra}, ed. ,3 pp. .586-587}\end{flushleft}}
+	נסמן ב-$\{f_1, f_2, \ldots, f_r, g_1, \ldots, g_r, z_1, \ldots, z_m\}$ את הבסיס הזה, ובדיקה ישירה מראה שזה הבסיס הדרוש.
+\end{proof}
+נפריד כעת למקרים.
+\begin{itemize}
+	\item
+	נניח כי $L' \subseteq Z(L)$ ויהי $K$ המשלים הישר של $L'$. אז קיים ל-$K$ בסיס מהצורה $\{z_1, \ldots, z_m, f_1, g_1, \ldots, f_r, g_r\}$ כמו בלמה. נשיב לב שמאחר ו-$[z_i, y] = 0$ לכל $y \in K$ ו-$[z_i, x] = 0$ (כי $x \in Z(L)$) נקבל ש-$z_i \in Z(L)$. אז $\Sp\{x, z_1, \ldots, z_m\} \subseteq Z(L)$. נראה הכלה בכיוון השני. יהי $z \in Z(L)$, ונבטא
+	\[ z = \alpha x + \sum_{i=1}^m \beta_i z_i + \sum_{i=1}^r \gamma_i f_i + \delta_i g_i. \]
+	נקבל
+	\[ 0 = [z, f_i] = -\delta_ix, \quad 0 = [z, g_i] = \gamma_ix, \]
+	ולכן $\delta_i = \gamma_i = 0$. אז $z \in \Sp\{x, z_1, \ldots, z_m\}$ ולכן $Z(L) \subseteq \Sp\{x, z_1, \ldots, z_m\}$. אז $\{x, z_1, \ldots, z_m\}$ בסיס של $Z(L)$, ולכן $m=k-1$ (כאשר $k = \dim Z(L)$). אז קיים ל-$L$ בסיס מהצורה $\{x, z_1, \ldots, z_{k-1}, f_1, g_1, \ldots, f_r, g_r\}$ כך ש-$\{x, z_1, \ldots, z_{k-1}\}$ בסיס של $Z(L)$ ומתקיימות תכונות	,(I) ,(II) .(III)
+	
+	נשיב לב שכאשר $Z(L) = L'$ אז $\{x, f_1, g_1, \ldots, f_r, g_r\}$ בסיס של $L$. במקרה זה, בהכרח $\dim L$ אי-זוגי, ו-$L$ מורכבת מ-$r$ אלגבראות הייזנברג עם אלגברת נגזרת משותפת, היא $\Sp\{x\}$.
+	
+	נותר להראות שהאלגברה שקיבלנו היא באמת אלגברת לי עם התכונות שהתחלנו איתן. מתקיים 
+	\[ Z(L) = \Sp\{x, z_1, \ldots, z_{k-1}\}, \quad L' = \Sp\{x\}. \]
+	(ההגדרות של $Z(L), L'$ תקפות בכל אלגברה). בפרט, $L' \subseteq Z(L)$ ו-$\dim L = 1$. בנוסף, מכך ש-$L' \subseteq Z(L)$ ברור שזהות יעקובי מתקיימת. גם \Eqref{eq:L1} מתקיים כי $[z, z] = 0$ לכל $z \in Z(L)$ ו-$[f_i, f_i] = [g_i, g_i] = 0$ לפי (II) ולכן $L$ אלגברת לי.
+	\item
+	נניח ש-$L' \not\subseteq Z(L)$. מאחר ו-$\dim L = 1$ ו-$Z(L)$ מרחב, נקבל ש-$L' \cap Z(L) = 0$. יהי $K$ משלים ישר של $Z(L)$, ואז $L = Z(L) + K$. קיים ל-$K$ בסיס מהצורה $\{z_1, \ldots, z_m, f_1, g_1, \ldots, f_r, g_r\}$ כמו בלמה. אם $m > 0$ אז $[z_1, y] = 0$ לכל $y \in K$ ו-$[z_1, z] = 0$ לכל $z \in Z(L)$, ולכן $z_1 \in Z(L)$ (כי $L = Z(L) + K$). אבל $z_1 \in K$ ו-$K$ משלים ישר של $Z(L)$, והגענו לסתירה. לכן $m = 0$. 
+	
+	אז $\{f_1, g_1, \ldots, f_r, g_r\}$ בסיס של $K$. אם $r > 1$ אז נקבל שלכל $1 \le i \le r$ קיים $j \neq i$ ואז לפי (I) ו-(III) מתקיים
+	\[ [x, f_i] = [f_i, [f_j, g_j]] = -[f_j, [g_j, f_i]] - [g_i, [f_i, f_j]] = -[f_j, 0] - [g_i, 0] = 0. \]
+	באופן דומה, $[x, g_i] = 0$. אז $[x, y] = 0$ לכל $y \in K$ ואז $x \in Z(L)$, בסתירה לכך ש-$L' \cap Z(L) = 0$. לכן $r = 1$ ו-$\{f_1, g_1\}$ בסיס של $K$.
+	
+	מכך ש-$L = Z(L) + K$, קיימים $\alpha, \beta \in F$ ו-$z \in Z(L)$ כך ש-$x = z + \alpha f + \beta g$. מכך ש-$x \notin Z(L)$, אחד מ-$\alpha, \beta$ שונים מאפס. נניח בה"כ כי $\alpha \neq 0$. אז
+	\[ [x, g] = [\alpha f, g] = \alpha [f, g] = \alpha x \neq 0. \]
+	נגדיר $A \coloneq \Sp\{x, g\}$ ונשיב לב ש-$A$ אלגברת לי. לפי \autoref*{prep:linear-independence}, $A$ ממימד 2, ואז $A$ האלגברת לי הלא-אבלית ממימד 2. לפי \autoref*{cor:internal-sum} מתקיים $L \cong Z(L) \oplus A$.
+	
+	אז $L$ הסכום הישר של האלגברת לי האבלית ממימד $n-2$ ושל האלגברת לי הלא-אבלית היחידה ממימד 2. בפרט, $L$ אלגברת לי, ולפי \autoref*{prep:centre-derived-sum} נקבל ש-
+	\[ Z(L) = Z(M) \oplus Z(A) = M \oplus \{0\}, \quad L' = M' \oplus A' = \{0\} \oplus \Sp\{x\}, \]
+	ואז $L' \not\subseteq Z(L)$.
+	\begin{comment}
+	יהי $K$ המשלים הישר של $Z(L) + L'$, ואז $L = (Z(L) + L') + K$. קיים ל-$K$ בסיס מהצורה $\{z_1, \ldots, z_m, f_1, g_1, \ldots, f_r, g_r\}$ כמו בלמה. אם $r > 0$ אז לפי (III) מתקיים
+	\[ [z_1, x] = [z_1, [f_1, g_1]] = -[f_1, [g_1, z_1]] - [g_1, [z_1, f_1]] = -[f_1, 0] - [g_1, 0] = 0. \]
+	אבל אז, מכך ש-$[z_1, y] = 0$ לכל $y \in K$ ו-$[z_1, z] = 0$ לכל $z \in Z(L)$, נקבל ש-$z_1 \in Z(L)$, בסתירה לכך ש-$z_1 \in K$ ו-$K$ משלים ישר של $Z(L) + L'$. לכן $r = 0$ וקיים ל-$K$ בסיס מהצורה $\{z_1, z_2, \ldots, z_m\}$, ו-$K$ אלגברת לי אבלית.
+	
+	ראינו בהוכחה ש-$[z_1, x] \neq 0$. באופן דומה, $[z_i, x] \neq 0$ ולכן על-ידי כפל $z_i$ בסקלר שונה מאפס נוכל להניח בה"כ כי $[z_i, x] = x$.	אם $m > 1$ נגדיר $z \coloneqq z_1 - z_2$ ונקבל ש-$[z, x] = 0$. אז $z \in Z(L)$, בסתירה לכך ש-$z \in K$. לכן $m \in \{0, 1\}$. אם $m = 0$ אז $K = \emptyset$ ואז $L$ אבלית וזאת סתירה. לכן $m = 1$ ו-$[z_1, x] = x$. 
+	
+	נסמן $A = \Sp\{x, z_1\}$. מ\autoref*{thm:algebras-dim-2} נקבל ש-$A$ אלגברת לי. בנוסף, תהי $M$ האלגברת לי האבלית ממימד $n-2$. אז $M = Z(L)$, ו-$L = M \oplus A$. אז $L$ הסכום הישר של האלגברת לי האבלית ממימד $n-2$ ושל האלגברת לי הלא-אבלית היחידה ממימד 2. בפרט, $L$ אלגברת לי.
+	\end{comment}
+\end{itemize}
+
+
+\chapter{אלגבראות לי פתירות, פשוטות ונילפוטנטיות}
+אלגבראות לי אבליות הן פשוטות במבנה שלהן. כדי להבין את המבנה של אלגברת לי, נוכל לנסות "להתקרב" אליה על-ידי אלגבראות אבליות -- תת-אלגבראות אבליות של האלגברת לי או אלגבראות מנה אבליות שלה. למשל, ראינו שלאלגברת הייזנברג ממימד 3 יש מרכז ממימד 1, וקל לראות שאלגברת המנה מעל המרכז היא גם אבלית. נשאלת השאלה מתי דבר דומה קורה בכללי, ומתי בכלל נוכל "להתקרב" לאלגברה על-ידי אלגבראות אבליות.
+
+\section{אלגבראות לי פתירות}
+יהי $I$ אידיאל של $L$. הלמה הבאה עונה על השאלה מתי $\faktor{L}{I}$ אבלית.
+\begin{lemma} \label{lemma:abelian-quotient}
+	יהי $I$ אידיאל של $L$. אז $\faktor{L}{I}$ אבלית אם ורק אם $L' \subseteq I$.
+\end{lemma}
+\begin{proof}
+	האלגברה $\faktor{L}{I}$ אבלית אם ורק אם לכל $x, y \in L$ מתקיים
+	\[ I = [x + I, y + I] = [x, y] + I, \]
+	כלומר אם ורק אם $[x, y] \in I$ לכל $x, y \in L$, וזה מתקיים אם ורק אם $L' \subseteq I$.
+\end{proof}
+מכאן ש-$L'$ האידיאל הקטן ביותר עם אלגברת מנה אבלית. נוכל ליישם את הלמה עבור $L'$, ולקבל שקיים ל-$L'$ אידיאל קטן ביותר עם אלגברת מנה אבלית, הוא האלגברה הנגזרת של $L'$, ונסמנו $L^{(2)}$. באופן דומה נוכל להמשיך הלאה. זה מוביל אותנו לשתי ההגדרות הבאות.
+\begin{definition}[הסדרה הנגזרת] \label{def:derived-series}
+	תהי $L$ אלגברת לי. נגדיר את \textit{הסדרה הנגזרת} של $L$ על-ידי
+	\begin{align*}
+		L^{(1)} &\coloneqq L', \\
+		L^{(k+1)} &\coloneqq [L^{(k)}, L^{(k)}] \quad (= (L^{(k)})') \qquad \text{לכל $k \ge 1$}
+	\end{align*}
+\end{definition}
+נשים לב שמכפלת אידיאלים היא אידיאל, ולכן $L^{(k+1)}$ אידיאל של $L$ ולא רק של $L^{(k)}$.
+\begin{definition}[אלגברת לי פתירה] \label{def:solvable}
+	תהי $L$ אלגברת לי. נאמר ש-$L$ \textit{פתירה} אם $L^{(n)} = 0$ עבור $n \ge 1$ מסויים.
+\end{definition}
+כפי שראינו בתחילת הפרק, אלגברת הייזנברג היא פתירה. גם האלגברת לי הלא-אבלית ממימד 2 היא פתירה, וגם האלגברה של מטריצות משולשות פתירה (ראו \autoref*{prep:solvability-nilpotency-b(n,F)-n(n,F)} למטה). לפי \autoref*{prep:derived-sl(2,C)} נקבל בפרט שהאלגברה $\Sl(2, \C)$ לא פתירה.
+
+אם $L$ פתירה, אז נוכל "להתקרב" ל-$L$ על-ידי סדרה סופית של אידיאלים עם אלגברת מנה אבלית. באופן מפורש, אם $L^{(n)} = 0$, אז
+\[ 0 = L^{(n)} \subseteq L^{(n-1)} \subseteq \ldots \subseteq L^{(1)} \subseteq L^{(0)} = L, \]
+ו-$\faktor{L^{(k-1)}}{L^{(k)}}$ אלגברה אבלית לכל $1 \le k \le n$. הלמה הבאה מראה שגם הטענה ההפוכה נכונה, כלומר אם ניתן "להתקרב" ל-$L$ על-ידי סדרה סופית של אידיאלים עם אלגברת מנה אבלית, אז $L$ פתירה.
+\begin{lemma}
+	אם $L$ אלגברת לי עם אידיאלים
+	\[ 0 = I_n \subseteq I_{n-1} \subseteq \ldots \subseteq I_1 \subseteq I_0 = L \]
+	כך ש-$\faktor{I_{k-1}}{I_k}$ אבלית לכל $1 \le k \le n$, אז $L$ פתירה.
+\end{lemma}
+\begin{proof}
+	נראה באינדוקציה ש-$L^{(k)} \subseteq I_k$ לכל $1 \le k \le n$, ואז ההצבה $k = n$ תוכיח את הטענה. \\
+	מהנתון ש-$\faktor{I}{I_1}$ אבלית, נובע מ\autoref*{lemma:abelian-quotient} ש-$L^{(1)} = L' \subseteq I_1$. נניח ש-$L^{(k-1)} \subseteq I_{k-1}$ עבור $2 \le k \le n$ כלשהו. האלגברה $\faktor{I_{k-1}}{I_k}$ אבלית ולכן מאותה למה, הפעם עבור $I_{k-1}$, נקבל ש-$I_{k-1}' \subseteq I_k$. אבל לפי הנחת האינדוקציה $L^{(k-1)} \subseteq I_{k-1}$, ולכן $L^{(k)} = (L^{(k-1)})' \subseteq I_{k-1}'$. אז $L^{(k)} \subseteq I_k$.
+\end{proof}
+בהוכחה ראינו שאם $L^{(k)}$ שונה מאפס אז גם $I_k$ שונה מאפס. מכאן שהסדרה הנגזרת היא הסדרה היורדת "המהירה" ביותר כך שאלגבראות המנה אבליות.
+
+ניתן לצפות שהתכונה פתירות נשמרת על-ידי איזומורפיזם. ובכן, נכונה טענה חזקה יותר.
+\begin{lemma} \label{lemma:hom-image-derived-series}
+	נניח ש-$\phi : L_1 \to L_2$ הומומורפיזם על. אז $\phi(L_1^{(k)}) = L_2^{(k)}$ לכל $k \ge 1$.
+\end{lemma}
+\begin{proof}
+מספיק להוכיח כי $\phi(L_1') = L_2'$. אחרי זה נשתמש בטענה עבור $L_1', L_2'$ (נוכל לעשות זאת כי $\phi_{L_1'}$ הומומורפיזם מ-$L_1'$ על $L_2'$ לפי הטענה), וככה נמשיך עד ל-$k$.
+
+יהי $y \in L_2'$ ונראה כי $y \in \phi(L_1')$. מספיק להוכיח את הטענה בהנחה ש-$y = [y_1, y_2]$. קיימים $x_i \in L_1$ כך ש-$y_i = \phi(x_i)$ כי $\phi$ על. אז
+\[ y = [y_1, y_2] = [\phi(x_1), \phi(x_2)] = \phi([x_1, x_2]) \in \phi(L_1'). \]
+לכן $L_2 \subseteq \phi(L_1')$.
+
+יהי כעת $x \in L_1'$. נניח שוב בלי הגבלת הכלליות כי $x = [x_1, x_2]$. אז $\phi(x) = [\phi(x_1), \phi(x_2)] \in L_2'$. לכן $\phi(L_1') \subseteq L_2'$ וסיימנו.
+\end{proof}
+בעזרת הלמה נוכל להוכיח את הטענה הבאה.
+\begin{preposition} \label{prep:solvable}
+	תהי $L$ אלגברת לי.
+	\begin{enumerate}[label=(\alph*)]
+		\item 
+		אם $L$ פתירה אז כל תת-אלגברה וכל תמונה הומומורפית של $L$ פתירה.
+		\item
+		אם קיים ל-$L$ אידיאל $I$ כך ש-$I$ ו-$\faktor{L}{I}$ פתירות אז $L$ פתירה.
+		\item
+		אם $I, J$ אידיאלים פתירים של $L$, אז $I + J$ אידיאל פתיר של $L$.
+	\end{enumerate}
+\end{preposition}
+\begin{proof}
+	\begin{enumerate}[label=(\alph*)]
+		\item 
+		אם $K$ תת-אלגברה של $L$, אז ברור מההגדרה ש-$K^{(k)} \subseteq L^{(k)}$ לכל $k \ge 1$. מכך ש-$L$ פתירה, קיים $n$ עבורו $L^{(n)} = 0$ ואז $K^{(k)} = 0$ ולכן $K$ פתירה. מ\autoref*{lemma:hom-image-derived-series} נקבל שאם $L^{(n)} = 0$ אז כל תמונה הומומורפית של $L$ פתירה.
+		\item
+		עלי-ידי שימוש בלמה עבור ההומומורפיזם הקנוני $L \to \faktor{L}{I}$, נקבל ש-$\faktor{(L^{(k)}+I)}{I} = (\faktor{L}{I})^{(k)}$. מכך ש-$\faktor{L}{I}$ פתירה קיים $n$ עבורו $(\faktor{L}{I})^{(n)} = 0$, ואז $\faktor{(L^{(k)}+I)}{I} = 0$, כלומר $L^{(k)} \subseteq I$. מכך ש-$I$ פתירה, קיים $m$ עבורו $I^{(m)} = 0$, ואז $(L^{(k)})^{(m)} = 0$. לפי ההגדרה, $L^{(m+k)} = (L^{(k)})^{(m)} = 0$, לכן $L$ פתירה.
+		\item
+		לפי משפט האיזומורפיזם השני, $\faktor{(I+J)}{J} \cong \faktor{J}{(I \cap J)}$. מכך ש-$\faktor{J}{(I \cap J)}$ התמונה של ההומומורפיזם הקנוני $J \to \faktor{J}{(I \cap J)}$ ו-$J$ פתירה, נקבל מסעיף (א) של טענה זו ש-$\faktor{J}{(I \cap J)}$ פתירה. אז גם $\faktor{(I+J)}{J}$ פתירה, ומכך ש-$J$ פתירה נקבל על-ידי שימוש בסעיף (ב) של טענה זו ש-$I + J$ פתירה.
+	\end{enumerate}
+\end{proof}
+
+\section{אלגבראות לי פשוטות ופשוטות למחצה}
+בפרק זה נגדיר את האלגבראות לי הפשוטות והפשוטות למחצה.
+\begin{definition}
+	לאלגברת לי $L$ ללא אידאלים השונים מ-$0$ ומ-$L$ נקרא \textit{פשוטה}.
+\end{definition}
+בעזרת \autoref*{prep:solvable} נוכל להוכיח את הטענה הבאה, שגם תוביל אותנו להגדרה של אלברה פשוטה למחצה.
+\begin{corollary} \label{cor:radical}
+	לכל אלגברת לי $L$ קיים אידיאל פתיר יחיד המכיל את כל האידיאלים הפתירים של $L$.
+\end{corollary}
+\begin{proof}
+	יהי $R$ אידיאל פתיר ממימד מקסימלי. אם $I$ אידיאל פתיר, אז לפי חלק (ג) של \autoref*{prep:solvable}, גם $R+I$ אידיאל פתיר. אבל $\dim(R + I) \ge \dim(R)$, ו-$R$ אידיאל פתיר ממימד מקסימלי, לכן $\dim(R + I) = \dim(R)$ ואז $R + I = R$, כלומר $I \subseteq R$.
+\end{proof}
+לאידיאל הפתיר הזה נקרא \textit{הרדיקל} של $L$, ונסמנו ב-$\rad L$.
+\begin{definition} \label{def:semisimple}
+	לאלגברת לי $L$ נקרא \textit{פשוטה למחצה} אם אין לה אידיאלים פתירים שונים מ-$0$, או באופן שקול אם $\rad L = 0$.
+\end{definition}
+\begin{lemma}
+	אם $L$ אלגברת לי, אז $\faktor{L}{\rad L}$ אלגברה פשוטה למחצה.
+\end{lemma}
+\begin{proof}
+	יהי $\overline{J}$ אידיאל פתיר של $\faktor{L}{\rad L}$. אז קיים אידיאל $J$ של $L$ עבורו $\overline{J} = \faktor{J}{\rad L}$ (הוא $J \coloneqq \set{x \in L | x  + \rad L \in \overline{J}}$). לפי ההגדרה, $\rad L$ פתיר, וגם $\faktor{J}{\rad L} = \overline{J}$ פתירה לפי ההנחה. לפי \autoref*{prep:solvable} (ב), $J$ פתירה ולכן $J \subseteq \rad L$, כלומר $\overline{J} = 0$.
+\end{proof}
+ראינו שלכל אלגברת לי $L$, הרדיקל $\rad L$ פתיר ו-$\faktor{L}{\rad L}$ פשוטה למחצה, לכן כדי להבין את המבנה של אלגברת לי מספיק להבין את המבנה של אלגבראות לי פתירות ופשוטות למחצה.
+
+\section{אלגבראות נילפוטנטיות}
+\begin{definition}[הסדרה המרכזית התחתונה] \label{def:lower-central-series}
+	נגדיר את \textit{הסדרה המרכזית התחתונה} של אלגברת לי $L$ להיות
+	\begin{align*}
+		L^1 &\coloneqq L', \\
+		L^{k+1} &\coloneqq [L, L^k] \qquad \text{לכל $k \ge 1$}
+	\end{align*}
+\end{definition}
+גם פה, $L^k$ אידיאל של $L$ כמכפלת אידיאלים. המונח "הסדרה המרכזית" מגיע מכך ש-$\faktor{L^k}{L^{k+1}}$ מוכל במרכז של $\faktor{L}{L^{k+1}}$. בדומה לאלגברה פתירה, נגדיר גם אלגברה נילפוטנטית.
+\begin{definition}[אלגברה נילפוטנטית] \label{def:nilpotent-algebra}
+	אלגברת לי $L$ נקראת \textit{נילפוטנטית} אם $L^n = 0$ עבור $n \ge 1$ מסויים.
+\end{definition}
+האלגברה $\mathrm{n}(b, F)$ של כל המטריצות המשולשות עליונות ממש היא נילפוטנטית (ראו \autoref*{prep:solvability-nilpotency-b(n,F)-n(n,F)} למטה). בנוסף, כל אלגברת לי נילפוטנטית היא פתירה. כדי לראות זאת, מראים באינדוקציה ש-$L^{(k)} \subseteq L^k$. קיימים אלגבראות לי פתירות לא נילפוטנטיות. למשל, האלגברה $\mathrm{b}(n, F)$ של המטריצות המשולשות עליונות (ראו \autoref*{prep:solvability-nilpotency-b(n,F)-n(n,F)} למטה), והאלגברה הלא-אבלית ממימד 2. \\
+נוכיח כעת טענה עבור אלגבראות נילפוטנטיות הדומה ל\autoref*{prep:solvable}.
+\begin{preposition} \label{prep:nilpotent}
+	תהי $L$ אלגברת לי.
+	\begin{enumerate}[label=(\alph*)]
+		\item 
+		אם $L$ נילפוטנטית אז כל תת-אלגברת לי של $L$ נילפוטנטית.
+		\item
+		אם $\faktor{L}{Z(L)}$ נילפוטנטית אז $L$ נילפוטנטית.
+	\end{enumerate}
+\end{preposition}
+\begin{proof}
+	חלק (א) ברור מההגדרה: לכל תת-אלגברת לי $K$ של $L$ ולכל $k \ge 1$ מתקיים $K^k \subseteq L^k$, ולכן אם $L$ נילפוטנטית גם $K$ נילפוטנטית. \\
+	באינודקציה פשוטה ניתן להוכיח ש-$(\faktor{L}{Z(L)})^k = \faktor{(L^k + Z(L))}{Z(L)}$. אם $(\faktor{L}{Z(L)})^n = 0$ אז גם $\faktor{(L^n + (L))}{Z(L)} = 0$, כלומר $L^n \subseteq Z(L)$ ולכן $L^{n+1} = 0$.
+\end{proof}
+אין חלק מקביל של \autoref*{prep:solvable} (ב) עבור אלגבראות נילפוטנטיות: ניתן למצוא אלגברת לי $L$ ואידיאל נילפוטנטי $I$ כך ש-$\faktor{L}{I}$ נילפוטנטית אך $L$ לא נילפוטנטית. האלגברת לי הלא-אבלית ממימד 2 מספקת דוגמא לזה. באופן כללי הטענה נכונה רק עבור $I = Z(L)$, כפי שהוכחנו.
+
+בטענה הבאה נראה ש-$\mathrm{b}(n, F)$ פתירה אך לא נילפוטנטית ו-$\mathrm{n}(n, F)$ נילפוטנטית.
+\begin{preposition} \label{prep:solvability-nilpotency-b(n,F)-n(n,F)}
+	\begin{enumerate}[label=(\alph*)]
+		\item
+		האלגברת לי $\mathrm{n}(n, F)$ של מטריצות משולשיות עליונות ממש נילפוטנטית ופתירה.
+		\item 
+		האלגברת לי $\mathrm{b}(n, F)$ של מטריצות משולשיות עליונות פתירה, אך היא לא נילפוטנטית אם $n \ge 2$.
+	\end{enumerate}
+\end{preposition}
+\begin{proof}
+	בהוכחה נשתמש בנוסחה
+	\[ [e_{ij}, e_{kl}] = \delta_{jk}e_{il} - \delta_{il}e_{kj} \]
+	ובסימונים $L_1 \coloneqq \mathrm{n}(n, F), L_2 \coloneqq \mathrm{b}(n, F)$.
+	\begin{enumerate}
+		\item 
+		ראינו שכל אלגברת לי נילפוטנטית היא גם פתירה, לכן מספיק להראות ש-$L_1$ נילפוטנטית. נראה באינדוקציה כי קיים ל-$L_1^k$ בסיס מהצורה $\set{e_{ij} | j - i > k}$. אם נגדיר $L_1^0 = L_1$ נקבל ש-$L_1^1 = [L_1, L_1^0]$. אז נוכל לקחת את $k = 0$ כבסיס האינדוקציה, ובמקרה זה הטענה נכונה לפי ההגדרה של $L_1$. 
+		
+		נניח שהטענה נכונה עבור $k$ מסויים. יהיו $j - i > k$. אז $e_{ij} \in L_1^k$ ולכל $x \in L_1$ מתקיים
+		\[ [x, e_{ij}] = xe_{ij} - e_{ij}x = (\underbrace{0, \ldots, 0}_{j-1}, (x)^C_i, 0, \ldots 0) - (\underbrace{0, \ldots, 0}_{i-1}, (x)^R_j, 0, \ldots 0)^t. \]
+נסמן ב-$A, B$ את המטריצה הראשונה והשנייה באגף ימין, בהתאמה. השורות ה-$i$ ומעלה ב-$A$ הן $0$ כי $x$ מטריצה משולשית עליונה ממש, והעמודה של $(x)^C_i$ היא $j$. נקבל שאם $(A)_{ml} \neq 0$ אז בהכרח $m \le i - 1, l = j$, ואז $l - m \ge j - i + 1 > k + 1$. ב-$B$ השורה היחידה השונה מאפס היא $i$ והעמודה הראשונה ששונה מאפס היא $j+1$. לכן אם $(B)_{ml} \neq 0$ בהכרח $m = i, l \ge j + 1$, ואז $l - m \ge j + 1 - i > k + 1$. לכן אם $([x, e_{ij}])_{ml} \neq 0$ אז $l - m > k + 1$, ואז $[x, e_{ij}] \in \Sp\set{e_{ml} | l - m > k + 1}$. לכן
+\[ L_1^{k+1} \subseteq \Sp\set{e_{ij} | j - i > k + 1}. \]
+נראה הכלה בכיוון השני. יהיו $j - i > k + 1$ ונראה כי $e_{ij} \in L_1^{k+1}$. מתקיים $(j-1) - i > k$ ולכן $e_{i,j-1} \in L_1^k$. אז
+\[ [e_{j-1,j}, e_{i,j-1}] = \delta_{ji}e_{j-1,j-1} - \delta_{j-1,j-1}e_{ij} = e_{ij}. \]
+בנוסף, $e_{j-1,j} \in L_1$, ולכן $e_{ij} \in [L_1, L_1^k] = L_1^{k+1}$.
+
+אז ל-$L_1^k$ קיים בסיס מהצורה $\set{e_{ij} | j - i > k}$. אם $L_1^n \neq 0$ אז $e_{ij} \in L_1^n$ כאשר $j - i > n$. אבל $i \ge 1$ ולכן $j > n$ וזאת סתירה. לכן $L_1^n = 0$. בפרט, $L_1$ פתירה.		
+		\item
+		יהיו $x, y \in L_2$. אז $x_{ik} = 0$ לכל $k < i$ ו-$y_{kj} = 0$ לכל $k > j$. אז אם $i \ge j$ נקבל שלכל $1 \le k \le n$ מתקיים $k < i$ או $k > j$ או $k = i = j$, ולכן
+		\[ (xy)_{ij} = \sum_{k=1}^n x_{ik} y_{kj} = \delta_{ij}x_{ij}y_{ij}. \]
+		לכן
+		\[ ([x, y])_{ij} = ([xy - yx])_{ij} = \delta_{ij}x_{ij}y_{ij} - \delta_{ij}y_{ij}x_{ij} = 0. \]
+		אז $[x, y] \in L_1$ ולכן $L_2' \subseteq L_1'$. מכאן ש-$L_2^{(k)} \subseteq L_1^{(k)}$ לכל $k \ge 1$, ובפרט מכך ש-$L_1$ פתירה לפי חלק (א) של הטענה גם $L_2$ פתירה.
+		
+		אם $n \ge 2$ אז	$e_{11}, e_{12} \in L_2$, ו-
+		\[ [e_{11}, e_{12}] = \delta_{11}e_{12} - \delta_{12}e_{11} = e_{12}. \]
+		לכן $e_{12} \in L_2'$, ואז $e_{12} = [e_{11}, e_{12}] \in L^2$. באינדוקציה נקבל ש-$e_{12} \in L_2^k$ לכל $k \ge 1$. בפרט, $L_2^k \neq 0$ לכל $k \ge 1$ ו-$L_2$ לא נילפוטנטית.
+	\end{enumerate}
+\end{proof}
+
+
+\chapter{תת-אלגבראות של $\mathrm{gl}(V)$}
+בעזרת אלגברה לינארית ניתן לחקור תכונות של תת-אלגבראות של $\gl(V)$. ישנן אלגבראות שהן איזומורפיות לתת-אלגברה של $\gl(V)$, וגם במקרה זה ניתן לחקור אותן על-ידי אלגברה לינארית. בפרק זה נחקור תת-אלגבראות של $\gl(V)$. לאורך כל הפרק, יהי $V$ מרחב וקטורי $n$-ממדי מעל שדה $F$.
+
+\section{העתקות נילפוטנטיות}
+תהי $L$ תת-אלגברת לי של $\gl(V)$. כל איבר של $L$ הוא העתקה לינארית מעל $V$, ולכן נוכל להתבונן במכפלה של העתקות $xy$ לכל $x, y \in L$. באופן כללי, מכפלת שתי העתקות לא תהיה ב-$L$, גם אם ההעתקות ב-$L$. בכל אופן, נוכל לבדוק מתי $x$ נילפוטנטית, כלומר $x^r = 0$ עבור $r \ge 1$ מסויים. נוכיח את הלמה הבאה עבור העתקות נילפוטנטיות.
+\begin{lemma} \label{lemma:adjoint-nilpotent}
+	תהי $L$ תת-אלגברת לי של $\gl(V)$ ותהי $x \in L$. אם $x$ נילפוטנטית, אז $\ad x : L \to L$ גם נילפוטנטית.
+\end{lemma}
+\begin{proof}
+	בעזרת אינדוקציה ניתן לראות שעבור $y \in L$, $(\ad x)^m(y)$ הוא סכום של איברים מהצורה $x^jyx^{m-j}$ עבור $0 \le j \le m$. יהי $r$ עבורו $x^r = 0$ ויהי $m = 2r$. או ש-$j \ge r$, ובמקרה זה $x^j = 0$, או ש-$j \le r$, ובמקרה זה $m - j \ge r$ ואז $x^{m-j} = 0$. לכן $(\ad x)^{2r} = 0$, ובפרט $\ad x$ נילפוטנטית.
+\end{proof}
+
+\section{משקלים}
+נרחיב את ההגדרה של ערכים עצמיים לתת-אלגבראות כך: לכל $A$ תת-אלגברת לי של $\gl(V)$, נאמר ש-$v \in V$ \textit{וקטור עצמי של $A$} אם $v$ וקטור עצמי של כל איבר ב-$A$, כלומר $a(v) \in \Sp\{v\}$ לכל $a \in A$. הוקטורים עצמיים לא בהכרח שייכים לאותו ערך עצמי עבור $a$-ים שונים. נוכל להרחיב את המושג ערך עצמי כך: עבור פונקציה $\lambda : A \to F$, נגדיר את $\lambda(a)$ להיות הערך העצמי שאליו $v$ שייך כוקטור עצמי של $a$, כלומר $a(v) = \lambda(a)v$. נוכל להגדיר גם את "המרחב העצמי",
+\[ V_\lambda \coloneqq \set{v \in V | \forall a \in A, \; a(v) = \lambda(a)v}. \]
+קל להראות ש-$V_\lambda$ מרחב וקטורי. כמו באלגברה לינארית, המרחב $V_\lambda$ אינו בהכרח שונה מאפס, ובמקרה זה $\lambda$ אינה "פונקציה של ערכים עצמיים". נצטרך לדרוש ש-$V_\lambda \neq 0$. במקרה זה, יהי $v \in V_\lambda$, יהיו $a, b \in A$ ויהיו $\alpha, \beta \in F$. אז
+\[ (\alpha a + \beta b)v = \alpha(av) + \beta(bv) = \alpha\lambda(a)v + \beta\lambda(b)v = (\alpha\lambda(a) + \beta\lambda(b))v, \]
+לכן $v$ ו"ע של $\alpha a + \beta b$ השייך ל-$\alpha\lambda(a) + \beta\lambda(b)$. מכך ש-$\alpha a + \beta b \in A$, מתקיים
+\[ (\alpha\lambda(a) + \beta\lambda(b))v = (\alpha a + \beta b)v = \lambda(\alpha a + \beta b)v. \]
+לכן $\lambda(\alpha a + \beta b) = \alpha\lambda(a) + \beta\lambda(b)$, כלומר $\lambda$ לינארית. כל הדיון הזה מוביל אותנו להגדרה הבאה.
+\begin{definition}[משקל]
+	\textit{משקל} עבור תת-אלגברת לי $A$ של $\gl(V)$ היא פונקציה לינארית $\lambda : A \to F$ כך ש-
+	\[ V_\lambda \coloneqq \set{v \in V | \forall a \in A, \; a(v) = \lambda(a)v} \]
+	תת-מרחב של $V$ שונה מאפס. המרחב $V_\lambda$ נקרא \textit{המרחב המשקלי} השייך ל-$\lambda$.
+\end{definition}
+דוגמא לכך ש-$V_\lambda$ לא בהכרח שונה מאפס מובאת כאשר נגדיר $A = \Sp\{I\}$, כאשר $I$ העתקת היחידה. אם $\lambda : A \to F$  פונקציית האפס אז $I(v) = v \neq 0 = \lambda(I)v$ לכל $0 \neq v \in V$, ולכן $V_\lambda = 0$.
+
+\section{למת האינווריאנטיות}
+באלגברה לינארית ראינו שאם $a, b : V \to V$ העתקות מתחלפות, אז $\Ker a$ מרחב $b$-שמור, כלומר $b$ מעתיק את $\Ker a$ ל-$\Ker a$. ההוכחה פשוטה מאוד: אם $x \in \Ker a$ אז $a(bx) = b(ax) = 0$ ולכן $bx \in \Ker a$.
+
+הטענה הזאת היא עבור ע"ע אפס. באופן כללי, אם $a, b : V \to V$ העתקות מתחלפות ו-$V_\lambda$ המרחב העצמי השייך ל-$\lambda \in F$ כלשהו, אז $V_\lambda$ מרחב $b$-שמור. ניתן להכליל את הטענה הזאת עבור אלגבראות לי: את ההעתקה $a$ נחליף באידיאל $A \subseteq \gl(V)$, ואת המרחב העצמי נחליף במרחב משקלי.
+\begin{lemma}[למת האינווריאנטיות]
+	יהי $F$ שדה בעל אופיין אפס, ויהיו $L$ תת-אלגברת לי של $\gl(V)$ ו-$A$ אידיאל של $L$. יהי $\lambda : A \to F$ משקל עבור $A$. אז המרחב המשקלי $V_\lambda$ הוא $L$-שמור.
+\end{lemma}
+\begin{remark}
+	נשים לב שהלמה היא באמת הרחבה של הטענה מאלגברה לינארית, לפחות עבור שדות בעל אופיין אפס. עבור $a \in L$ ו"ע השייך לע"ע $\lambda \in F$ נגדיר 
+	\[ A \coloneqq \Sp\{a\}, \quad B \coloneqq \set{b \in L | ab = ba} = \set{b \in L | [a, b] = 0}. \]
+	קל לראות ש-$B$ מרחב וקטורי. בנוסף, אם $b, c \in B$ אז
+	\[ [a, [b, c]] = -[b, [c, a]] - [c, [a, b]] = -[b, 0] - [c, 0] = 0, \]
+	ולכן $[b, c] \in B$. אז $B$ תת-אלגברת לי של $\gl(V)$. בנוסף, $A \subseteq B$ ו-$[a, b] = 0 \in A$ לכל $a \in A, b \in B$, לכן $A$ אידיאל של $B$. לפי הלמה, $V_\lambda$ מרחב $B$-שמור. כלומר, לכל $b \in L$ כך ש-$ab = ba$, המרחב $V_\lambda$ הוא $b$-שמור. נותר לשיב לב ש-$V_\lambda$ הוא בעצם המרחב העצמי של $a$ השייך ל-$\lambda$.
+\end{remark}
+\begin{proof}[הוכחת למת האינווריאנטיות]
+	אנו צריכים להראות שאם $y \in L$ ו-$w \in V_\lambda$ אז $y(w)$ הוא ו"ע של כל איבר ב-$A$, השייך לע"ע $\lambda(a)$ של $a \in A$.
+	
+	עבור $a \in A$, מכך ש-$[a, y] \in A$ כי $A$ אידיאל, נקבל
+	\[ a(yw) = y(aw) + [a, y](w) = \lambda(a)yw + \lambda([a, y])w. \]
+	אז כל מה שנותר להראות הוא ש-$[a, y]$ מתאפס ב-$V_\lambda$.
+	
+	יהי $U \coloneqq \Sp\{w, y(w), y^2(w), \ldots\}$, ויהי $m$ המספר הקטן ביותר עבורו $w, y(w), \ldots, y^m(w)$ תלויים-לינארית. אז $U$ תת-מרחב $m$ מימדי של $V$ ו-$\{w, y(w), \ldots, y^{m-1}(w)\}$ בסיס שלו.
+	
+	נראה כי אם $z \in A$, אז $U$ מרחב $z$-שמור. נראה יותר מכך: נראה ש-$z$ מיוצגת בבסיס של $U$ הנ"ל על-ידי מטריצה משולשית עליונה עם איברי אלכסון $\lambda(z)$. נראה זאת באינדוקציה על מספר העמודות. ראשית, $zw = \lambda(z)w$ לכל $z \in A$. נניח שעבור $r$ מסויים לכל $z \in A$ מתקיים $z(y^{r-1}w) = \lambda(z)y^{r-1}w + u$ עבור $u \in \Sp\set{y^jw | j < r-1}$. אז עבור עמודה $r+1$ נקבל
+	\[ z(y^rw) = zy(y^{r-1}w) = (yz + [z, y])y^{r-1}w = y(\lambda(z)y^{r-1}w + u) + [z,y]y^{r-1}w = \lambda(z)y^rw + yu + [z, y]y^{r-1}w. \]
+	לפי הנחת האינדוקציה, $yu \in \Sp\set{y^jw | j < r}$. מכך ש-$[z, y] \in A$ כי $A$ אידיאל, $[z, y]y^{r-1}w \in \Sp\set{y^jw | j \le r - 1}$ גם לפי הנחת האינדוקציה. לסיכום
+	\[ z(y^rw) = \lambda(z)y^r + v, \]
+	עבור $v \in \Sp\set{y^jw | j < r}$ וסיימנו.
+	
+	כעת ניקח $z = [a, y]$. הראנו כי העקבה של $z$ מעל $U$ היא $m\lambda(z)$. מצד שני, לפי מה שהוכחנו $U$ מרחב $a$-שמור, והוא גם $y$-שמור לפי ההגדרה של $U$. אז העקבה של $z$ מעל $U$ היא העקבה של $ay-ya$ מעל $U$, וזו שווה לאפס. אז $m\lambda(z) = 0$, ומכך ש-$F$ בעל אופיין אפס, $\lambda([a, y]) = 0$ (נזכור כי $w \in U$ ולכן $m = \dim U > 0$).
+\end{proof}
+כעת נראה דוגמא לישום של למת האינווריאנטיות.
+\begin{preposition}
+	יהיו $x, y : V \to V$ העתקות לינאריות, כאשר $V$ מרחב מרוכב. נניח כי $x$ ו-$y$ מתחלפים עם $[x, y]$ (כלומר $[x, [x, y]] = [y, [x, y]] = 0$). אז $[x, y]$ העתקה נילפוטנטית.
+\end{preposition}
+\begin{proof}
+	מאחר ו-$V$ מרחב מרוכב, אם נראה ש-$0$ הע"ע היחיד של $[x, y]$, נקבל שהוא מריבוב אלגברי $\dim V$, ולכן הפולינום האופייני של $[x, y]$ הוא $p(\lambda) = \lambda^{\dim V}$. לפי משפט קיילי-המילטון נקבל ש-$[x, y]^{\dim V} = 0$, ובפרט $[x, y]$ העתקה נילפוטנטית.
+	
+	יהי $\lambda$ ע"ע של $[x, y]$, ויהי $W$ המרחב העצמי השייך ל-$\lambda$. תהי $L$ התת-אלגברת לי של $\gl(V)$ הנפרשת על-ידי $\{x, y, [x, y]\}$ -- פה אנחנו משתמשים בנתון ש-$x, y$ מתחלפים עם $[x, y]$, שכן אז נקבל ש-$L$ תת-אלגברת לי. בנוסף, $\Sp\{[x, y]\}$ אידיאל של $L$. לפי למת האינווריאנטיות, $W$ מרחב $x$-שמור ו-$y$-שמור.
+	
+	ניקח בסיס של $W$ ויהיו $X, Y$ המטריצות של $x, y$ לפי בסיס זה. אז $[x, y]$ מיוצג על-ידי $XY - YX$ בבסיס זה. אך כל איבר של $W$ הוא ו"ע של $[x, y]$ השייך לע"ע $\lambda$, לכן
+	\[ XY - YX = \spalignmat{\lambda, 0 \ldots, 0 ; 0 \lambda, \ldots, 0 ; \vdots, \vdots, \ddots, \vdots ; 0 0, \ldots, \lambda}. \]
+	אז
+	\[ 0 = \Tr(XY - YX) = \lambda \dim W. \]
+	מכך ש-$W$ מרחב עצמי, $\dim W > 0$ ולכן $\lambda = 0$.
+\end{proof}
+
+
+\chapter{משפטי אנגל ולי}
+מהאלגברה הלינארית אנחנו יודעים שאם $V$ מרחב וקטורי סוף-ממדי ו-$x : V \to V$ העתקה נילפוטנטית, אז קיים בסיס של $V$ בו $x$ מיוצגת על-ידי מטריצה משולשית עליונה ממש. ננסה להכליל את תוצאה זו לאלגבראות לי: במקום להתבונן בהעתקה, נתבונן בתת-אלגברת לי $L$ של $\gl(V)$, ונרצה לדעת מתי קיים בסיס כך שכל איברי $L$ מוצגים בו על-ידי מטריצה משולשית עליונה ממש.
+
+מכך שמטריצה משולשית עליונה ממש היא נילפוטנטית, נובע בהכרח שכל איבר של $L$ צריך להיות נילפוטנטי. אך נכונה גם הטענה ההפוכה, היא משפט אנגל שאותו נוכיח.
+
+נשאלת השאלה מתי קיים בסיס שבו כל איבר של $L$ מיוצג על-ידי מטריצה משולשית עליונה. אם קיים בסיס כזה, אז $L$ איזומורפית לתת-אלגברת לי של אלגברת המטריצות המשולשיות עליונות, ובפרט $L$ פתירה. מעל $\C$, הטענה ההפוכה גם נכונה, היא משפט לי שגם אותו נוכיח.
+
+\section{משפט אנגל}
+\begin{theorem}[משפט אנגל] \label{thm:first-engel}
+	יהי $V$ מרחב וקטורי, ותהי $L$ תת-אלגברת לי של $\gl(V)$ כך שכל איבר של $L$ הוא נילפוטנטי. אז קיים בסיס של $V$ כך שכל איבר של $L$ מיוצג בבסיס זה על-ידי מטריצה משולשית עליונה ממש.
+\end{theorem}
+בהוכחת משפט אנגל נחקה את ההוכחה של הטענה השקולה מאלגברה לינארית, הבנויה משני חלקים: אם $x : V \to V$ העתקה נילפוטנטית, אז מניחים שהטענה נכונה באינדוקציה על $\dim V$. ואז:
+\begin{enumerate}
+	\item 
+	מראים שקיים $v \in V$ שונה מאפס כך ש-$xv = 0$.
+	\item
+	מתבוננים ב-$U \coloneqq \Sp\{x\}$ ובהעתקה המושרת $\overline{x} : \faktor{V}{U} \to \faktor{V}{U}$. מראים שהעתקה נילפוטנטית, ומשתמשים בהנחת האינדוקציה עבור $\faktor{V}{U}$, שכן $\dim\faktor{V}{U} = \dim V - 1$; אז קיים בסיס $\{v_1 + U, \ldots, v_{n-1} + U\}$ של $\faktor{V}{U}$ כך שבבסיס זה $\overline{x}$ מיוצגת על-ידי מטריצה משולשית עליונה ממש. אז $\{v, \ldots, v_1, \ldots, v_{n-1}\}$ בסיס של $V$ בו $x$ מיוצגת על-ידי מטריצה משולשית עליונה ממש.
+\end{enumerate}
+עיקר הוכחת הוא הטענה השקולה לחלק הראשון של ההוכחה: להראות שקיים $v \in V$ שונה מאפס כך ש-$xv = 0$ לכל $x \in L$.
+\begin{preposition} \label{prep:pre-Engel}
+	תהי $L$ תת-אלגברת לי של $\gl(V)$, כאשר $V$ שונה מאפס, כך שכל איבר של $L$ הוא העתקה נילפוטנטית מעל $V$. אז קיים $v \in V$ שונה מאפס כך ש-$xv = 0$ לכל $x \in L$.
+\end{preposition}
+\begin{proof}
+	נוכיח את הטענה בעזרת אינדוקציה על $\dim L$. אם $\dim L = 1$ אז $L = \Sp\{z\}$ עבור $z \neq 0$ מסויים. אם $\Ker z = 0$ אז $z : V \to V$ איזומורפיזם, ובאינדוקציה נקבל ש-$z^rv \neq 0$ לכל $r \ge 1, v \neq 0$. מכך ש-$V \neq 0$, נקבל ש-$z^r \neq 0$ לכל $r \ge 1$, בסתירה לנילפוטנטיות של $z$. לכן $\Ker z \neq 0$, כלומר קיים $v \in V$ כך ש-$v \neq 0$ ו-$zv = 0$. מכך שכל איבר ב-$L$ הוא כפולה של $z$ בסקלר, $v$ בגרעין של כל איבר ב-$L$. בכך בעצם הוכחנו את החלק הראשון של הטענה השקולה באלגברה לינארית.
+	
+	נניח ש-$\dim L > 1$. נחלק את ההוכחה לשני שלבים.
+	\begin{itemize}
+		\item 
+		שלב 1: תהי $A$ תת-אלגברה מקסימלית של $L$. נראה ש-$A$ אידיאל של $L$ ו-$\dim A = \dim L - 1$. נתבונן במרחב מנה הוקטורי $\overline{L} = \faktor{L}{A}$. נגדיר
+		\[ \phi : A \to \gl(\overline{L}) \]
+		כך ש-$\phi(a)$ מוגדרת על-ידי
+		\[ \phi(a)(x + A) = [a, x] + A. \]
+		הפונקציה מוגדרת היטב, שכן אם $x + A = y + A$ אז $x - y \in A$ ולכן $[a, x-y] \in A$, ואז $[a, x] + A = [a, y] + A$, ונקבל ש-$\phi(a)(x + A) = \phi(a)(y + A)$. בנוסף, $\phi$ הומומורפיזם, שכן לכל $a, b \in A$
+		\begin{align*}
+			[\phi(a), \phi(b)](x + A) &= \phi(a)([b, x] + A) - \phi(b)([a, x] + A) \\
+				&= ([a, [b, x]] + A) - ([b, [a, x]] + A) \\
+				&= [a, [b, x]] - [b, [a, x]] + A \\
+				&= [[a, b], x] + A \\
+				&= \phi([a, b])(x + A).
+		\end{align*}
+		אז $\phi(A)$ תת-אלגברת לי של $\gl(\overline{L})$ ו-$\dim \phi(A) < \dim L$. קל לראות ש-
+		\[ (\phi(a))^r(x + A) = (\ad a)^r x + A. \]
+		מכך ש-$a$ נילפוטנטית, נקבל מ\autoref*{lemma:adjoint-nilpotent} ש-$\ad a$ נילפוטנטית, ולכן $\phi(a)$ גם נילפוטנטית. אז $\phi(A)$ אלגברת לי ממימד קטן ממש מזה של $L$, וכל איבריה הן העתקות נילפוטנטיות.
+		
+		לפי הנחת האינדוקציה, קיים $y + A \in \overline{L}$ שונה מאפס כך ש-$[a, y] + A = \phi(a)(y + A) = 0$ לכל $a \in A$. כלומר, $[a, y] \in A$ לכל $a \in A$. נגדיר $\tilde{A} \coloneqq A + \Sp\{y\}$. זאת תת-אלגברת לי של $L$ המכילה ממש את $A$ ($y \notin A$ כי $y + A$ שונה מאפס). ממקסימליות $A$, נקבל ש-$L = A + \Sp\{y\}$, ומכך ש-$[a, y] \in A$ לכל $a \in A$, נובע ש-$A$ אידיאל של $L$. בנוסף, $\dim A = \dim L - 1$.
+		\item
+		כעת נשתמש בהנחת האינדוקציה עבור $A$: קיים $w \in V$ כך ש-$a(w) = 0$ לכל $a \in A$. מכאן ש-
+		\[ W \coloneqq \set{v \in V | \forall a \in A, \; a(v) = 0} \]
+		תת-מרחב שונה מאפס של $V$. לפי למת האינווריאנטיות (עבור $\lambda = 0$ פונקציית משקל קבועה), $W$ מרחב $L$-אינווריאנטי, ובפרט מתקיים $y(W) \subseteq W$. מכך ש-$y$ נילפוטנטית, גם הצמצום שלה ל-$W$ נילפוטנטי. אז קיים $v \in W$ שונה מאפס כך ש-$y(v) = 0$ (זו טענת בסיס האינדוקציה). לכל $x \in L$ נרשום $x = a + \beta y$ עבור $a \in A$ ו-$b \in F$ מסויימים. אז
+		\[ x(v) = a(v) + \beta y(v) = 0. \]
+		אז $v$ שונה מאפס ונמצא בגרעין של כל האיברים ב-$L$.
+	\end{itemize}
+\end{proof}
+כעת נסיים את נוכחת משפט אנגל בדומה להוכחה של הטענה השקולה באלגברה לינארית.
+\begin{proof}[הוכחת משפט אנגל]
+	נוכיח את הטענה באינדוקציה על $\dim V$. עבור $V = 0$, אין מה להוכיח. נניח כי $\dim V \ge 1$.
+	
+	לפי הטענה שהוכחנו, קיים $u \in V$ שונה מאפס כך ש-$xu = 0$ לכל $x \in L$. יהי $U \coloneqq \Sp\{u\}$ ויהי $\overline{V}$ מרחב המנה $\faktor{V}{U}$. כל $x \in L$ משרה העתקה $\overline{x}$ מעל $\overline{V}$. קל להראות שהעתקה $L \to \gl(\overline{V})$ המוגדרת על-ידי $x \mapsto \overline{x}$ היא הומומורפיזם, וש-$\overline{x}$ העתקה נילפוטנטית.
+	
+	התמונה של $L$ תחת הומומורפיזם זה היא תת-אלגברת לי של $\gl(\overline{V})$ המקיימת את הנחות משפט אנגל ו-$\dim(\overline{V}) = n-1$. אז לפי הנחת האינדוקציה, קיים ל-$\overline{V}$ בסיס $\{u_1 + U, \ldots, u_{n-1} + U\}$ בו כל $\overline{x}$ מיוצגת על-ידי מטריצה משולשית עליונה ממש. אז $\{u, u_1, \ldots, u_{n-1}\}$ בסיס של $V$, ומכך ש-$x(u) = 0$ לכל $x \in L$, קל לראות שהמטריצה המייצגת של כל $x \in L$ לפי הבסיס הזה היא משולשית עליונה ממש.
+\end{proof}
+
+\section{גרסה שנייה של משפט אנגל}
+בתת-פרק זה נראה גרסה אחרת של משפט אנגל, שאינה מסתמכת על כך ש-$L$ תת-אלגברת לי של $\gl(V)$.
+\begin{theorem}[גרסה שנייה של משפט אנגל] \label{thm:second-engel}
+	אלגברת לי $L$ היא נילפוטנטית אם ורק אם לכל $x \in L$ ההעתקה $\ad x : L \to L$ נילפוטנטית.
+\end{theorem}
+\begin{proof}
+	נניח ש-$L$ נילפוטנטית. נזכור ש-$L$ נילפונטית אם ורק אם קיים $m \ge 1$ כך ש-$L^m = 0$, כלומר
+	\[ (\ad x_0 \circ \ad x_1 \circ \ldots \circ \ad x_{m-1})x_m = [x_0, [x_1, \ldots, [x_{m-1}, x_m], \ldots]] = 0 \]
+	לכל $x_0, \ldots, x_m \in L$. אז לכל $x \in L$ מתקיים $(\ad x)^m = 0$ ואז $\ad x$ נילפוטנטית.
+	
+	נניח כעת שלכל $x \in L$ העתקה $\ad x$ נילפוטנטית. נגדיר $\overline{L} = \ad L$, כלומר התמונה של $L$ תחת ההומומורפיזם המצורף, ונשים לב ש-$\overline{L}$ תת-אלגברת לי של $\gl(L)$. לפי ההנחה, כל איבר של $\overline{L}$ הוא העתקה נילפוטנטית, אז ממשפט אנגל בגרסתו המקורית, קיים ל-$L$ בסיס כך שכל $\ad x$ מוצגת על-ידי מטריצה משולשית עליונה ממש בבסיס זה. קל לראות שאז $\overline{L}$ איזומורפית לתת-אלגברת לי של $\mathrm{n}(n, F)$ ולכן נילפוטנטית (העתקה $\phi : \overline{L} \to \mathrm{n}(n, F)$ המעתיקה את $x$ למטריצה המייצגת את $x$ בבסיס זה היא איזומורפיזם). \\
+	לסיום, נזכור ש-$\Ker\ad = Z(L)$, ולפי משפט האיזומורפיזם הראשון, $\faktor{L}{Z(L)} \cong \overline{L}$. לפי \autoref*{prep:nilpotent} (ב), $L$ נילפוטנטית.
+\end{proof}
+מפתה להניח שתת-אלגברת לי $L$ של $\gl(V)$ נילפוטנטית אם ורק אם קיים בסיס של $V$ כך שכל איברי $L$ מיוצגים על-ידי מטריצה משולשית עליונה ממש בבסיס זה. אנחנו יודעים שכיוון אחד של הטענה נכון: אם קיים בסיס לפיו כל $x \in L$ מיוצגת על-ידי מטריצה משולשית עליונה ממש, אז בפרט כל איברי $L$ הם העתקות נילפוטנטיות ולכן $\ad x$ נילפוטנטית לכל $x \in L$ (ראו \autoref*{lemma:adjoint-nilpotent}), ולפי הגרסה השנייה של משפט אנגל, $L$ נילפוטנטית.
+
+הכיוון השני לא נכון. תהי $I$ העתקה היחידה ב-$\gl(V)$. אז התת-אלגברת לי $\Sp\{I\}$ היא ממימד 1 ולכן נילפוטנטית. אך בכל בסיס של $V$, ההעתקה $I$ מוצגת על-ידי מטריצת היחידה שהיא לא משולשית עליונה ממש.
+
+\section{משפט לי}
+תהי $L$ תת-אלגברת לי של $\gl(V)$. ראינו בתחילת הפרק שאם קיים בסיס של $V$ כך שכל איברי $L$ הן העתקות המיוצגות בבסיס זה על-ידי מטריצה משולשית עליונה אז $L$ פתירה. נשאלת השאלה מתי קיים בסיס כזה. התשובה לשאלה זאת, לפחות מעל השדה $\C$, ניתנת במשפט הבא.
+\begin{theorem}[משפט לי]
+	יהי $V$ מרחב מרוכב סוף-ממדי ותהי $L$ תת-אלגברת לי פתירה של $\gl(V)$. אז קיים ל-$V$ בסיס כך שכל איברי $L$ הן העתקות המיוצגות על-ידי מטריצה משולשית עליונה בבסיס זה.
+\end{theorem}
+ההוכחה של משפט לי דומה בצורתה להוכחה של משפט אנגל, והיא גם מחקה את ההוכחה של הטענה השקולה באלגברה לינארית: אם $x : V \to V$ העתקה לינארית אז קיים בסיס של $V$ בו $x$ מיוצגת על-ידי מטריצה משולשית עליונה. ההוכחה של טענה זאת גם נעשת בשני שלבים: ראשית, מראים של-$x$ יש ו"ע, ואחר כך ממשיכים באינדוקציה כמו מקודם. כמו בהוכחת משפט אנגל, עיקר ההוכחה הוא ההכללה של הטענה הראשונה, היא הטענה הבאה.
+\begin{preposition} \label{prep:pre-Lie}
+	יהי $V$ מרחב וקטורי מרוכב שונה מאפס. נניח ש-$L$ תת-אלגברת לי פתירה של $\gl(V)$. אז קיים $v \in V$ שונה מאפס שהוא ו"ע של כל $x \in L$.
+\end{preposition}
+\begin{proof}
+	כמו בהוכחת \autoref*{prep:pre-Engel}, נשתמש באינדוקציה על $\dim L$. עבור $\dim L = 1$, הטענה השקולה מאלגברה לינארית נותנת לנו את הוקטור הנדרש (הוכחת הטענה פשוטה, והיא נובעת מהסגירות האלגברית של $\C$). נניח כי $\dim L > 1$. מכך ש-$L$ פתירה, $L'$ מוכלת ממש ב-$L$. יהי $A$ תת-מרחב של $L$ מקו-מימד 1 המכיל את $L'$; כלומר, $L' \subseteq A$ ו-$L = A + \Sp\{z\}$ עבור $0 \neq z \in L$ מסויים.
+	
+	מכך ש-$L' \subseteq A$, לכל $x \in A, y \in L$ מתקיים $[x, y] \in A$, ולכן $A$ אידיאל של $L$. לפי \autoref*{prep:solvable} (א), $A$ פתירה. מכך ש-$\dim A = \dim L - 1$, נוכל להשתמש בהנחת האינדוקציה עבור $A$ ולקבל שקיים $0 \neq w \in V$ שהוא ו"ע של כל $a \in A$. תהי $\lambda : A \to \C$ פונקציית המשקל המתאימה, כלומר $a(w) = \lambda(a)w$ לכל $a \in A$, ויהי $V_\lambda$ המרחב המשקלי המתאים. מכך ש-$w \in V_\lambda$, המרחב המשקלי שונה מאפס. לפי למת האינווריאנטיות, $V_\lambda$ מרחב $L$-שמור. בפרט, הצמצום של $z$ ל-$V_\lambda$ הוא העתקה $V_\lambda \to V_\lambda$, ומאחר ואנחנו עובדים מעל $\C$, קיים ל-$z$ ו"ע $v \in V_\lambda$. יהי $\mu \in \C$ ע"ע של $z$ ש-$v$ שייך אליו.
+	
+	כל $x \in L$ ניתן להצגה בצורה $x = a + \beta z$ עבור $a \in A$ ו-$\beta \in \C$ מסויימים. אז
+	\[ x(v) = a(v) + \beta z(v) = \lambda(a)v + \beta\mu v = (\lambda(a) + \beta\mu)v. \]
+	אז $v$ ו"ע של כל $x \in L$ וסיימנו.
+\end{proof}
+באופן דומה נסיים את הוכחת משפט לי.
+\begin{proof}[הוכחת משפט לי]
+	ההוכחה שקולה להוכחת משפט אנגל ולכן נתמצת. נשתמש באינדוקציה על $\dim V$. עבור $V = 0$ אין מה להוכיח. נניח ש-$\dim V \ge 1$ ושהטענה נכונה עבור $\dim V - 1$. לפי הטענה שהוכחנו, קיים $u \in V$ שהוא ו"ע של כל $x \in L$. יהי $U \coloneqq \Sp\{u\}$. נראה שהעתקה הקנונית $L \to \gl(\faktor{V}{U})$ מוגדרת היטב. נסמן אותה ב-$\phi$. אז $\phi$ מעתיקה את $x \in L$ להעתקה המעתיקה את $v + U$ ל-$x(v) + U$. אם $v + U = v' + U$ ו-$x \in L$ אז $v - v' \in U$. מכך ש-$u$ ו"ע של $x$, מתקיים $x(v - v') \in x(U) = U$. אז $x(v) + U = x(v') + U$, כלומר $\phi(x)(v + U) = \phi(x)(v' + U)$. אז $\phi(x)$ מוגדרת היטב וכך גם $\phi$.
+	
+	התמונה של $L$ תחת העתקה הקנונית $L \to \gl(\faktor{V}{U})$ היא תת-אלגברת לי פתירה של $\gl(\faktor{V}{U})$ (תמונה הומומורפית של אלגברת לי פתירה), ולכן לפי טענת האינדוקציה ($\dim\faktor{V}{U} < \dim V$) קיים ל-$\faktor{V}{U}$ בסיס כך שכל $\overline{x} \in \gl(\faktor{V}{U})$ היא העתקה המיוצגת בבסיס זה על-ידי מטריצה משולשית עליונה. אם $\{u_1 + U, \ldots, u_{n-1} + U\}$ בסיס זה, אז $\{u, u_1, \ldots, u_{n-1}\}$ בסיס של $V$ בו כל $x \in L$ מיוצגת על-ידי מטריצה משולשית עליונה.
+\end{proof}
+
+
+\chapter{הצגות ומודולים של אלגבראות לי}
+\section{הצגות של אלגבראות לי}
+בפרק זה נגדיר הצגות של אלגבראות לי, שהיא דרך להתבונן באלגברת לי כתת-אלגברה של האנדומורפיזמים מעל מרחב וקטורי, ונראה דוגמאות לכמה הצגות.
+\begin{definition}[הצגות]
+	תהי $L$ אלגברת לי מעל שדה $F$. \textit{הצגה של $L$} היא הומומורפיזם $\phi : L \to \gl(V)$, כאשר $V$ מרחב וקטורי סוף-ממדי מעל $F$. לקיצור, לפעמים לא נזכיר את ההומומורפיזם עצמו ונאמר ש-$V$ הצגה של $L$.
+\end{definition}
+אם $V$ הצגה של $L$, נוכל לקבוע בסיס של $V$ ולהתבונן באיברי $L$ כהמטריצות המייצגות של עצמם מעל $V$. באופן שקול, נכול להתבונן באיברי $L$ כהעתקות מעל $V$, שכן $\phi(x) : V \to V$ לכל $x \in L$.
+
+אם $\phi : L \to \gl(V)$ הצגה, אז לפי \autoref*{prep:ker-img-hom}, הגרעין של $\phi$ אידיאל של $L$ והתמונה תת-אלגברת לי של $\gl(V)$. באופן כללי, נאבד חלק מהמידע על $L$, שכן לפי משפט האיזומורפיזם הראשון $\faktor{L}{\Ker\phi} \cong \Img\phi$. אך אם $\Ker\phi = 0$, כלומר $\phi : L \to \Img\phi$ איזומורפיזם, לא נאבד כלל מידע על $L$ ונוכל להתבונן ב-$L$ כתת-אלגברת לי של $\gl(v)$. במקרה זה נאמר שההצגה היא \textit{נאמנה}.
+
+\begin{example} \label{exa:representations}
+	\begin{enumerate}[label=(\alph*)]
+		\item 
+		ראינו ב\autoref*{exa:adjointHom} שהעתקה
+		\[ \ad : L \to \gl(L), \quad (\ad x)y = [x, y] \]
+		היא הומומורפיזם. אז $\ad$ הצגה של $L$ עם $V = L$. נקרא להצגה הזאת \textit{ההצגה המצורפת}. ראינו גם ש-$\Ker\ad = Z(L)$, ולכן ההצגה הזאת נאמנה אם ורק אם $Z(L) = 0$. למשל, זה המצב כאשר $L = \Sl(2, \C)$ או כאשר $L$ היא האלגברת לי הלא-אבלית ממימד 2 (ראו \autoref*{thm:algebras-dim-2}).
+		\item
+		תהי $L$ תת-אלגברת לי של $\gl(V)$. אז העתקת היחידה $L \to \gl(V)$ מהווה הומומורפיזם חח"ע ולכן היא הצגה נאמנה. להצגה זאת נקרא \textit{ההצגה הטבעית}.
+		\item
+		לכל אלגברת לי יש \textit{הצגה טריויאלית}, היא ההצגה בה $V = F$ ו-$\phi = 0$. הצגה זאת אינה נאמנה אם $L$ שונה מאפס, ולא שומרת בכלל על הצורה האלגברית של $L$.
+		\item
+		לאלגברת לי $\R_\wedge^3$ מ\autoref*{exa:Lie} יש מרכז אפס, ולכן ההצגה המצורפת שלה היא נאמנה. קל להראות ש-$\R_\wedge^3$ איזומורפית ל-$\gl_S(3, \R)$ כאשר $S = I$, כלומר לתת-אלגברת לי של $\gl(3, \R)$ של כל המטריצות האנטי-סימטריות. ההומומורפיזם $\R_\wedge^3 \to \gl(V)$ עם $V = \R^3$ הוא גם הצגה של $\R_\wedge^3$. שתי ההצגות האלו הן שקולות, במובן שנראה בהמשך.
+	\end{enumerate}
+\end{example}
+
+\section{מודולים של אלגבראות לי}
+בפרק זה נראה דרך שקולה לחשוב על הצגות.
+\begin{definition}
+	תהי $L$ אלגברת לי מעל שדה $F$. \textit{מודול לי} של $L$, או \textit{$L$-מודול}, הוא מרחב וקטורי סוף-ממדי מעל $F$ עם העתקה בילינארית
+	\begin{align*}
+		L \times V &\longrightarrow V \\
+		(x, v) &\longmapsto x \cdot v
+	\end{align*}
+	שבנוסף מקיימת
+	\begin{equation*}
+		[x, y] \cdot v = x \cdot (y \cdot v) - y \cdot (x \cdot v) \tag{M}
+	\end{equation*}
+	לכל $x, y \in L$ ו-$v \in V$.
+\end{definition}
+למשל, אם $L$ תת-אלגברת לי של $\gl(V)$, אז $V$ הוא $L$-מודול, כאשר $x \cdot v$ התמונה של $v$ תחת $x$. כמו הצגות, מודולים בעצם מכלילים את רעיון זה, שכן באופן כללי אם $V$ הוא $L$-מודול אז ניתן לחשוב על כל $x \in L$ כהעתקה לינארית מעל $V$ (לפי הלינאריות לפי $v$ של $x \cdot v$). הזהות (M) בעצם מבטיחה שהמודול גם שומר על הצורה האלגבראית של $L$, כפי שנראה בהמשך.
+
+אם $\phi : L \to \gl(V)$ הצגה, נוכל להפוך את $V$ ל-$L$-מודול על-ידי הגדרת:
+\[ x \cdot v \coloneqq \phi(x)v, \qquad \text{לכל $x \in L, v \in V$} \]
+נראה שזה באמת מגדיר $L$-מודול על $V$. קל להראות שהעתקה $x \cdot v$ בילינארית. אם $x, y \in L, v \in V$ אז, מההומומורפיות של $\phi$ ומהזהות (M) נקבל
+\[ [x, y] \cdot v = \phi([x, y])v = [\phi(x), \phi(y)]v = (\phi(x)\phi(y) - \phi(y)\phi(x))v = x \cdot (y \cdot v) - y \cdot (x \cdot v). \]
+לכן $V$ הוא $L$-מודול.
+
+באופן דומה, אם $V$ הוא $L$-מודול אז נוכל להגדיר $\phi : L \to \gl(V)$ על-ידי כך שנגדיר את $\phi(x)$ להיות העתקה $x \cdot v$ מ-$V$ ל-$V$. קל להראות שאז $\phi$ הומומורפיזם, ולכן $V$ ההצגה של $L$.
+
+\section{תת-מודולים ומודולי מנה}
+יהי $V$ מודול של $V$. אז לתת-מרחב $W$ של $V$ נקרא \textit{תת-מודול} אם $W$ נשמר תחת הפעולה של $L$; כלומר, אם לכל $x \in L, w \in W$ מתקיים $x \cdot w \in W$. במקרה זה, ניתן לחשוב על הצמצום של $x$ ל-$W$ כהעתקה לינארית מ-$W$ ל-$W$. באופן דומה נגדיר גם \textit{תת-הצגות} כהומומורפיזם $\phi : L \to \gl(W)$ כאשר $W$ תת-מרחב של $V$. נראה כמה דוגמאות לתת-מודולים ותת-הצגות.
+\begin{example} \label{exa:sub-modules}
+	\begin{enumerate}[label=(\alph*)]
+		\item 
+		תהי $L$ אלגברת לי. אז $L$ הוא $L$-מודול המושרה על-ידי ההצגה המצורפת. חישוב ישיר מראה שתת-מרחב של $L$ הוא תת-מודול אם ורק אם הוא אידיאל של $L$.
+		\item
+		תהי $L = \mathrm{b}(n, F)$ ויהי $V$ ה-$L$-מודול הטבעי, כלומר $V = F^n$ והפעולה של $L$ על $V$ ניתנת על-ידי הכפלת המטריצה בוקטורי העמודות.
+		
+		יהי $\{e_1, \ldots, e_n\}$ הבסיס הסטנדרטי של $F^n$, ולכל $1 \le r \le n$ נגדיר $W_r \coloneqq \Sp\{e_1, \ldots, e_r\}$. אז $W_r$ תת-מודול של $V$.
+		\item
+		תהי $L$ אלגברת לי מרוכבת פתירה, ותהי $\phi : L \to \gl(V)$ הצגה של $L$. מהומומורפיות $\phi$, $\Img\phi$ תת-אלגברת לי פתירה של $\gl(V)$. לפי \autoref*{prep:pre-Lie}, קיימת ל-$V$ תת-הצגה ממימד 1.
+	\end{enumerate}
+\end{example}
+נניח ש-$W$ תת-מודול של ה-$L$-מודול $V$. נוכל להפוך את המרחב הוקטורי $\faktor{V}{W}$ ל-$L$-מודול על-ידי ההגדרה
+\[ x \cdot (v + W) \coloneqq (x \cdot v) + W, \qquad \text{לכל $x \in L, v \in V$} \]
+למודול זה נקרא \textit{מודול המנה}. \\
+ראשית, צריך להראות שההגדרה מוגדרת היטב. ובכן, אם $v + W = v' + W$ אז $(x \cdot v) + W - (x \cdot v') + W = x \cdot (v - v') + W = W$ כי $v - v' \in W$ ו-$W$ הוא $L$-שמור. בדיקה ישירה מראה שהעתקה היא גם בילינארית וש-(M) מתקיים. אז $\faktor{V}{W}$ הוא $L$-מודול.
+\begin{example}
+	\begin{enumerate}[label=(\alph*)]
+		\item 
+		יהי $I$ אידיאל של אלגברת לי $L$. ראינו ש-$I$ תת-מודול של $L$ כאשר $L$ הוא ה-$L$-מודול המצורף. המודול מנה במקרה זה מוגדר על-ידי
+		\[ x \cdot (y + I) \coloneqq (\ad x)y + I = [x, y] + I. \]
+		נוכל גם להתבונן בזה בצורה אחרת. $\faktor{L}{I}$ הוא עצמו אלגברת לי, עם סוגרי לי מוגדרים על-ידי
+		\[ [x + I, y + I] = [x, y] + I. \]
+		אז המודול מנה $\faktor{L}{I}$ הוא ה-$\faktor{L}{I}$-מודול  המצורף של $\faktor{L}{I}$. בצורת התבוננות הראשונה, $L$ פועל על $\faktor{L}{I}$, ובצורה השנייה, $\faktor{L}{I}$ פועל על עצמו.
+		\item
+		תהי $L = \mathrm{b}(n, F)$ ו-$V = F^n$ כמו ב\autoref*{exa:sub-modules} (ב). נקבע $1 \le r \le n$ ויהי $W = W_r$ התת-מודול שהוגדר באותה דוגמא.
+		
+		יהי $x \in L$ עם מטריצה $X$ בבסיס הסטנדרטי. המטריצה של $x$ על $W$ ביחס לבסיס $\{e_1, \ldots, e_r\}$ היא הבלוק העליון השמאלי בגודל $r \times r$ של $X$ (נזכור ש-$x$ משולשית עליונה). בנוסף, המטריצה של הפעולה של $x$ על $\faktor{V}{W}$ ביחס לבסיס $\{e_{r+1} + W, \ldots, e_n + W\}$ היא הבלוק הימני תחתון בגודל $(n-r) \times (n-r)$:
+		\[ X = 
+			\begin{pmatrix}
+				\begin{matrix}
+					a_{11} & a_{12} & \cdots & a_{1r} \\
+					0 & a_{22} & \cdots & a_{2r} \\
+					\vdots & \vdots & \ddots & \vdots \\
+					0 & 0 & \cdots & a_{rr}
+				\end{matrix}
+				& \bigstar \\
+				\mbox{\normalfont\Large\bfseries 0} & 
+				\begin{matrix}
+					a_{r+1\;r+1} & a_{r+1\;r+2} & \cdots & a_{r+1\;n} \\
+					0 & a_{r+2\;r+2} & \cdots & a_{2r+2\;n} \\
+					\vdots & \vdots & \ddots & \vdots \\
+					0 & 0 & \cdots & a_{nn}
+				\end{matrix}
+			\end{pmatrix}ץ
+		\]
+		כאשר $\bigstar$ מסמל איברים שאינם חשובים כי אינם משפיעים על המחלקה $(x \cdot v) + W$ של $W$.
+	\end{enumerate}
+\end{example}
+
+\section{מודולים פשוטים ואי-פריקים}
+מודול לי $V$ של $L$ הוא \textit{פשוט} אם אינו אפס ואין לו תת-מודולים לא-טריוויאילים.
+\begin{example} \label{exa:simple-modules}
+	\begin{enumerate}[label=(\alph*)]
+		\item 
+		אם $V$ חד-ממדי אז הוא פשוט. למשל, ההצגה הטריוויאלית היא תמיד פשוטה.
+		\item
+		אם $L$ אלגברת לי פשוטה, אז $L$ פשוט כ-$L$-מודול המצורף (ל-$L$ אין אידיאלים, ולפי \autoref*{exa:sub-modules} (א) אין ל-$L$ תת-מודולים). למשל, $\Sl(2, \C)$ פשוט כ-$\Sl(2, \C)$-מודול.
+		\item
+		אם $L$ אלגברת לי מרוכבת ופתירה אז מסעיף (א) של דוגמא זאת ומ\autoref*{exa:sub-modules} (ג), ההצגות הפשוטות של $L$ הן כולן ממימד 1, וקיימת לפחות הצגה אחת כזאת.
+	\end{enumerate}
+\end{example}
+אם $V$ הוא $L$-מודול כך ש-$V = U \oplus W$, כאשר $U, W$ שניהם תת-$L$-מודולים של $V$, אז נאמר ש-$V$ \textit{הסכום הישר} של ה-$L$-מודולים $U$ ו-$W$. המודול $V$ נקרא \textit{אי-פריד} אם אי-אפשר לרשום אותו כסכום ישר כזה עבור $U, W$ לא-טריוויאלים. ברור שמודול פשוט הוא אי-פריד. ההפך אינו נכון (ראו סעיף (ב) בדוגמא הבאה).
+
+ה-$L$ מודול $V$ יקרא \textit{פריק לחלוטין} אם אפשר לרשום אותו סכום ישר של $L$-מודולים פשוטים, כלומר אם $V = S_1 \oplus S_2 \oplus \ldots \oplus S_k$, כאשר כל $S_i$ הוא $L$-מודול פשוט.
+\begin{example}
+	\begin{enumerate}[label=(\alph*)]
+		\item 
+		יהי $F$ שדה ותהי $L = \mathrm{d}(n, F)$ התת-אלגברת לי של $\gl(n, F)$ של מטריצות אלכסוניות. המודול הטבעי $V = F^n$ הוא פריק לחלוטין: אם $S_i = \Sp\{e_i\}$, אז $S_i$ חד-ממדי ולכן תת-מודול פשוט של $V$, ו-$V = S_1 \oplus \ldots \oplus S_n$.
+		\item
+		עבור $L = \mathrm{b}(n, F)$ נראה שהמודל הטבעי $V = F^n$ אי-פריד. ראינו כבר ש-$W_r = \Sp\{e_1, \ldots, e_r\}$ תת-מודל של $W$ לכל $1 \le r \le n$. יהי $U$ תת-מודול של $V$ שונה מאפס ויהי $0 \neq u = (u_1, \ldots, u_n) \in U$. יהי $1 \le i \le n$ עבורו $u_i \neq 0$. אז עבור $1 \le r \le i$ מתקיים $e_{ri} \in L$ ולכן $u_ie_r = e_{ri} \cdot u \in U$, ולכן $e_r \in U$. אז $W_i \subseteq U$. \\		
+		אז אם נסמן 
+		\[ r \coloneqq \max\set{1 \le i \le n | \exists u = (u_1, \ldots, u_n) \in U, \; u_i \neq 0}, \]
+		נקבל ש-$U = W_r$. מכאן שהתת-מודולים היחידם של $V$ הם $W_r, 1 \le r \le n$. \\
+		לכן אם $V = U \oplus W$, מכך ש-$e_n \in V$ נקבל שאחד מ-$U, W$ מכיל את $e_n$ ולכן הוא $W_n = U$. אבל הסכום ישר, ולכן השני שווה לאפס. מכאן ש-$V$ אי-פריד.
+		
+		אבל $V$ לא פשוט כאשר $n \ge 2$ כי $W_1 = \Sp\{e_1\}$ תת-מודול לא טריוויאלי של $V$. מכאן גם ש-$V$ לא פריק לחלוטין.
+	\end{enumerate}
+\end{example}
+
+\section{הומומורפיזמים}
+\begin{definition}[הומומורפיזם של מודולים]
+	תהי $L$ אלגברת לי ונניח כי $V, W$ הם $L$-מודולים. אז \textit{הומומורפיזם של $L$-מודולים} או \textit{לי הומומורפיזם} הוא העתקה לינארית $\theta : V \to W$ כך ש-
+	\[ \theta(x \cdot v) = x \cdot \theta(v), \qquad \text{לכל $x \in L, v \in V$} \]
+	איזומורפיזם הוא $L$-מודול איזומורפיזם חד-חד-ערכי ועל. \\	
+	יהיו $\phi_V : L \to \gl(V), \phi_W : L \to \gl(W)$ הצגות של $L$. אז $\theta : V \to W$ נקרא \textit{הומומורפיזם של $L$-מודולים} אם $\theta \circ \phi_V(x) = \phi_W(x) \circ \theta$ לכל $x \in L$.
+\end{definition}
+הומומורפיזמים הן בפרט העתקות לינאריות ולכן נוכל להתבונן בגרעין ובתמונה שלהם. קיימים משפטים השקולים למשפטי איזומורפיזם עבור הומומורפיזמים לי. ההוכחה שלהם דומה מאוד ולא נביא אותה.
+\begin{theorem}[משפטי האיזומורפיזמים]
+	\begin{enumerate}[label=(\alph*)]
+		\item 
+		נניח כי $\phi : V \to W$ הוא הומומורפיזם של $L$-מודולים. אז $\Ker\phi$ הוא תת-$L$-מודול של $V$ ו-$\Img\phi$ היא תת-$L$-מודול של $W$, וקיים האיזומורפיזם בין $L$-מודולים הבא,
+		\[ \faktor{V}{\Ker\phi} \cong \Img\phi. \]
+		\item
+		אם $U, W$ תת-מודולים של $V$, אז $U + W$ ו-$U \cap W$ תת-מודולים של $V$ ו-$\faktor{(U + W)}{W} \cong \faktor{U}{U \cap W}$.
+		\item
+		אם $U, W$ תת-מודולים של $V$ כך ש-$U \subseteq W$, אז $\faktor{W}{U}$ תת-מודול של $\faktor{V}{W}$ ו-
+		\[ \faktor{(\faktor{V}{U})}{(\faktor{W}{U})} \cong \faktor{V}{W}. \]
+	\end{enumerate}
+\end{theorem}
+\begin{example}
+	תהי $L = \Sp\{x\}$ האלגברת לי האבלית ממימד 1. נוכל להגדיר הצגה של $L$ על מרחב וקטורי $V$ על-ידי קישור $x$ לאיבר כלשהו של $\gl(V)$. יהי $W$ עוד מרחב וקטורי. אז ההצגות של $L$ המתאימות להעתקות $f : V \to V$ ו-$g : W \to W$ איזומורפיות אם ורק אם קיים איזומורפיזם $\theta : V \to W$ כך ש-$\theta f = g\theta$. אז ההצגות איזומורפיות אם ורק אם העתקות דומות, כלומר קיימים בסיסים של $V$ ושל $W$ כך ש-$f$ ו-$g$ מוצגים על-ידי אותה מטריצה בבסיסים אלו.
+	
+	למשל, ההצגות הדו-ממדיות המוגדרת על-ידי
+	\[ x \mapsto \spalignmat{3 -2 ; 1 0} \quad , \quad x \mapsto \spalignmat{1 0 ; 0 2} \]
+	איזומורפיות כי המטריצות דומות.
+\end{example}
+
+\section{הלמה של שור}
+נתבונן בהומומורפיזמים בין מודולים פשוטים. יהיו $S, T$ מודולים פשוטים ויהי $\theta : S \to T$ הומומורפיזם שונה מאפס. אז $\Img\theta$ תת-מודול של $T$ שונה מאפס, ומכך ש-$T$ פשוט נקבל ש-$\Img\theta = T$. באופן דומה, $\Ker\theta = 0$. אז $\phi$ איזומורפיזם מ-$S$ ל-$T$, לכן לא קיים הומומורפיזמים שונה מאפס בין מודולים פשוטים לא איזומורפים.
+
+נתבונן כעת בהומומורפיזם ממודול פשוט לעצמו.
+\begin{lemma}[הלמה של שור]
+	תהי $L$ אלגברת לי מרוכבת ונניח כי $S$ הוא $L$-מודול פשוט סוף-ממדי. אז $\theta : S \to S$ הוא הומומורפיזם של $L$-מודולים אם ורק אם הוא כפולה של היחידה, כלומר $\theta = \lambda 1_S$ עבור $\lambda \in \C$ מסויים.
+\end{lemma}
+\begin{proof}
+	אם $\theta$ כפולה של היחידה אז היא בבירור הומומורפיזם. נניח ש-$\theta : S \to S$ הוא הומומורפיזם של $L$-מודולים אז בפרט $\theta$ העתקה לינארית במרחב מרוכב, ולכן יש לו ע"ע, נניח $\lambda$. אז $\theta - \lambda 1_S$ גם הומומורפיזם של $L$-מודולים. הגרעין של העתקה הזאת מכיל ו"ע של $\theta$ ולכן שונה מאפס ולכן תת-מודול שונה מאפס. אבל $S$ מודול פשוט ולכן $\Ker(\theta - \lambda 1_S) = S$, כלומר $\theta = \lambda 1_S$.
+\end{proof}
+נראה שימוש בלמה של שור.
+\begin{lemma}
+	תהי $L$ אלגברת לי מרוכבת ונניח כי $V$ הוא $L$-מודול פשוט. אם $z \in Z(L)$ אז $z$ פועל על $V$ כמכפלה בסקלר. כלומר, קיים $\lambda \in \C$ כך ש-$z \cdot v = \lambda v$ לכל $v \in V$.
+\end{lemma}
+\begin{proof}
+	העתקה $v \mapsto z \cdot v$ היא הומומורפיזם של $L$-מודולים, כי אם $x \in L$ אז מכך ש-$[z, x] = 0$ נקבל
+	\[ z \cdot (x \cdot v) = x \cdot (z \cdot v) + [z, x] \cdot v = x \cdot (z \cdot v). \]
+	מהלמה של שור, העתקה היא כפולה של היחידה, כלומר קיים $\lambda \in \C$ כך ש-$v \cdot z = \lambda v$ לכל $v \in V$.
+\end{proof}
+
+\section{מיון ההצגות הדו-ממדיות של האלגברת לי הלא-אבלית ממימד 2}
+בתת-פרק זה נמיין את כל ההצגות הדו-ממדיות של האלגברת לי המרוכבת ולא-אבלית ממימד 2. נזכור כי קיים לאלגברה הזאת בסיס $\{x, y\}$ כך ש-$[x, y] = x$.
+\begin{itemize}
+	\item 
+	תהי $\phi : L \to \gl(V)$ הצגה דו-ממדית של $L$ שהיא לא נאמנה. אם $\phi = 0$ אז $\Img\phi = 0$ ולכן $\phi(x) = \phi(y) = 0$. אם $\phi \neq 0$ אז $\dim\Img\phi = 1$ כי $\phi$ לא נאמנה. נסמן $\Img\phi = \Sp\{z\}$, כאשר $z \in \gl(V)$. נסמן $x = \alpha z, y = \beta z$. אז
+\[ \alpha z = \phi(x) = \phi([x, y]) = [\phi(x), \phi(y)] = \phi(x)\phi(y) - \phi(y)\phi(x) = \alpha\beta z - \beta\alpha z = 0. \]
+	לכן $\alpha = 0$. אז $x$ פועל על $V$ כהעתקת האפס. מכאן ש-$\Img\phi = \Sp\{\phi(y)\}$. בשני המקרים, $\Img\phi = \Sp\{\phi(y)\}$ ו-$\phi(x) = 0$. 
+	
+	בכיוון השני, נניח ש-$\phi : L \to \gl(V)$ העתקה לינארית ו-$\Img\phi = \Sp\{\phi(y)\}$ וגם $\phi(x) = 0$. אז
+\[ \phi([x, y]) = \phi(x) = 0 = \phi(x)\phi(y) - \phi(y)\phi(x) = [\phi(x), \phi(y)], \]
+	ולכן $\phi : L \to \gl(V)$ הצגה של $L$. מכך ש-$\phi(x) = 0$ היא לא נאמנה.
+
+	אם ההצגות $\phi_1 : L \to \gl(V), \phi_2 : L \to \gl(V)$ איזומורפיות אז בפרט העתקות $\phi_1(y), \phi_2(y)$ דומות. בכיוון השני, אם $\phi_1(y), \phi_2(y)$ דומות אז מכך ש-$\phi_1(x) = \phi_2(x) = 0$ נקבל שההצגות איזומורפיות. בפרט, מספר ההצגות שווה למספר המחלקות דמיון של מטריצות מרוכבות מסדר $2 \times 2$.
+	\item
+	תהי $V$ הצגה נאמנה ממימד 2 של $L$. נזכור ש-$L$ אלגברה פתירה, ולכן לפי \autoref*{exa:simple-modules} (ג) יש ל-$V$ תת-מודול פשוט ממימד 1, נאמר $\Sp\{v\}$. נרחיב את $v$ לבסיס $\{v, w\}$ של $V$.
+	\begin{itemize}
+		\item 
+		נמצא את הצורה של $x$: \\
+		מכך ש-$\Sp\{v\}$ תת-מודול, $x \cdot v, y \cdot v \in \Sp\{v\}$. נסמן $x \cdot v = \alpha v, y \cdot v = \beta v$. אז
+	\[ \alpha v = x \cdot v = [x, y] \cdot v = x \cdot (y \cdot v) - y \cdot (x \cdot v) = \alpha\beta v - \beta\alpha v = 0. \]
+		בנוסף, $\Tr x = 0$ כאשר $x : V \to V$ לפי \autoref*{prep:traceAd}. מכאן שהמטריצה המייצגת של $x$ לפי הבסיס $\{v, w\}$ היא מהצורה $\spalignmat{0 b ; 0 0}$, ומכך ש-$x \neq 0$ (אחרת ההצגה אינה נאמנה), $b \neq 0$. על-ידי החלפת $v$ ב-$bv$ נוכל להניח בה"כ כי $b = 1$.
+		\item
+		נמצא את הצורה של $y$: \\
+		ראינו ש-$y \cdot v \in \Sp\{v\}$. נסמן $y \cdot v = \lambda v$ ו-$y \cdot w = cv + \mu w$. אז
+	\[ v = x \cdot w = [x, y] \cdot w = x \cdot (y \cdot w) - y \cdot (x \cdot w) = c \underbrace{x \cdot v}_{=0} + \mu x \cdot w - y \cdot v = \mu v - \lambda v = (\mu - \lambda)v. \]
+		לכן $\mu - \lambda = 1$. אז המטריצה המייצגת של $y$ לפי הבסיס $\{v, w\}$ היא $\spalignmat{\lambda, c ; 0 \mu}$ כאשר $\mu - \lambda = 1$.
+		\item
+		נראה שבאמת קיבלנו הצגה נאמנה של $L$: \\
+		ראשית, נראה שקיבלנו הצגה. לכל $\alpha, \beta \in \C$ מתקיים
+		\begin{align*}
+			x \cdot (y \cdot (\alpha v + \beta w)) - y \cdot (x \cdot (\alpha v + \beta w)) &= x \cdot ((\alpha\lambda + \beta c)v + \beta\mu w) - y \cdot (\beta v) \\
+				&= \beta\mu v - \beta\lambda v \\
+				&= \beta(\mu - \lambda)v \\
+				&= \beta v \\
+				&= x(\alpha v + \beta w) \\
+				&= [x, y](\alpha v + \beta w).
+		\end{align*}
+		כעת נראה שההצגה נאמנה. נניח ש-$\alpha x + \beta y = 0$ (כהעתקה מעל $V$), ונראה ש-$\alpha = \beta = 0$. ובכן,
+		\[ 0 = \alpha x + \beta y = \spalignmat{\beta\lambda, \alpha+\beta c ; 0 \beta\mu}. \]
+		מכך ש-$\lambda - \mu = 1$, לא שניהם אפס, ולכן $\beta = 0$. אז גם $\alpha = 0$.
+		\item
+		נראה שניתן ללכסן את $y$: \\
+		מתקיים
+		\[ y(cv + w) = (c\lambda + c)v + \mu w = c\underbrace{(\lambda + 1)}_{=\mu}v + \mu w = c\mu v + \mu w = \mu(cv + w). \]
+		לכן בבסיס $\{v, cv + w\}$ נקבל שהמטריצות המייצגות של $x, y$ הן
+		\[ x = \spalignmat{0 1 ; 0 0}, \quad y  = \spalignmat{\lambda, 0 ; 0 \mu} = \spalignmat{\lambda, 0 ; 0 \lambda+1}. \]
+		\item
+		נמצא את מחלקות האיזומורפיזם של ההצגות: \\
+		נניח ש-$V_1, V_2$ הצגות של $L$ ויהיו $\{v_i, c_iv_i + w_i\}$ הבסיסים של $V_i$ שמצאנו. נגדיר $u_i \coloneqq c_iv_i + w_i$. אז בבסיס $\{v_i, u_i\}$ המטריצות המייצגות של $x, y$ מעל $V_i$ הן
+		\[ x = \spalignmat{0 1 ; 0 0}, \quad y  = \spalignmat{\lambda_i, 0 ; 0 \mu_i} = \spalignmat{\lambda_i, 0 ; 0 \lambda_i+1}. \]
+		נניח ששתי הצגות $V_1, V_2$ הן איזומורפיות. בפרט, העתקה $y$ מעל $V_1$ ומעל $V_2$ דומות, ובפרט יש להן אותם ע"ע. אז \\$\{\lambda_1, \lambda_1+1\} = \{\lambda_2,\lambda_2+1\}$ ולכן $\lambda_1=\lambda_2$.
+		
+		בכיוון השני, נניח כי $\lambda_1 = \lambda_2$ ונסמן $\lambda \coloneqq \lambda_1 = \lambda_2$. נגדיר
+		\begin{align*}
+			\theta \; : \; V_1 &\longrightarrow V_2 \\
+			\alpha v_1 + \beta u_1 &\longmapsto \alpha v_2 + \beta u_2.
+		\end{align*}
+		אז
+		\begin{align*}
+			\theta(y \cdot (\alpha v_1 + \beta u_1)) &= \theta(\alpha\lambda v_1 + \beta(\lambda+1) u_1) = \lambda\alpha v_2 + (\lambda+1)\beta u_2 \\
+				&= y \cdot (\alpha v_2 + \beta u_2) = y \cdot \theta(\alpha v_1 + \beta u_1), \\
+			\theta(x \cdot (\alpha v_1 + \beta u_1)) &= \theta(\beta v_1) = \beta v_2 = x \cdot (\alpha v_2 + \beta u_2) = x \cdot \theta(\alpha v_1 + \beta u_1).
+		\end{align*}
+		אז $\theta$ הוא הומומורפיזם של $L$-מודולים. בנוסף, ברור ממהגדרה שהוא חח"ע ועל, ולכן הוא איזומורפיזם של $L$-מודולים. אז שתי ההצגות איזומורפיות.
+	\end{itemize}
+\end{itemize}
+
+
+\chapter{הצגות של $\mathrm{sl}(2, \mathbb{C})$}
+בפרק זה נחקור הצגות פשוטות של $\Sl(2, \C)$. לאורך כל הפרק נשתמש בבסיס
+\[ e \coloneqq \spalignmat{0 1 ; 0 0}, \quad f \coloneqq \spalignmat{0 0 ; 1 0}, \quad h \coloneqq \spalignmat{1 0 ; 0 -1}. \]
+בדיקה ישירה מראה ש-
+\[ [e, f] = h, \quad [e, h] = -2e, \quad [f, h]  = 2f. \]
+
+\section{המודולים $V_d$}
+בפרק זה נראה משפחה של מודולים של $\Sl(2, \C)$. נתבונן במרחב $\C[X, Y]$ של פולינומים בשני משתנים $X, Y$. לכל $d \ge 0$, יהי $V_d$ התת-מרחב של הפולינומים ההומוגנים ממעלה $d$. אז $V_0$ הוא מרחב הפולינומים הקבועים, ועבור $d \ge 1$, הפולינומים $X^d, X^{d-1}Y, \ldots, XY^{d-1}, Y^d$ מהווים בסיס ל-$V_d$. בפרט, נשיב לב ש-$\dim V_d = d+1$.
+
+כעת נגדיר הומומורפיזם $\phi : \Sl(2, \C) \to \gl(V_d)$ שיהפוך את $V_d$ להצגה של $\Sl(2, \C)$. מכך ש-$\Sl(2, \C)$ נפרשת על-ידי $e, f, h$, מספיק להגדיר את $\phi$ עליהם. נגדיר
+\[ \phi(e) \coloneqq X \diffp{}{Y}, \]
+כלומר $\phi(e)$ גוזרת (באופן פורמלי) את הפולינום לפי $Y$ ומכפילה את התוצאה ב-$X$. נשיב לב ש-$\phi(e)$ שומרת על מעלת הפולינום ולכן $\phi(e)$ מעתיקה את $V_d$ ל-$V_d$. באופן דומה,
+\[ \phi(f) \coloneqq Y \diffp{}{X}, \]
+ו-
+\[ \phi(h) \coloneqq X \diffp{}{X} - Y \diffp{}{Y}. \]
+נשיב לב ש-
+\[ \phi(h)(X^aY^b) = (a - b)X^aY^b, \]
+ולכן $\phi(h)$ אלכסונית ביחס לבסיס שבחרנו.
+\begin{theorem}
+	המרחב $V_d$ הוא באמת הצגה של $\Sl(2, \C)$ עם $\phi$.
+\end{theorem}
+\begin{proof}
+	מההגדרה $\phi$ העתקה לינארית. לכן נותר להראות שהיא הומומורפיזם. מלינאריות מספיק להראות ש-$\phi$ שומרת על סוגרי לי של איברי הבסיס $e, f, h$ של $\Sl(2, \C)$.
+	\begin{enumerate}
+		\item 
+		נראה ש-$[\phi(e), \phi(f)] = \phi([e, f]) = \phi(h)$. שוב מלינאריות מספיק להראות שהעתקות שוות על איברי הבסיס. ובכן, אם $a, b \ge 1$ ו-$a + b = d$ אז
+		\begin{align*}
+			[\phi(e), \phi(f)](X^aY^b) &= \phi(e)(\phi(f)(X^aY^b)) - \phi(f)(\phi(e)(X^aY^b)) \\
+				&= \phi(e)(aX^{a-1}Y^{b+1}) - \phi(f)(bX^{a+1}Y^{b-1}) \\
+				&= a(b+1)X^aY^b - b(a+1)X^aY^b \\
+				&= (a - b)X^aY^b \\
+				&= \phi(h)(X^aY^b).
+		\end{align*}
+		בנוסף,
+		\[ [\phi(e), \phi(f)](X^d) = \phi(e)(\phi(f)(X^d)) - \phi(f)(\phi(e)(X^d)) = \phi(e)(dX^{d-1}Y) - \phi(f)(0) = dX^d = \phi(h)(X^d). \]
+		באופן דומה, $[\phi(e), \phi(f)](Y^d) = \phi(h)(Y^d)$ וסיימנו.
+		\item
+		נראה ש-$[\phi(h), \phi(e)] = \phi([h, e]) = \phi(2e) = 2\phi(e)$. עבור $b \ge 1$ נקבל
+		\begin{align*}
+			[\phi(h), \phi(e)](X^aY^b) &= \phi(h)(\phi(e)(X^aY^b)) - \phi(e)(\phi(h)(X^aY^b)) \\
+				&= \phi(h)(bX^{a+1}Y^{b-1}) - \phi(e)((a - b)X^aY^b) \\
+				&= b(a + 1 - (b - 1))X^{a+1}Y^b - b(a - b)X^{a+1}Y^{b-1} \\
+				&= 2bX^{a+1}Y^{b-1} \\
+				&= 2\phi(e)(X^aY^b).
+		\end{align*}
+		אם $b = 0$ אז $a = d$ ו-
+		\[ [\phi(h), \phi(e)](X^d) = \phi(h)(\phi(e)(X^d)) - \phi(e)(\phi(h)(X^d)) = \phi(h)(0) - \phi(e)(dX^d) = 0 = 2\phi(e)(X^d). \]
+		\item
+		באופן דומה מראים ש-$[\phi(h), \phi(f)] = \phi([h, f]) = -2\phi(f)$.
+	\end{enumerate}
+\end{proof}
+
+\subsection{הצגה מטריציונלית}
+נראה מה המטריצות של הפעולות $e, f, h$ על $V_d$. נשיב לב ש-$\phi(e)(X^d) = 0$ ו-$\phi(e)(X^aY^b) = bX^{a+1}Y^{b-1}$ עבור $a < d$. אז המטריצה המייצגת של $\phi(e)$ לפי הבסיס שבחרנו היא
+\[ \spalignmat{0 1 0 \cdots, 0 ; 0 0 2 \cdots, 0 ; \vdots, \vdots, \vdots, \ddots, \vdots ; 0 0 0 \cdots, d ; 0 0 0 \cdots, 0}.  \]
+באופן דומה, המטריצה המייצגת של $\phi(f)$ היא
+\[ \spalignmat{0 0 0 \cdots, 0 0 0 ; d 0 0 \cdots, 0 0 0 ; 0 d-1 0 \cdots, 0 0 0 ; \vdots, \vdots, \ddots, \ddots, \vdots, \vdots, \vdots ; 0 0 0 \ddots, 0 0 0 ; 0 0 0 \cdots, 2 0 0 ; 0 0 0 \cdots, 0 1 0}, \]
+ו-$\phi(h)$ אלכסונית, היא
+\[ \spalignmat{d 0 \cdots, 0 0 ; 0 d-2 \cdots, 0 0 ; \vdots, \vdots, \ddots, \vdots, \vdots ; 0 0 \cdots, -d+2 0 ; 0 0 \cdots, 0 -d}, \]
+כאשר איברי האלכסון הן $d-2k$ כאשר $k = 0, 1, \ldots, d$.
+
+\subsection{פשטות}
+נראה שההצגה $V_d$ היא פשוטה. קודם נוכיח שתי למות.
+\begin{lemma}
+	כל תת-$\Sl(2, \C)$-מודול הנוצר על-ידי איבר בסיס $X^aY^b$ הוא כל $V_d$.
+\end{lemma}
+\begin{proof}
+	נניח ש-$U$ הוא תת-$\Sl(2, \C)$-מודול וש-$X^aY^b \in U$. אז $\phi(a)(X^aY^b) \in U$ לכל $a \in \Sl(2, \C)$. בפרט, לכל $r \le d - a$ נקבל
+	\[ (\prod_{i=0}^{r-1} (b - i))X^{a+r}Y^{b-r} = (\phi(e))^r(X^aY^b) \in U, \]
+	ולכן $X^{a+r}Y^{b-r} \in U$ לכל $r \le d - a$. כלומר, $X^\alpha Y^{d-\alpha}$ לכל $a \le \alpha \le d$.
+	
+	באופן דומה, 
+	\[ (\prod_{i=0}^{r-1} (a - i))X^{a-r}Y^{b+r} = (\phi(f))^r(X^aY^b) \in U \]
+	לכל $r \le d - b$. כלומר, $X^{d-\beta}Y^\beta \in U$ לכל $b \le \beta \le d$, או $X^\alpha Y^{d-\alpha} \in U$ לכל $0 \le \alpha \le d - b$. מכך ש-$a + b = d$ נקבל ש-$X^\alpha Y^{d-\alpha} \in U$ לכל $0 \le \alpha \le a$.
+	
+	אז $X^\alpha Y^{d-\alpha} \in U$ לכל $0 \le \alpha \le d$. כלומר, $U$ מכיל את כל איברי בסיס של $V_d$ ולכן $U = V_d$.
+\end{proof}
+\begin{unLemma}
+	אם $x : V \to V$ העתקה לינארית לכסינה מעל מרחב וקטורי $V$ סוף-ממדי, ו-$U \subseteq V$ תת-מרחב $x$-שמור, אז $x$ לכסינה מעל $U$.
+\end{unLemma}
+\begin{proof}	
+	יהיו $p$ הפולינום המינימלי של $x$ מעל $V$ ו-$q$ הפולינום המינימלי של $x$ מעל $U$. מכך ש-$p(x) = 0$ מעל $V$, הוא מתאפס גם מעל $U$ (כלומר $p(x)u = 0$ לכל $u \in U$) ולכן $q \mid p$. אבל כל השורשים של $p$ הם מריבוי 1 (כי $x$ לכסינה מעל $V$), ולכן גם כל השורשים של $q$ מריבוי 1. אז $x$ לכסינה מעל $U$.
+	
+\end{proof}
+\begin{theorem}
+	ה-$\Sl(2, \C)$-מודול $V_d$ הוא פשוט.
+\end{theorem}
+\begin{proof}
+	נניח ש-$U$ שונה מאפס ותת-$\Sl(2, \C)$-מודול. אז $h \cdot u \in U$ לכל $u \in U$. אז $U$ מרחב $h$-שמור, ומכך ש-$h$ לכסינה ב-$V_d$ היא גם לכסינה ב-$U$ לפי הלמה השנייה. בפרט, יש ל-$h$ ו"ע ב-$U$. מההצגה המטריציונלית של $h$ נובע שכל המרחבים העצמיים של $h$ הן חד-ממדיים ונפרשים על-ידי איבר בסיס $X^aY^b$. אז $U$ מכיל איבר בסיס, ולפי הלמה הראשונה, $U = V_d$.
+\end{proof}
+
+\section{מיון ההצגות הפשוטות של $\mathrm{sl}(2, \mathbb{C})$}
+ברור שעבור $d$ שונים המודולים $V_d$ אינם יכולים להיות איזומורפים כי הם ממימדים שונים. בפרק זה נראה שכל $\Sl(2, \C)$-מודול איזומורפי לאחד מה-$V_d$. נעשה זאת על-ידי התבוננות בו"ע של $h$.
+\begin{unLemma}[א]
+	נניח ש-$V$ הוא $\Sl(2, \C)$-מודול ו-$v \in V$ ו"ע של $h$ השייך לע"ע $\lambda$.
+	\begin{enumerate}
+		\item 
+		או ש-$e \cdot v = 0$ או ש-$e \cdot v$ ו"ע של $h$ השייך לע"ע $\lambda+2$.
+		\item
+		או ש-$f \cdot v = 0$ או ש-$f \cdot v$ ו"ע של $h$ השייך לע"ע $\lambda-2$.
+	\end{enumerate}
+\end{unLemma}
+\begin{proof}
+	מכך ש-$V$ הוא $\Sl(2, \C)$-מודול, נקבל
+	\[ h \cdot (e \cdot v) = e \cdot (h \cdot v) + [h, e] \cdot v = e \cdot (\lambda v) + 2e \cdot v = (\lambda + 2)e \cdot v. \]
+	מכאן נובעת הטענה עבור $e$. באופן דומה מוכיחים את הטענה עבור $f$.
+\end{proof}
+\begin{unLemma}[ב]
+	נניח ש-$V$ הוא $\Sl(2, \C)$-מודול סוף-ממדי. אז $V$ מכיל ו"ע $w$ של $h$ כך ש-$e \cdot w = 0$.
+\end{unLemma}
+\begin{proof}
+	מכך ש-$V$ מרוכב, יש ל-$h : V \to V$ ו"ע, נניח $v$, השייך לע"ע, נניח $\lambda$. נתבונן בסדרה
+	\[ v, e \cdot v, e^2 \cdot v, \ldots. \]
+	אם כל איברי הסדרה שונים מאפס, אז לפי הלמה הקודמת, כל האיברים הם ו"ע של $h$ השייכים לע"ע שונים זה מזה. מכך שו"ע השייכים לע"ע שונים הם בת"ל, נקבל שב-$V$ יש מספר אינסופי של וקטורים בת"ל, בסתירה לסוף-ממדיות של $V$.
+	
+	אז קיים $k \ge 0$ עבורו $e^k \cdot v \neq 0$ ו-$e^{k+1} \cdot v = 0$. נסמן $w \coloneqq e^k \cdot v$. אז $e \cdot w = 0$. בעזרת הטענה הבאה נקבל ש-$h \cdot w = (\lambda + 2k)w$.
+	
+	נוכיח באינדוקציה את הטענה הבאה: אם $e^k \cdot v \neq 0$ עבור $k \ge 0$ כלשהו ו-$v$ ו"ע של $h$ השייך לע"ע $\lambda$, אז $h \cdot (e^k \cdot v) = (\lambda + 2k)(e^k \cdot v)$. עבור $k = 0$ אין מה להוכיח. נניח שהטענה נכונה עבור $k$ כלשהו ונניח ש-$e^{k+1} \cdot v \neq 0$. אז
+	\[ h \cdot (e^{k+1} \cdot v) = h \cdot (e \cdot e^k v) = e \cdot (h \cdot e^k v) + [h, e] \cdot e^k v = e \cdot (\lambda + 2k)e^k v + 2e \cdot e^k v = (\lambda + 2(k + 1))e^{k+1} \cdot v. \]
+	וסיימנו.	
+\end{proof}
+כעת נוכיח את הטענה העיקרית של פרק זה.
+\begin{theorem}
+	אם $V$ הוא $\Sl(2, \C)$-מודול פשוט וסוף-ממדי, אז $V$ איזומורפי לאחד מה-$V_d$.
+\end{theorem}
+\begin{proof}
+	מלמה (ב), קיים ל-$h$ ו"ע $w$ כך ש-$e \cdot w = 0$. נניח ש-$h \cdot w = \lambda w$, ונתבונן בסדרת הוקטורים
+	\[ w, f \cdot w, f^2 \cdot w, \ldots. \]
+	מהוכחת למה (ב), קיים $d \ge 0$ כך ש-$f^d \cdot w \neq 0$ ו-$f^{d+1} \cdot w = 0$ (ההוכחה שקולה, ומשתמש בסעיף השני של למה (א)). נחלק את ההוכחה לשלבים.
+	\begin{itemize}
+		\item 
+		שלב 1: נראה ש-$\{w, f \cdot w, \ldots, f^d \cdot w\}$ בסיס של $V$. מלמה (א), איברי הקבוצה הם ו"ע של $h$ השייכים לע"ע שונים בזוגות, ולכן הם בת"ל. מכך שהם ו"ע של $h$ ומההגדרה, הקבוצה הנפרשת על-ידם היא $h$- ו-$f$-שמורה. נראה שהיא $e$-שמורה, על-ידי כך שנוכיח באינדוקציה ש-
+		\[ e \cdot (f^k \cdot w) \in \Sp\set{f^j \cdot w | 0 \le j < k}. \]
+		עבור $k = 0$ הטענה נובעת מכך ש-$e \cdot w = 0$ לפי בחירת $w$. נניח שהטענה נכונה עבור $k \ge 0$ כלשהו. נזכור ש-$h = [e, f] = ef - fe$ ולכן
+		\[ e \cdot (f^{k+1} \cdot w) = e \cdot (f \cdot (f^k \cdot w)) = f \cdot (e \cdot (f^k \cdot w)) + h \cdot (f^k \cdot w) = (fe + h) \cdot (f^k \cdot w). \]
+		מהנחת האינדוקציה, $e \cdot (f^k \cdot w) \in \Sp\set{f^j \cdot w | j < k-1}$ ולכן $fef^{k-1} \cdot w \in \Sp\set{f^j | j < k}$. בנוסף, $f^k \cdot w$ ע"ע של $h$ ולכן $h \cdot (f^k \cdot w) \in \Sp\{f^k \cdot w\}$. בכך סיימנו את הוכחת האינדוקציה.
+		
+		אז $\Sp\{w, f \cdot w, \ldots, f^d \cdot w\}$ היא תת-$\Sl(2, \C)$-מודול שונה מאפס ($w$ בתת-מודול הזה). אך $V$ פשוטה, ולכן הקבוצה היא כל $V$.
+		\item
+		שלב 2: בשלב זה נראה ש-$\lambda = d$. המטריצה המייצגת של $h$ על-ידי הבסיס $\{w, f \cdot w, \ldots, f^d \cdot w\}$ היא אלכסונית, עם עקבה
+		\[ \lambda + (\lambda - 2) + \ldots + (\lambda - 2d) = (d + 1)\lambda - \sum_{i=0}^d 2i = (d + 1)\lambda - (d + 1)d = (d + 1)(\lambda - d). \]
+		אבל $h = [e, f]$ ולכן $\Tr h = 0$, אז $\lambda = d$.
+		\item
+		שלב 3: לסיום, נציג איזומורפיזם $\psi : V \to V_d$. נזכור של-$V_d$ יש בסיס $\{X^d, f \cdot X^d, \ldots, f^d \cdot X^d\}$, כאשר $f^k \cdot X^d$ הוא כפולה של $X^{d-k}Y^k$. בנוסף, הע"ע של $h$ של $f^k \cdot w$ שווים לע"ע של $h$ של $f^k \cdot X^d$. מכך שאיזומורפיזם $V \to V_d$ צריך לשמור על ו"ע של $h$ ועל הע"ע שלהם, זה מרמז שנוכל להגדיר $\psi(f^k \cdot w) \coloneqq f^k \cdot X^d$, עבור $0 \le k \le d$.
+		
+		זה מגדיר איזומורפיזם וקטורי ששומר על הפעולות $f, h$. נותר להראות שהוא שומר על הפעולה $e$, ומספיק להראות זאת על איברי הבסיס $f^k \cdot w$. נעשה זאת באינדוקציה על $k$. עבור $k = 0$ נקבל $f(e \cdot w) = 0$ כי $e \cdot w = 0$ ו-$e \cdot \psi(w) = e \cdot X^d = 0$. נניח שהטענה נכונה עבור $k \ge 0$ מסויים. אז, בדומה לשלב 1,
+		\[ \psi(ef^{k+1} \cdot w) = \psi((fe + h) \cdot (f^k \cdot w)) = f \cdot \psi(ef^k \cdot w) + h \cdot \psi(f^k \cdot w), \]
+		כי $\psi$ שומר על $f, h$. מהנחת האינדוקציה נכול להוציא את $e$ ולקבל
+		\[ \psi(ef^{k+1} \cdot w) = fe \cdot \psi(f^k \cdot w) + h \cdot \psi(f^k \cdot w) = (fe + h) \cdot \psi(f^k \cdot w) = ef \cdot \psi(f^k \cdot w) = e \cdot \psi(f^{k+1} \cdot w). \]
+		אז $\psi : V \to V_d$ איזומורפיזם בין מודולים.
+	\end{itemize}
+\end{proof}
+\begin{corollary}
+	אם $V$ הצגה סוף-ממדית של $\Sl(2, \C)$ ו-$w \in V$ הוא ו"ע של $w$ כך ש-$e \cdot w = 0$, אז $h \cdot w = dw$ עבור $d$ שלם ואי-שלילי, והתת-מודול של $V$ הנוצר על-ידי $w$ איזומורפי ל-$V_d$.
+\end{corollary}
+\begin{proof}
+	שלב 1 בהוכחה מראה שעבור $d \ge 0$ מסויים הוקטורים $\{w, f \cdot w, \ldots, f^d \cdot w\}$ פורשים תת-מודול של $V$. שלבים 2 ו-3 מראים שהתת-מודול הזה איזומורפי ל-$V_d$.
+\end{proof}
+
+
+\chapter{קריטריון קרטן}
+בפרק זה נראה קריטריון חשוב לפשטות למחצה של אלגבראות לי. בדיקה ישירה מצריכה הרבה עבודה: הרי צריך לבדוק עבור כל אידיאל האם הוא פשוט או לא. נשתמש הרבה בעקבה של העתקות לינאריות. השתמשנו כבר בעקבה בהוכחת למת האינווריאנטיות. זהות חשובה שנשתמש בה היא
+\[ \Tr([a, b]c) = \Tr(a[b, c]) \]
+לכל העתקות $a, b, c$ מעל מרחב וקטורי. הוכחתה פשוטה:
+\[ \Tr([a, b]c) = \Tr((ab)c - b(ac)) = \Tr(abc - (ac)b) = \Tr(a(bc - cb)) = \Tr(a[b, c]). \]
+נזכור גם שלהעתקה נילפוטנטית יש עקבה 0.
+
+בכל הפרק נעבוד רק מעלה שדה המספרים המרוכבים.
+
+\section{פירוק ז'ורדן}
+אחד הניסוחים של צורת ז'ורדן הוא כדלקמן\footnotemark[1]: אם $x$ העתקה לינארית מעל מרחב וקטורי מרוכב $V$, אז קיימת הצגה יחידה מהצורה $x = d + n$, כאשר $d, n : V \to V$ ו-$d$ אלכסונית, $n$ נילפוטנטית, ו-$d, n$ מתחלפות. ניזכר בלמה מאלגברה לינארית\footnotemark[2].
+	\footnotetext[1]{
+	ראו
+	\begin{flushleft}\textenglish{\noindent Humphreys, J.E. .(1972) \textit{Introduction to Lie Algebras and Representation Theory}, pp. .17-18} \end{flushleft}}
+	\footnotetext[2]{
+	ראו למה 16.8 ב-
+	\begin{flushleft}\textenglish{\noindent Erdmann, K. and Wildon, M. J. .(2006) \textit{Introduction to Lie Algebras}, pp. .200-201} \end{flushleft}}
+\begin{lemma} \label{lemma:jordan-poly}
+	תהי $x$ העתקה לינארית מעל מרחב וקטורי מרוכב $V$, ונניח ש-$x = d + n$ פירוק ז'ורדן שלה.
+	\begin{enumerate}[label=(\alph*)]
+		\item 
+		קיים פולינום $p(X) \in \C[X]$ כך ש-$p(x) = d$.
+		\item
+		נקבע בסיס של $V$ שבו $d$ אלכסונית. תהי $\overline{d}$ ההעתקה שהמטריצה שלה ביחס לבסיס זה היא המטריצה הצמודה למטריצה של $d$. אז קיים פולינום $q(X) \in \C[X]$ כך ש-$q(x) = \overline{d}$.
+	\end{enumerate}
+\end{lemma}
+נוכיח את הלמה הבאה שנשתמש בה בהמשך.
+\begin{lemma} \label{lemma:jordan-adj}
+	יהי $V$ מרחב וקטורי, ויהי $x \in \gl(V)$ עם פירוק ז'ורדן $d + n$. אז להעתקה $\ad x : \gl(V) \to \gl(V)$ יש פירוק ז'ורדן $\ad d + \ad n$.
+\end{lemma}
+\begin{proof}
+	מתקיים $\ad x = \ad d + \ad n$. לכן אם נראה ש-$\ad d$ לכסינה, $\ad n$ נילפוטנטית, ו-$\ad n, \ad d$ מתחלפות נקבל ש-$\ad d + \ad n$ צורת ז'ורדן של $\ad x$.
+	
+	ובכן, מ\autoref*{lemma:adjoint-nilpotent} העתקה $\ad n$ נילפוטנטית. מכך ש-$d$ אלכסונית, יש ל-$V$ בסיס של ו"ע השייכים לע"ע $\{\lambda_1, \ldots \lambda_r\}$. תהי $e_{ij} \in \gl(V)$ ההעתקה שהמטריצה המתאימה לה בביס זה של $V$ היא $e_{ij}$. אז $\{e_{ij}\}$ מהווה בסיס ל-$\gl(V)$, ו-
+	\begin{align*}
+		(\ad d)e_{ij} &= [d, e_{ij}] = de_{ij} - e_{ij}d = (\sum_{k=1}^r \lambda_k e_{kk}) e_{ij} - e_{ij} \sum_{k=1}^r \lambda_k e_{kk} \\
+			&= \sum_{k=1}^r \lambda_k e_{kk}e_{ij} - \sum_{k=1}^r \lambda_k e_{ij}e_{kk} \\
+			&= \lambda_i e_{ij} - \lambda_j e_{ij} \\
+			&= (\lambda_i - \lambda_j)e_{ij}.
+	\end{align*}
+	מצאנו בסיס של $V$ של ו"ע של $\ad d$, לכן $\ad d$ לכסינה.
+	
+	לסיום, מכך ש-$d, n$ מתחלפות מתקיים $[n, d] = nd - dn = 0$, ולכן לכל $v \in V$ נקבל
+	\[ (\ad n \circ \ad d)v = [n, [d, v]] = -[d, [v, n]] - [v, [n, d]] = [d, [n, v]] = (\ad d \circ \ad n)v, \]
+	ולכן $\ad d, \ad n$ מתחלפות וסיימנו.
+\end{proof}
+
+\section{מבחנים לפשטות}
+יהי $V$ מרחב וקטורי מרוכב ותהי $L$ תת-אלגברת לי של $\gl(V)$. הטענה הבאה מרמזת שנוכל להשתמש בעקבה של איברים של $L$ כדי לקבוע האם $L$ פתירה.
+\begin{preposition} \label{prep:necessary-solvable-tr}
+	תהי $L$ אלגברת לי פתירה. אז $\Tr xy = 0$ לכל $x \in L, y \in L'$.
+\end{preposition}
+\begin{proof}
+	נניח ש-$L$ פתירה. לפי משפט לי, קיים ל-$V$ בסיס כך שכל איברי $L$ הן העתקות המיוצגות על-ידי מטריצה משולשית עליונה בבסיס זה. יהיו $x, y \in L$, ויהיו $A, B$ המטריצות המייצגות של $x, y$ לפי בסיס זה, בהתאמה. אז, מכך ש-$A, B$ מטריצות משולשיות עליונות, נקבל
+	\[ ([A, B])_{ii} = (AB)_{ii} - (BA)_{ii} = \sum_{j=1}^n A_{ij} B_{ji} - \sum_{j=1}^n B_{ij} A_{ji} = A_{ii}B_{ii} - B_{ii}A_{ii} = 0. \]
+	לכן בבסיס זה, $[x, y]$ מיוצגת על-ידי מטריצה משולשית עליונה ממש. אז כל איברי $L'$ מיוצגים על-ידי מטריצה משולשית עליונה ממש בבסיס זה.
+	
+	יהיו $x \in L, y \in L'$ ו-$A, B$ המטריצות המייצגות שלהם. אז $A$ משולשית עליונה ו-$B$ משולשית עליונה ממש, ולכן
+	\[ (AB)_{ii} = \sum_{j=1}^n A_{ij} B_{ji} = \sum_{j=i+1}^n A_{ij} B_{ji} = 0. \]
+	בפרט, $\Tr xy = \Tr AB = 0$.
+\end{proof}
+
+מצאנו תנאי הכרחי המשתמש בעקבה לכך ש-$L$ תהיה פתירה. באופן מפתיעה, גם התנאי ההפוך נכון.
+\begin{preposition} \label{prep:sufficient-solvable-tr}
+	יהי $V$ מרחב וקטורי מרוכב ותהי $L$ תת-אלגברת לי של $\gl(V)$. אם $\Tr xy = 0$ לכל $x \in L, y \in L'$ אז $L$ פתירה.
+\end{preposition}
+\begin{proof}
+	נראה שכל $x \in L'$ הוא העתקה נילפוטנטית. מכאן נקבל ש-$\ad x$ נילפוטנטית לכל $x \in L'$ (ראו \autoref*{lemma:adjoint-nilpotent}), ומהגרסה השנייה של משפט אנגל (\autoref*{thm:second-engel}) ינבע ש-$L'$ נילפוטנטית. אז $L'$ פתירה ולכן גם $L$ פתירה.
+	
+	תהי $x \in L'$ עם צורת ז'ורדן $x = d + n$. נקבע בסיס של $V$ שבו $d$ אלכסונית ו-$n$ משולשית עליונה ממש. יהיו $\lambda_1, \ldots, \lambda_m$ איברי האלכסון של $d$. אם נראה ש-$d = 0$ אז $x$ תהיה נילפוטנטית. בשביל זה צריך להראות ש-$\lambda_i = 0$ לכל $1 \le i \le m$, ומספיק להראות ש-
+	\[ \sum_{i=1}^m \lvert \lambda_i \rvert^2 = \sum_{i=1}^m \lambda_i \overline{\lambda_i} = 0. \]
+	המטריצה של $\overline{d}$ היא אלכסונית עם איברי אלכסון $1 \le i \le m, \overline{\lambda_i}$. אז
+	\[ \Tr \overline{d}x = \Tr(\overline{d}d + \overline{d}n) = \Tr(\overline{d}d) = \sum_{i=1}^m \lambda_{i} \overline{\lambda_i}. \]
+	אנחנו רוצים להראות שהסכום הוא אפס, ולכן מספיק להראות ש-$\Tr \overline{d}x = 0$. מכך ש-$x \in L'$, מספיק להראות ש-$\Tr(\overline{d}[y, z]) = 0$ לכל $y, z \in L$. מהזהות בתחילת הפרק, זה שקול ללהראות ש-$\Tr(z[\overline{d}, y]) = 0$. זה יתקיים מההנחה בטענה אם נראה ש-$[\overline{d}, y] \in L'$.
+	
+	ובכן, מ\autoref*{lemma:jordan-adj}, ל-$\ad x$ יש צורת ז'ורדן $\ad d + \ad n$. לפי \autoref*{lemma:jordan-poly} (ב), קיים פולינום $p(X) \in \C[X]$ כך ש-$p(\ad x) = \overline{\ad d}$. מכך ש-$\ad x$ מעתיקה את $L$ ל-$L'$, כך גם $p(\ad x)$ ולכן גם $\overline{\ad d}$. אם נראה ש-$\overline{\ad d} = \ad\overline{d}$ אז נקבל ש-$\ad\overline{d}$ מעתיקה את $L$ ל-$L'$, ואז $[\overline{d}, y] = (\ad\overline{d})(y) \in L'$ כי $y \in L$.
+	
+	ובכן, יהי $\{e_{ij}\}$ הבסיס הסטנדרטי של $\gl(V)$. ב\autoref*{lemma:jordan-adj}, ראינו ש-$(\ad d)e_{ij} = (\lambda_i - \lambda_j)e_{ij}$. מכך שאיברי האלכסון של $\overline{d}$ הם $\overline{\lambda_i}$, נקבל כמו בלמה ש-$(\ad\overline{d})e_{ij} = (\overline{\lambda_i} - \overline{\lambda_j})e_{ij}$. אז
+	\[ (\overline{\ad d})e_{ij} = (\overline{\lambda_i - \lambda_j})e_{ij} = (\overline{\lambda_i} - \overline{\lambda_j})e_{ij} = (\ad\overline{d})e_{ij}. \]
+	לכן $\overline{\ad d} = \ad\overline{d}$.
+\end{proof}
+כדי ליישם את טענה זאת עבור כל אלגברת לי, נצטרך לשכן את $L$ בתוך $\gl(V)$. ההצגה המצורפת מספקת שיכון מספיק בשביל זה.
+\begin{theorem} \label{thm:pre-cartan}
+	תהי $L$ אלגברת לי מרוכבת. אז $L$ פתירה אם ורק אם $\Tr(\ad x \circ \ad y) = 0$ לכל $x \in L, y \in L'$.
+\end{theorem}
+\begin{proof}
+	נניח ש-$L$ פתירה. אז $\ad L \subseteq \gl(L)$ תת-אלגברת לי פתירה של $\gl(V)$, והתוצאה נובעת מ\autoref*{prep:necessary-solvable-tr}.
+	
+	בכיוון השני, אם $\Tr(\ad x \circ \ad y) = 0$ לכל $x \in L, y \in L'$ אז מ\autoref*{prep:sufficient-solvable-tr} נקבל ש-$\ad L$ פתירה. כעת, $\Ker\ad = Z(L)$, ולכן $\faktor{L}{Z(L)} \cong \ad L$. מכך ש-$\ad L$ ו-$Z(L)$ פתירות (אלגברה אבלית), נקבל מ\autoref*{prep:solvable} שגם $L$ פתירה.
+\end{proof}
+
+\section{תבנית קילינג}
+בפרק זה נגדיר את תבנית קילינג וננסח את הקריטריון הראשון של קרטן.
+\begin{definition}[תבנית קילינג]
+	תהי $L$ אלגברת לי מרוכבת. \textit{תבנית קילינג} על $L$ היא תבנית בילינארית וסימטרית, $\kappa : L \times L \to \C$, המוגדרת על-ידי
+	\[ \kappa(x, y) \coloneqq \Tr(\ad x \circ \ad y), \qquad \text{לכל $x, y \in L$} \]
+\end{definition}
+התבנית היא בילינארית כי $\ad$ ביליניארית, הרכבת העתקות בילינארית ו-$\Tr$ לינארית. היא סימטרית כי $\Tr(ab) = \Tr(ba)$ לכל העתקות $a, b$. היא גם קיבוצית, כלומר לכל $x, y, z \in L$ מתקיים
+	\[ \kappa([x, y], z) = \kappa(x, [y, z]). \]
+תכונה זו נובעת ישירות מהזהות בתחילת הפרק ומכך ש-$\ad$ הומומורפיזם לי.
+	
+בעזרת תבנית קילינג, נוכל לנסח שוב את \autoref*{thm:pre-cartan}.
+\begin{theorem}[הקריטריון הראשון של קרטן]
+	אלגברת לי מרוכבת $L$ היא פתירה אם ורק אם $\kappa(x, y) = 0$ לכל $x \in L, y \in L'$.
+\end{theorem}
+תבנית קילינג לא משתנה כאשר מצמצמים אותה לאידיאל. תהי $L$ אלגברת לי ויהי $I$ אידיאל של $L$. נסמן ב-$\kappa$ את תבנית קילינג על $L$ וב-$\kappa_I$ את תבנית קילינג על $I$, כאשר מתבוננים ב-$I$ כאלגברת לי בעצמו. אז נכונה הטענה הבאה.
+\begin{lemma} \label{lemma:killing-ideal}
+	אם $x, y \in I$ אז $\kappa_I(x, y) = \kappa(x, y)$.
+\end{lemma}
+\begin{proof}
+	נקבע בסיס של $I$ ונרחיב אותו לבסיס של $L$. אם $x \in I$ אז ההעתקה $\ad x$ מעתיקה את $L$ ל-$I$, ולכן המטריצה של $\ad x$ בבסיס זה היא מהצורה
+	\[ \spalignmat{A_x B_x ; 0 0}, \]
+	כאשר $A_x$ היא המטריצה של $\kappa$ מצומצמת ל-$I$.
+	
+	אם $y \in I$ אז להעתקה $\ad x \circ \ad y$ יש מטריצה מהצורה
+	\[ \spalignmat{A_xA_y A_xB_y ; 0 0}, \]
+	כאשר $A_xA_y$ היא המטריצה של $\ad x \circ \ad y$ מצומצמת ל-$I$. אז
+	\[ \kappa(x, y) = \Tr\spalignmat{A_xA_y A_xB_y ; 0 0}= \Tr(A_xA_y) = \kappa_I(x, y) \]
+	לכל $x, y \in I$.
+\end{proof}
+
+\section{מבחנים לפשטות למחצה}
+אלגברת לי $L$ היא פשוטה למחצה אם אין לה אידיאלים פתירים (\autoref*{def:semisimple}). מכך שאנחנו יכולים להשתמש בתבנית קילינג בשביל לבדוק פתירות, נוכל לנסות להשתמש בה גם בשביל לבדוק פשטות למחצה.
+
+נפתח בכמה הגדרות מתורת התבניות הבילינאריות. תהי $\beta$ תבנית בילינארית סימטרית על מרחב וקטורי סוף-ממדי $V$. אם $S$ תת-קבוצה של $V$, נגדיר את \textit{המרחב המאונך} ל-$S$ על-ידי
+\[ S^\perp \coloneqq \set{x \in V | \forall s \in S, \; \beta(x, s) = 0}. \]
+זה תת-מרחב וקטורי של $V$. נאמר ש-$\beta$ לא-מנוונת אם $V^\perp = 0$, כלומר אין $0 \neq v \in V$ כך ש-$\beta(v, x) = 0$ לכל $x \in V$.
+
+אם $W$ תת-מרחב וקטורי של $V$ אז
+\[ \dim W + \dim W^\perp = \dim V. \]
+נשיב לב שגם אם $\beta$ לא-מנוונת זה אפשרי ש-$W \cap W^\perp \neq 0$. למשל, אם $\kappa$ היא תבנית קילינג מעל $\Sl(2, \C)$ אז $\kappa(e, e) = 0$, ואם נגדיר $W \coloneqq \Sp\{e\}$ נקבל ש-$e \in W \cap W^\perp$.
+
+נחזור כעת למקרה בו $L$ אלגברת לי ו-$\kappa$ היא התבנית קילינג שלו, ואז מרחבים מאונכים הם ביחס ל-$\kappa$. לפני שניגש לניסוח והוכחת הקריטריון השני של קרטן, נוכיח שתי למות.
+\begin{lemma} \label{lemma:perp-ideal}
+	נניח ש-$I$ אידיאל של אלגברת לי $L$. אז $I^\perp$ גם אידיאל של $L$.
+\end{lemma}
+\begin{proof}
+	יהיו $x \in I^\perp, y \in L, z \in I$. אז $[y, z] \in I$ ולכן מקיבוציות תבנית קילינג נקבל
+	\[ \kappa([x, y], z) = \kappa(x, [y, z]) = 0. \]
+	אז $[x, y] \in I^\perp$.
+\end{proof}
+בלמה הבאה נראה הגדרה שקולה לפשטות למחצה.
+\begin{lemma} \label{lemma:alt-semisimple}
+	אלגברת לי פשוטה למחצה אם ורק אם אין לה אידיאלים אבליים שונים מאפס.
+\end{lemma}
+\begin{proof}
+	נניח כי $L$ פשוטה למחצה. מאחר וכל אלגברת לי אבלית היא פתירה, ואין ל-$L$ אידאלים פתירים שונים מאפס, אין ל-$L$ אידיאלים אבליים שונים מאפס.
+
+	נניח כי $L$ לא פשוטה למחצה. אז קיים אידיאל $I \subseteq L$ פתיר שונה מאפס. קיים $m$ מינימלי עבורו $I^{(m)} = 0$. נתבונן באידיאל $I^{(m-1)} \neq 0$. לכל $x, y \in I^{(m-1)}$ מתקיים $[x, y] \in I^{(m)}$ ולכן $[x, y] = 0$. אז $I^{(m-1)}$ אידיאל אבלי שונה מאפס של $L$.
+\end{proof}
+לפי הלמה הראשונה, $L^\perp$ אידיאל של $L$. אם $x \in L^\perp$ ו-$y \in (L^\perp)'$, אז בפרט $y \in L$ ולכן $\kappa(x, y) = 0$. אז מקריטריון קרטן הראשון נקבל ש-$L^\perp$ אידיאל פתיר של $L$. לכן, אם $L$ פשוטה למחצה אז $L^\perp = 0$ ו-$\kappa$ לא-מנוונת. גם הטענה ההפוכה נכונה.
+\begin{theorem}[הקריטריון השני של קרטן]
+	אלגברת לי מרוכבת $L$ היא פשוטה למחצה אם ורק אם תבנית קילינג שלה לא-מנוונת.
+\end{theorem}
+\begin{proof}
+	הוכחנו כיוון אחד של המשפט. בכיוון השני, נניח ש-$L$ לא פשוטה למחצה. לפי \autoref*{lemma:alt-semisimple}, יש ל-$L$ אידיאל אבלי שונה מאפס, נאמר $I$. יהי $0 \neq a \in I$ ויהי $x \in L$. העתקה $\ad a \circ \ad x \circ \ad a$ היא העתקה האפס, כי $\ad x \circ \ad a$ מעתיק את $L$ ל-$A$. אז $(\ad x \circ \ad a)^2 = 0$. להעתקות נילפוטנטיות יש עקבה אפס, לכן $\kappa(a, x) = 0$. זה מתקיים לכל $x \in L$, ולכן $0 \neq a \in L^\perp$. לכן $\kappa$ מנוונת.
+\end{proof}
+כעת נשתמש בקריטריון השני של קרטן כדי להוכיח שאלגברת לי פשוטה למחצה היא סכום ישר של אלגבראות לי פשוטות. נוכיח קודם למה.
+\begin{lemma}
+	אם $I$ אידיאל שונה מאפס שמוכל ממש באלגברת לי מרוכבת ופשוטה למחצה $L$, אז $L = I \oplus I^\perp$. בנוסף, $I$ אידיאל פשוט למחצה.
+\end{lemma}
+\begin{proof}
+	תהי $\kappa$ תבנית קילינג על $L$. הצמצום של $\kappa$ ל-$I \cap I^\perp$ הוא העתקת האפס, ולכן מהקריטריון הראשון של קרטן $I \cap I^\perp$ אידיאל פתיר. אך $L$ פשוטה למחצה ולכן $I \cap I^\perp = 0$. מכך ש-$\dim I + \dim I^\perp = \dim L$ נקבל ש-$L = I + I^\perp$ ולכן $L = I \oplus I^\perp$ לפי \autoref*{prep:internal-sum}.
+	
+	נראה ש-$I$ פשוט למחצה על-ידי הקריטריון השני של קרטן. נניח בשלילה ש-$I$ לא פשוט למחצה. מהקריטריון השני של קרטן, תבנית קילינג על $I$ היא מנוונת. מכך שתבנית קילינג על $I$ היא הצמצום של תבנית קילינג על $L$ (ראו \autoref*{lemma:killing-ideal}) קיים $a \in I$ כך ש-$\kappa(a, x) = 0$ לכל $x \in I$. אבל מאחר ו-$a \in I$, מתקיים $\kappa(a, y) = 0$ לכל $y \in I^\perp$, ומכך ש-$L = I \oplus I^\perp$ נקבל ש-$\kappa(a, x) = 0$ לכל $x \in L$. אז $a \in L^\perp$ ו-$\kappa$ תבנית מנוונת, בסתירה לקריטריון השני של קרטן.
+\end{proof}
+\begin{theorem} \label{thm:semisimple-is-direct-sum}
+	תהי $L$ אלגברת לי מרוכבת. אז $L$ פשוטה למחצה אם ורק אם קיימים אידיאלים פשוטים $L_1, \ldots, L_r$ של $L$ כך ש-$L = L_1 \oplus \ldots \oplus L_r$.
+\end{theorem}
+\begin{proof}
+	נניח ש-$L$ פשוטה למחצה. נשתמש באינדוקציה על $\dim L$. יהי $I$ אידיאל שונה מאפס של $L$ ממימד קטן ביותר. אז $I$ אידיאל פשוט. אם $I = L$ אז סיימנו. אחרת $I$ מוכל ממש ב-$L$. מהלמה הקודמת, $L = I \oplus I^\perp$, ו-$I^\perp$ אלגברת לי פשוטה למחצה ממימד נמוך ממש משל $L$. \\
+	מהנחת האינדוקציה, $I^\perp$ הוא סכום ישר של אידיאלים פשוטים,
+	\[ I^\perp = L_2 \oplus \ldots \oplus L_rץ \]
+	כל $L_i$ הוא גם אידיאל של $L$, שכן $[I, L_i] \subseteq [I, I^\perp] = 0$. אז על-ידי הגדרת $L_1 \coloneqq I$ נקבל את הפירוק המבוקש.
+	
+	בכיוון השני, נניח ש-$L = L_1 \oplus \ldots \oplus L_r$, כאשר כל $L_i$ אידיאל פשוט של $L$. יהי $I \coloneqq \rad L$ ונראה ש-$I = 0$. לכל $L_i$, $[I, L_i] \subseteq I \cap L_i$ הוא אידיאל פתיר של $L_i$ כתת-אלגברת לי של $I$. אבל $L_i$ פשוט, לכן $I \cap L_i = 0$, ולכן
+	\[ [I, L] \subseteq [I, L_1] \oplus \ldots \oplus [I, L_r] = 0. \]
+	לכן $I \subseteq Z(L)$. מ\autoref*{prep:centre-derived-sum} נקבל ש-
+	\[ Z(L) = Z(L_1) \oplus \ldots \oplus Z(L_r). \]
+	אבל $Z(L_i)$ אידיאל של $L_i$ ו-$L_i$ פשוט, לכן $Z(L_i) = 0$. אז $I = 0$.
+\end{proof}
+נוכיח עוד טענה ומסקנה הנובעת ממנה.
+\begin{preposition} \label{prep:quotient-semismple}
+	אם $L$ אלגברת לי פשוטה למחצה ו-$I$ אידיאל של $L$, אז $\faktor{L}{I}$ פשוטה למחצה.
+\end{preposition}
+\begin{proof}
+	מתקיים $L = I \oplus I^\perp$, ולכן $\faktor{L}{I} \cong I^\perp$, ו-$I^\perp$ פשוט למחצה כפי שראינו.
+\end{proof}
+\begin{corollary} \label{prep:derived-semisimple}
+	אם $L$ אלגברת לי פשוטה למחצה אז $L' = L$.
+\end{corollary}
+\begin{proof}
+	ידוע ש-$L'$ אידיאל של $L$, ולכן מהטענה הקודמת נקבל ש-$\faktor{L}{L'}$ פשוטה למחצה. אבל
+	\[ (\faktor{L}{L'})' = \faktor{(L' + L')}{L'} = \faktor{L'}{L'} = 0. \]
+	לכן $\faktor{L}{L'}$ פתירה. אז $\faktor{L}{L'}$ אלגברת לי פשוטה למחצה ופתירה, ולכן בהכרח $\faktor{L}{L'} = 0$, כלומר $L = L'$.
+\end{proof}
+
+
+\chapter{משפט וייל}
+בפרק זה ננסח ונוכיח את משפט וייל. ההוכחה ארוכה ותעשה בשלבים.
+
+\section{רקע} \label{sec:weyl-preliminaries}
+\subsection{מרחב דואלי}
+ניזכר בהגדרה של המרחב הדואלי למרחב וקטורי. \textit{המרחב הדואלי} של מרחב וקטורי $V$ מעל שדה $F$ הוא המרחב של כל העתקות הלינאריות מ-$V$ ל-$F$, ונסמנו $V^*$. נזכור שאם $V$ סוף-ממדי אז $\dim V^* = \dim V$. בנוסף, אם $V$ סוף-ממדי אז לכל בסיס $\{x_i\}$ של $V$ קיים \textit{בסיס דואלי} $\{\theta_i\}$ של $V^*$, כלומר $\{\theta_i\}$ בסיס של $V^*$ ו-$\theta_i(x_j) = \delta_{ij}$.
+\subsection{תבניות בילינאריות}
+תהי $\beta$ תבנית בילינארית סימטרית מעל מרחב וקטורי סוף-ממדי $V$. נזכיר שלכל תת-קבוצה $S\subseteq V$ הגדרנו את המרחב המאונך ל-$S$ על-ידי
+\[ S^\perp \coloneqq \set{x \in V | \forall s \in S, \; \beta(x, s) = 0}, \]
+ואמרנו ש-$\beta$ לא-מנוונת אם $V^\perp = 0$.
+
+נניח ש-$\beta$ לא-מנוונת. נגדיר את $\phi : L \to L^*$ להיות העתקה שמעתיקה את $y$ להעתקה $x \mapsto \beta(x, y)$, כלומר $\phi(y)x = \beta(x, y)$ לכל $x, y \in L$. נשיב לב ש-$\phi$ מוגדרת היטב, שכן $\beta$ בילינארית ולכן $x \mapsto \beta(x, y)$ לינארית. אם $\phi(y) = 0$ אז $\beta(x, y) = 0$ לכל $x \in L$ ולכן $y \in L^\perp = 0$, כלומר $y = 0$. אז $\phi$ חד-חד-ערכית, ומכך ש-$L$ סוף-ממדי, $\dim L = \dim L^*$ ולכן $\phi$ גם על.
+\subsection{מודול על $\mathrm{Hom}(V, W)$} \label{subsec:hom-module}
+נניח ש-$V, W$ הם $L$-מודולים. על $\Hom(V, W)$, מרחב העתקות הלינאריות מ-$V$ ל-$W$, נגדיר פעולה $L \times \Hom(V, W) \to \Hom(V, W)$ על-ידי
+\[ (x \cdot \theta)v = x \cdot (\theta v) - \theta(x \cdot v), \qquad \text{לכל $x \in L, \theta \in \Hom(V, W), v \in V$} \]
+נראה שפעולה זאת הופכת את $\Hom(V, W)$ ל-$L$-מודול. הבילינאריות שלה נובעת מבילינאריות הפעולה על $V$ ועל $W$ ומלינאריות $\theta$. לכל $x \in \theta$ ולכל $\theta \in \Hom(V, W)$ נגדיר $\theta_x \in \Hom(V, W)$ על-ידי $x \mapsto x \cdot \theta$. אז לכל $x, y \in L, \theta \in \Hom(V, W), v \in V$ מתקיים
+\begin{align*}
+	(x \cdot (y \cdot \theta))v - (y \cdot (x \cdot \theta))v &= (x \cdot \theta_y)v - (y \cdot \theta_x)v \\
+		&= x \cdot (\theta_y v) - \theta_y(x \cdot v) - (y \cdot (\theta_x v) - \theta_x(y \cdot v)) \\
+		&= x \cdot ((y \cdot \theta)v) - (y \cdot \theta)(x \cdot v) - (y \cdot ((x \cdot \theta)v) - (x \cdot \theta)(y \cdot v)) \\
+		&= x \cdot (y \cdot (\theta v) - \theta(y \cdot v)) - (y \cdot \theta(x \cdot v) - \theta(y \cdot (x \cdot v))) \\
+		&\qquad - \big[y \cdot (x \cdot (\theta v) - \theta(x \cdot v)) - (x \cdot \theta(y \cdot v) - \theta(x \cdot (y \cdot v)))\big] \\
+		&= x \cdot (y \cdot (\theta v)) - x \cdot \theta(y \cdot v) - y \cdot \theta(x \cdot v) + \theta(y \cdot (x \cdot v)) \\
+		&\qquad -y \cdot (x \cdot (\theta v)) + y \cdot \theta(x \cdot v) + x \cdot \theta(y \cdot v) - \theta(x \cdot (y \cdot v)) \\
+		&= x \cdot (y \cdot (\theta v)) - y \cdot (x \cdot (\theta v)) - (\theta(x \cdot (y \cdot v) - y \cdot (x \cdot v)) \\
+		&= [x, y] \cdot (\theta v) - \theta([x, y] \cdot v) \\
+		&= ([x, y] \cdot \theta)v.
+\end{align*}
+אז $[x, y] \cdot \theta = x \cdot (y \cdot \theta) - y \cdot (x \cdot \theta)$ לכל $x, y \in L, \theta \in \Hom(V, W)$, ולכן $\Hom(V, W)$ הוא $L$-מודול עם הפעולה שהגדרנו.
+
+מכאן גם נקבל ש-$\theta : V \to W$ הוא הומומורפיזם של $L$-מודולים אם ורק אם $x \cdot (\theta v) = \theta(x \cdot v)$, ולפי הגדרת המודול זה מתקיים אם ורק אם $(x \cdot \theta)v = 0$ לכל $x \in L, v \in V$.
+
+\section{תבניות עקבה}
+בפרק הקודם השתמשנו בתבנית קילינג. כעת נכליל את התבנית הזו. תהי $L$ אלגברת לי ונניח ש-$V$ הוא $L$-מודול סוף-ממדי. תהי $\phi : L \to \gl(V)$ ההצגה המתאימה לו. נגדיר את \textit{תבנית העקבה} $\beta_V : L \times L \to \C$ על-ידי
+\[ \beta_V(x, y) \coloneqq \Tr(\phi(x) \circ \phi(y)), \qquad \text{לכל $x, y \in L$} \]
+זאת תבנית בילינארית סימטרי. תבנית קילינג היא תבנית העקבה בה $V = L$ ו-$\phi$ ההצגה המצורפת. גם תבנית העקבה היא קיבוצית, כלומר
+\[ \beta_V([x, y], z) = \beta_V(x, [y, z]), \qquad \text{לכל $x, y, z \in L$} \]
+נגדיר את \textit{הרדיקל} של $\beta_V$ על-ידי
+\[ \rad \beta_V \coloneqq \set{x \in L | \forall y \in L, \; \beta_V(x, y) = 0} = L^\perp. \]
+כמו ב\autoref*{lemma:perp-ideal}, מקיבוציות תבנית העקבה נקבל ש-$\rad \beta_V$ אידיאל של $L$.
+
+נעבור כעת לאלגבראות פשוטות למחצה.
+\begin{lemma}
+	תהי $L$ אלגברת לי מרוכבת ופשוטה למחצה ונניח ש-$\phi : L \to \gl(V)$ הצגה נאמנה. אז $\rad\beta_V = 0$, כלומר $\beta_V$ לא-מנוונת.
+\end{lemma}
+\begin{proof}
+	יהי $I = \rad\beta_V$. לכל $x, y \in I$ מתקיים $\beta_V(x, y) = 0$, כלומר $\Tr(\phi(x) \circ \phi(y)) = 0$. לפי \autoref*{prep:sufficient-solvable-tr} עבור התת-אלגברת לי $\phi(I)$ של $\gl(V)$ נקבל ש-$\phi(I)$ פתירה. מאחר ו-$\phi$ הצגה נאמנה, $\phi$ חח"ע ולכן גם $I$ פתיר. אבל $L$ פשוטה למחצה, לכן $I = 0$.
+\end{proof}
+
+בהנחות הלמה, $\beta_V$ היא לא-מנוונת לפי הלמה. כפי שראינו ב\autoref*{sec:weyl-preliminaries}, במקרה זה לכל $\theta \in L^*$ נוכל למצוא $y \in L$ יחיד כך ש-$\beta(x, y) = \theta(x)$ לכל $x \in L$. יהי $\{x_1, \ldots, x_n\}$ בסיס של $L$ ויהי $\{\theta_1, \ldots, \theta_n\}$ הבסיס הדואלי שלו. אז קיימים $y_1, \ldots, y_n$ יחידים כך ש-$\beta_V(x, y_j) = \theta_j(x)$ לכל $x \in L$, כלומר $\beta_V(x_i, y_j) = \delta_{ij}$. \\
+נשים לב ש-$\{y_1, \ldots, y_n\}$ בת"ל ולכן בסיס של $L$. ובכן, נניח ש-$\sum_i \lambda_iy_i = 0$. אז לכל $1 \le i \le n$ מתקיים
+\[ 0 = \beta_V(x_j, 0) = \beta_V(x_j, \sum_i \lambda_i y_i) = \sum_i \lambda_i \beta_V(x_j, y_i) = \lambda_i. \]
+
+\begin{lemma}
+	נניח ש-$x \in L$ ו-$[x_i, x] = \sum_j a_{ij}x_j$, בסימונים שלעיל. אז לכל $1 \le t \le n$ מתקיים
+	\[ [x, y_t] = \sum_{i=1}^n a_{it}y_i. \]
+\end{lemma}
+\begin{proof}
+	מתקיים
+	\[ \beta_V([x_i, x], y_t) = \sum_{j=1}^n a_{ij} \beta_V(x_j, y_t) = a_{it}. \]
+	נבטא $[x, y_t] = \sum_{s=1}^n b_{ts}y_s$. אז מקיבוציות נקבל
+	\[ a_{it} = \beta_V([x_i, x], y_t) = \beta_V(x_i, [x, y_t]) = \sum_{s=1}^n b_{ts} \beta_V(x_i, y_s) = b_{ti}. \]
+	ומכאן הזהות המבוקשת.
+\end{proof}
+
+\section{אופרטור קזימיר}
+תהי $L$ אלגברת לי מרוכבת ופשוטה למחצה ונניח ש-$V$ הוא $L$-מודול נאמן עם הצגה מתאימה $\phi : L \to \gl(V)$. נגדיר את \textit{אופרטור קזימיר} של $\phi$ כהעתקה $c : V \to V$ המוגדרת, בסימונים של הסעיף הקודם, על-ידי
+\[ c(v) \coloneqq \sum_{i=1}^n x_i \cdot (y_i \cdot v), \qquad \text{לכל $v \in V$} \]
+בסימון של ההצגה, נרשום
+\[ c = \sum_{i=1}^n \phi(x_i)\phi(y_i). \]
+\begin{lemma} \label{lemma:casimir}
+	\begin{enumerate}[label=(\alph*)]
+		\item 
+		ההעתקה $c : V \to V$ היא הומומורפיזם של $L$-מודולים.
+		\item
+		מתקיים $\Tr(c) = \dim L$.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	\begin{enumerate}[label=(\alph*)]
+		\item 
+		נראה ש-$c(x \cdot v) - x \cdot (c(v)) = 0$ לכל $v \in V$ ולכל $x \in L$, ומפה נובעת הטענה. נתבונן במשוואה
+		\[ c(x \cdot v) - x \cdot (cv) = \sum_{i=1}^n x_i(y_i(xv)) - x(x_i(y_iv)). \]
+		נוסיף את המשוואה $-x_i(x(y_iv))+x_i(x(y_iv))=0$ לכל איבר בסכום ונקבל
+		\[ c(x \cdot v) - x \cdot (cv) = \sum_{i=1}^n x_i([y_i, x]v) + [x_i, x](y_iv). \]
+		נבטא $[x_i, x] = \sum_{j=1}^n a_{ij}x_j$, ומהלמה נקבל ש-$[y_i, x] = -\sum_{j=1}^n a_{ji}y_j$. נציב את זה ונקבל
+		\[ c(x \cdot v) - x \cdot (cv) = \sum_{i,j} -a_{ji}x_i(y_jv) + a_{ij}x_j(y_iv) = -\sum_{i,j} a_{ji}x_i(y_jv) + \sum_{i,j}a_{ij}x_j(y_iv). \]
+		נשיב לב ששני הסכומים הם עם אותם איברים רק בסדר שונה, לכן נקבל את השוויון הדרוש.
+		\item
+		לפי השוויון השני בהגדרה של $c$, המשתמש בהצגה $\phi$, נקבל
+		\[ \Tr c = \sum_{i=1}^n \Tr(\phi(x_i) \phi(y_i)) = \sum_{i=1}^n \beta_V(x_i, y_i) = n, \]
+		ונזכור ש-$n = \dim L$.
+	\end{enumerate}
+\end{proof}
+
+\section{משפט וייל}
+\begin{theorem}[משפט וייל]
+	תהי $L$ אלגברת לי ממימד סופי, מרוכבת ופשוטה למחצה. כל הצגה סוף-ממדית של $L$ היא פריקה לחלוטין.
+\end{theorem}
+\begin{proof}
+	יהי $V$ מודול כזה, ותהי $\phi : L \to \gl(V)$ ההצגה המתאימה לו. נניח ש-$W$ תת-מודול של $V$ המוכל ממש ב-$V$ ושונה מאפס (אם אין כזה זה $V$ פשוט ולכן פריק לחלוטין). באינדוקציה מספיק להראות של-$W$ יש משלים ישר ב-$V$, כלומר קיים תת-מודול $U$ של $V$ כך ש-$V = W \oplus U$, שכן אז $W, U$ מוכלים ממש ב-$V$ והם פריקים לחלוטין לפי הנחת האינדוקציה, ואז $V$ פריק לחלוטין.
+	
+	אם $\phi$ לא חד-חד-ערכית אז $\faktor{L}{\Ker\phi}$ פשוטה למחצה לפי \autoref*{prep:quotient-semismple}, ונוכל להתבונן ב-$V$ כמודול של $\faktor{L}{\Ker\phi}$ עם העתקה \\$\overline{\phi} : \faktor{L}{\Ker\phi} \to \gl(V)$ המעתיקה את $x + \Ker\phi$ להעתקה $v \mapsto \phi(x)v$ לכל $v \in V$. קל להראות שתת-מרחב של $V$ הוא תת-מודול כמודול של $L$ אם ורק אם הוא תת-מודול של $V$ כמודול של $\faktor{L}{\Ker\phi}$. אז התכונות של פשטות, אי-פריקות ופריקות לחלוטין נשמרות. מכך ש-$\overline{\phi}$ חח"ע, נוכל להניח בה"כ כי $\phi$ חח"ע.
+	
+	נוכיח קודם את המשפט במקרה ש-$\dim W = \dim V - 1$. אז מודול המנה $\faktor{V}{W}$ הוא $L$-מודול טריוויאלי, שכן $L'$ פועלת על כל מודול ממימד 1 באופן טריוויאלי, ועבור $L$ פשוטה למחצה מתקיים $L' = L$ (ראו \autoref*{prep:derived-semisimple}). אז לכל $x \in L, v \in V$ מתקיים
+	\begin{equation*}
+		(x \cdot v) + W = x \cdot (v + W) = W \tag{$*$}
+	\end{equation*}
+	כלומר $x \cdot v \in W$.
+	
+	נוכיח את הטענה באינדוקציה על $\dim V$. נחלק את ההוכחה לשני מקרים.
+	\begin{itemize}
+		\item 
+		מקרה 1: נניח ש-$W$ פשוט. יהי $c : V \to V$ אופרטור קזימיר של $V$. מכך ש-$c$ הוא הומומורפיזם של $L$-מודולים, הגרעין שלו הוא תת-מודול של $V$. נראה ש-$\Ker c$ משלים ישר של $W$.
+		
+		ראינו ב-$(*)$ שלכל $x \in L, v \in V$ מתקיים $x \cdot v \in W$. אז $c(v) \in W$ לכל $v \in V$. בפרט, $c$ לא על ולכן $\Ker c \neq 0$.
+		
+		הצמצום של $c$ ל-$W$ הוא גם הומומורפיזם של $L$-מודולים. מהלמה של שור (הנחנו ש-$W$ פשוט), קיים $\lambda \in \C$ עבורו $c|_W = \lambda 1_W$. נראה ש-$\lambda \neq 0$ על-ידי חישוב העקבה של $c$ בשתי דרכים. מכך ש-$c(V) \subseteq W$ ו-$c|_W = \lambda 1_W$ נקבל ש-$\Tr c = \lambda\dim W$. מצד שני, לפי \autoref*{lemma:casimir} (א), $\Tr(c) = \dim L \neq 0$. אז $\lambda \neq 0$. אז לכל $0 \neq w \in W$ מתקיים $c(w) = \lambda w \neq 0$ ולכן $w \notin \Ker c$. לכן $\Ker c \cap W = 0$. מכך ש-$\dim W = \dim V - 1$ ו-$\dim\Ker c > 0$ נקבל שבהכרח $V = W \oplus \Ker c$.
+		\item
+		מקרה 2: נניח ש-$W$ לא פשוט. יהי $W_1$ תת-מודול של $W$ המוכל ממש ב-$W$ (קיים כזה כי $W$ לא פשוט). אז $\faktor{W}{W_1}$ תת-מודול של $\faktor{V}{W_1}$ מקו-מימד 1, שכן $W$ מקו-מימד 1 ב-$V$. בנוסף, $\dim\faktor{V}{W_1} < \dim V$, לכן מהנחת האינדוקציה עבור $\faktor{V}{W_1}$ נקבל ש-
+		\[ \faktor{V}{W_1} = \faktor{W}{W_1} \oplus \overline{X}, \]
+		כאשר $\overline{X}$ תת-מודול של $\faktor{V}{W_1}$ ממימד 1. קיים תת-מודול $X$ של $V$ המכיל את $W_1$ כך ש-$\overline{X} = \faktor{X}{W_1}$.
+		
+		כעת, $\dim W_1 = \dim X - 1$ ו-$\dim X < \dim V$ (אחרת $W = W_1$, בסתירה לכך ש-$W_1$ מוכל ממש ב-$W$), אז מהנחת האינדוקציה הפעם עבור $X$ נקבל ש-$X = W_1 \oplus C$ עבור תת-מודול $C$ של $X$ ממימד 1. אז $C$ גם תת-מודול של $V$, ונראה שהוא משלים ישר של $W$.
+		
+		מכך ש-$\dim W + \dim C = \dim V$ מספיק להראות ש-$W \cap C = 0$. ובכן, הפירוק הישר של $\faktor{V}{W_1}$ מראה שהתמונה של $W \cap X$ תחת העתקת המנה $V \mapsto \faktor{V}{W_1}$ היא אפס. לכן $W \cap X \subseteq W_1$ ולכן	$W \cap C = W \cap X \cap C \subseteq W_1 \cap C = 0$.
+	\end{itemize}
+	סיימנו את ההוכחה במקרה שבו $\dim W = \dim V - 1$.
+	
+	כעת נעבור למקרה הכללי. נניח ש-$W$ הוא תת-$L$-מודול של $V$. נתבנון ב-$L$ מודול $M \coloneqq \Hom(V, W)$ שהגדרנו ב\autoref*{subsec:hom-module}. נגדיר
+	\begin{align*}
+		M_S &\coloneqq \set{f \in M | \exists \lambda \in \C, \; f|_W = \lambda 1_W}, \\
+		M_0 &\coloneqq \set{f \in M | f|_W = 0}.
+	\end{align*}
+	קל לראות ש-$M_S, M_0$ הם תת-מודולים של $M$, וש-$M_0 \subseteq M_S$.
+	
+	נראה ש-$\faktor{M_S}{M_0}$ ממימד 1. ברור ש-$1_V$ נמצא ב-$M_S$ אך לא ב-$M_0$, לכן המחלקה של $1_V$ במנה היא שונה מאפס. מצד שני, אם $f \in M_S$ מקיים $f|_W = \lambda 1|_W$ אז $f - \lambda 1_V$ נמצא ב-$M_0$, כלומר $f + M_0 = \lambda 1_V + M_0 = \lambda(1_V + M_0)$.
+	
+	כעת נשתמש במשפט וייל במקרה המסויים שהוכחנו. ממנו נובע ש-$M_S = M_0 \oplus C$ עבור $C$ תת-מודול של $M_S$. בנוסף, $C$ ממימד 1 ולכן טריוויאלי כ-$L$-מודול, אז קיים $\phi \in C$ שונה מאפס כך ש-$x \cdot \phi = 0$ לכל $x \in L$. מכאן ש-$\phi : V \to W$ הוא הומומורפיזם של $L$-מודולים (ראו \autoref*{subsec:hom-module}). מכך ש-$\phi \notin M_0$ ו-$\phi \in M_S$, נקבל ש-$\phi$ קבועה ב-$W$ ושונה בו מאפס, לכן נוכל להניח בה"כ כי $\phi|_W = 1_W$.
+	
+	מכך ש-$\phi$ הוא $L$-מודול, הגרעין שלו, נאמר $K$, הוא תת-מודול של $V$. נראה כי $V = K \oplus W$. אם $v \in K \cap W$ אז $\phi(v) = 0$. אבל $\phi|_W = 1_W$ ולכן $\phi(v) = v$. אז $v = 0$. מכאן $K \cap W = 0$. מהגדרת $M$, התמונה של $\phi$ מוכלת ב-$W$. אז
+	\[ \dim K = \dim V - \dim\Img\phi \ge \dim V - \dim W, \]
+	ולכן $\dim K + \dim W = V$. מכאן ש-$V = K \oplus W$ וסיימנו.
+\end{proof}
+\begin{corollary}
+	אלגברת לי מרוכבת היא פשוטה למחצה אם ורק אם כל ההצגות הסוף-ממדיות שלה הן פריקות לחלוטין.
+\end{corollary}
+\begin{proof}
+	כיוון אחד הוא טענת משפט וייל.
+	
+	בכיוון השני, תהי $L$ אלגברת לי מרוכבת שכל ההצגות הסוף-ממדיות שלה הן פריקות לחלוטין. בפרט, ההצגה המצורפת $\ad : L \to \gl(L)$ פריקה לחלוטין, כלומר
+	\[ L = S_1 \oplus \ldots \oplus S_k \]
+	כאשר $S_i$ תת-מודול פשוט של $L$ לפי הצגה זו. ב\autoref*{exa:sub-modules} (א) ראינו ש-$I \subseteq L$ אידיאל אם ורק אם הוא תת-מודול. אז $S_i$ אידיאל של $L$. בנוסף, אם ל-$S_i$ היה אידיאל לא טריוויאלי אז האידיאל הזה היה תת-מודול לא-טריוויאלי של $S_i$ (לפי אותה דוגמא), בסתירה לפשטות של $S_i$. אז $S_i$ אידיאל פשוט ו-$L$ היא סכום ישר של אידיאלים פשוטים. מ\autoref*{thm:semisimple-is-direct-sum} נקבל ש-$L$ פשוטה למחצה.
+\end{proof}
+\end{document}
