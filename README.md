@@ -5,4 +5,4 @@ Written by Ori Bar Gendel under the supervision of Dr. Gil Alon in August 2023, 
 
 Based on Erdmann, K. and Wildon, M. J. (2006). _Introduction to Lie Algebras_.
 
-The presentation was done in LibreOffice Impress using the TexMaths textension.
+The presentation was done in LibreOffice Impress using the TexMaths extension.
